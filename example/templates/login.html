@@ -2,20 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
-<div class="container mt-5">
-  <div class="col-md-12">
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-4">Hello {{ request.user.oidc_user.userinfo.given_name }}!</h1>
-        <p class="lead">{% trans "Your e-mail address is:" %} <strong>{{ request.user.oidc_user.userinfo.email }}</strong></p>
-      </div>
-    </div>
-  </div>
-</div>
-{% else %}
 <p> not authenticated</p>
-{% endif %}
     <div class="buttons">
           <button onClick="OIDC.login( {scope : 'openid profile email',
           response_type : 'code id_token token'} );"
@@ -27,17 +14,16 @@
 {% block additionnal_script %}
     <script>
     	var clientInfo = {
-            client_id : '801561',
-            redirect_uri : 'http://127.0.0.1:8080/cb/'
-        };
+        client_id : '801561',
+        redirect_uri : 'http://127.0.0.1:8080/cb/'
+      };
     	var providerInfo = OIDC.discover('http://localhost:8000');
-    	console.log(providerInfo);
     	OIDC.setProviderInfo(providerInfo);
     	OIDC.setClientInfo(clientInfo);
 		  OIDC.storeInfo(providerInfo, clientInfo);
 		  loginRequest = OIDC.generateLoginRequest({
-			scope : 'openid profile email',
-            response_type : 'code id_token token'
-        });
+			  scope : 'openid profile email',
+          response_type : 'code id_token token'
+      });
     </script>
 {% endblock additionnal_script %}

@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "example",
-    "oidc_rp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
