@@ -3,11 +3,9 @@ from requests.exceptions import HTTPError
 from django.conf import settings
 from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView, View
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.utils.crypto import get_random_string
 from django.core.exceptions import PermissionDenied
 from oidc_rp.conf import settings as oidc_rp_settings
 from example.models import PlatformUser
@@ -18,23 +16,12 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class LoginView(View):
+class LoginView(TemplateView):
     template_name = "login.html"
 
-    def get(self, request):
-        # Nonces should be used! In that case the generated nonce is stored both in the
-        # authentication request parameters and in the user's session.
-        if oidc_rp_settings.USE_NONCE:
-            nonce = get_random_string(oidc_rp_settings.NONCE_LENGTH)
-            request.session["oidc_auth_nonce"] = nonce
-        return render(request, self.template_name)
 
-
-class CbView(View):
+class CbView(TemplateView):
     template_name = "cb.html"
-
-    def get(self, request):
-        return render(request, self.template_name)
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -77,7 +64,6 @@ class CatchResponseView(View):
             userinfo_response.raise_for_status()
             userinfo_data = userinfo_response.json()
 
-        print(userinfo_data)
         # Tries to retrieve a corresponding user in the local database and creates it if applicable.
         try:
             platform_user = PlatformUser.objects.select_related("user").get(
@@ -92,7 +78,7 @@ class CatchResponseView(View):
                 platform_user, userinfo_data, access_token, refresh_token, raw_id_token
             )
 
-        return JsonResponse(request.POST)
+        return HttpResponse("")
 
 
 class SignUpView(RedirectView):

@@ -112,6 +112,7 @@ OIDC_RP_SIGNUP_URL = "http://localhost:8000/signup/"
 OIDC_RP_PROVIDER_END_SESSION_ENDPOINT = "http://localhost:8000/end-session/"
 OIDC_RP_AUTHENTICATION_REDIRECT_URI = "http://127.0.0.1:8080/cb/"
 
+API_URL = os.environ.get("API_URL", "http://localhost:8081")
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

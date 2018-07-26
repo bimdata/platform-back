@@ -47,7 +47,7 @@
             req.open('POST', 'http://' + window.location.host +'/catch_response/', true);
             req.setRequestHeader('Content-Type',
                                  'application/x-www-form-urlencoded');
-
+            req.responseType = "json";
             req.onreadystatechange = function (e) {
               if (req.readyState === XMLHttpRequest.DONE) {
                 if (req.status === 200) {
@@ -62,6 +62,15 @@
                                                                       '\n<b>User Info</b>' + userInfoClaimsHTMLString;
                   sessionStorage.removeItem('state');
                   sessionStorage.removeItem('nonce');
+
+                  console.log('from back');
+                  console.log(req.response);
+                  $.ajax({
+                    url: "http://localhost:8081/user",
+                    type: "GET",
+                    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer '+access_token);},
+                    success: function(data) { console.log('FROM JS');console.log(data); }
+                  });
                 }
             // if the OAuth response is invalid, generate an error message
                 else if (req.status == 400) {
