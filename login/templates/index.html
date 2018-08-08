@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="retrievedInfo">
+    Not connected
+</div>
+<script>
+    var accessToken = sessionStorage.getItem('accessToken')
+    $.ajax({
+        url: "http://localhost:8081/user",
+        type: "GET",
+        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer '+ accessToken);},
+        success: function(data) {
+            $("#retrievedInfo").html(`Bienvenue, ${data.email}`);
+        }
+    });
+
+</script>
+{% endblock content %}

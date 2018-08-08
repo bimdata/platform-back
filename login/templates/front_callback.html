@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>Hybrid Flow Test Callback</h1>
+{% endblock content %}
+
+{% block additionnal_script %}
+<script>
+    OIDC.restoreInfo();
+    var idToken = OIDC.getValidIdToken();
+    var accessToken = OIDC.getAccessToken();
+
+    OIDC.debug(true, idToken);
+    sessionStorage.setItem('accessToken', accessToken)
+    sessionStorage.setItem('idToken', idToken)
+
+    var tokenClaims = JSON.parse(OIDC.getIdTokenParts(idToken)[1]);
+    var userInfoClaims = JSON.parse(OIDC.getUserInfo(accessToken));
+
+    // From http://openid.net/specs/openid-connect-core-1_0.html Section 15.5.3
+    // First, parse the query string
+    var params = {}
+    var postBody = location.hash.substring(1);
+    var regex = /([^&=]+)=([^&]*)/g, m;
+    while (m = regex.exec(postBody)) {
+      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+
+    var url = `{% url 'back_callback' %}?code=${params.code}&nonce=${sessionStorage.getItem('nonce')}`;
+
+    sessionStorage.removeItem('state');
+    sessionStorage.removeItem('nonce');
+
+    window.location.replace(url);
+</script>
+{% endblock additionnal_script %}

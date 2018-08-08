@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "iu2q#x4!88w-!i-kkokwt!vvay%ngnv_q01orz1c#$^q1ww@_3"
+SECRET_KEY = os.environ.get("SECRET_KEY", "iu2q#x4!88w-!i-kkokwt!vvay%ngnv_q01orz1c#$^q1ww@_3")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,9 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "example",
+    "login",
     "django.contrib.admin",
     "django.contrib.auth",
+    "mozilla_django_oidc",  # Load after auth
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -78,11 +79,11 @@ WSGI_APPLICATION = "platform_back.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "NAME": os.environ.get("DB_NAME", "platform_back"),
+        "USER": os.environ.get("DB_USER", "platform_back"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "platform_back"),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "PORT": os.environ.get("DB_PORT", 5432),
         "CONN_MAX_AGE": 600,
     }
 }
@@ -98,19 +99,33 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
+    "login.auth.OIDCAuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
-    "djangooidc.backends.OpenIdConnectBackend",
 ]
 
-LOGIN_URL = "openid"
+AUTH_USER_MODEL = "login.User"
 
-OIDC_RP_PROVIDER_ENDPOINT = "http://localhost:8000/"
-OIDC_RP_CLIENT_ID = "801561"
-OIDC_RP_CLIENT_SECRET = "07f48742efbb0959a7a2029b2b1f503a5ae3c4cfa941e26266adf0d2"
+OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "801561")
+OIDC_RP_CLIENT_SECRET = os.environ.get(
+    "OIDC_RP_CLIENT_SECRET", "07f48742efbb0959a7a2029b2b1f503a5ae3c4cfa941e26266adf0d2"
+)
+OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
+OIDC_RP_IDP_SIGN_KEY = os.environ.get("OIDC_RP_IDP_SIGN_KEY", None)  # Find How to have it!
 OIDC_RP_SCOPES = "openid email profile"
-OIDC_RP_SIGNUP_URL = "http://localhost:8000/signup/"
-OIDC_RP_PROVIDER_END_SESSION_ENDPOINT = "http://localhost:8000/end-session/"
-OIDC_RP_AUTHENTICATION_REDIRECT_URI = "http://127.0.0.1:8080/cb/"
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"response_type": "code id_token token"}
+
+
+OIDC_OP_ISSUER = os.environ.get("OIDC_OP_ISSUER", "http://localhost:8000")
+OIDC_OP_JWKS_ENDPOINT = f"{OIDC_OP_ISSUER}/jwks"
+OIDC_OP_AUTHORIZATION_ENDPOINT = f"{OIDC_OP_ISSUER}/authorize"
+OIDC_OP_TOKEN_ENDPOINT = f"{OIDC_OP_ISSUER}/token"
+OIDC_OP_USER_ENDPOINT = f"{OIDC_OP_ISSUER}/userinfo"
+OIDC_OP_SIGNUP_URL = f"{OIDC_OP_ISSUER}/signup/"
+
+
+OIDC_AUTHENTICATION_CALLBACK_URL = "front_callback"
+LOGIN_REDIRECT_URL = "/logged/"
+LOGOUT_REDIRECT_URL = "/logout/"
 
 API_URL = os.environ.get("API_URL", "http://localhost:8081")
 

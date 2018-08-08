@@ -18,6 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("openid/", include("oidc_rp.urls")),
-    path("", include("example.urls")),
+    path("oidc/", include("mozilla_django_oidc.urls")),
+    path("", include("login.urls")),
 ]

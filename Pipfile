@@ -5,9 +5,8 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-oidc-rp = "*"
 "psycopg2" = "*"
-"psycopg2-binary" = "*"
+mozilla-django-oidc = "*"
 
 [dev-packages]
 
