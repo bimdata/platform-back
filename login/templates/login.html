@@ -14,7 +14,7 @@
     <script>
       var clientInfo = {
         client_id : '{{ OIDC_RP_CLIENT_ID }}',
-        redirect_uri : `${window.location.origin}/front_callback/`
+        redirect_uri : '{{ OIDC_AUTHENTICATION_CALLBACK_URL }}'
       };
       var providerInfo = OIDC.discover('{{ OIDC_OP_ISSUER }}');
       OIDC.setProviderInfo(providerInfo);

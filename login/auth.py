@@ -1,18 +1,13 @@
 import logging
 import requests
 from requests.exceptions import HTTPError
-from django.urls import reverse
 from django.conf import settings
 from mozilla_django_oidc import auth
 from mozilla_django_oidc.contrib.drf import OIDCAuthentication
 from django.core.exceptions import SuspiciousOperation
 from rest_framework import exceptions
 from user.models import User
-from mozilla_django_oidc.utils import (
-    absolutify,
-    import_from_settings,
-    parse_www_authenticate_header,
-)
+from mozilla_django_oidc.utils import parse_www_authenticate_header
 
 
 LOGGER = logging.getLogger(__name__)
@@ -29,16 +24,12 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
         if not code:
             return None
 
-        reverse_url = import_from_settings(
-            "OIDC_AUTHENTICATION_CALLBACK_URL", "oidc_authentication_callback"
-        )
-
         token_payload = {
             "client_id": self.OIDC_RP_CLIENT_ID,
             "client_secret": self.OIDC_RP_CLIENT_SECRET,
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": absolutify(self.request, reverse(reverse_url)),
+            "redirect_uri": settings.OIDC_AUTHENTICATION_CALLBACK_URL,
         }
 
         # Get the token
