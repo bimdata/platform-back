@@ -77,6 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "login.context_processors.oidc_client_id",
             ]
         },
     }
@@ -117,14 +118,14 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_USER_MODEL = "user.User"
 
-PLATFORM_URL = os.environ.get("PLATFORM_URL", "http://127.0.0.1:8080")
+PLATFORM_BACK_URL = os.environ.get("PLATFORM_BACK_URL", "http://127.0.0.1:8080")
 
-OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "801561")
+OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "095730")
 OIDC_RP_CLIENT_SECRET = os.environ.get(
-    "OIDC_RP_CLIENT_SECRET", "07f48742efbb0959a7a2029b2b1f503a5ae3c4cfa941e26266adf0d2"
+    "OIDC_RP_CLIENT_SECRET", "579ed56ef143e48e7464541832eb21f9e51f87d42146772b590dfafc"
 )
 OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
-OIDC_RP_IDP_SIGN_KEY = os.environ.get("OIDC_RP_IDP_SIGN_KEY", None)  # Find How to have it!
+OIDC_RP_IDP_SIGN_KEY = os.environ.get("OIDC_RP_IDP_SIGN_KEY", None)
 OIDC_RP_SCOPES = "openid email profile"
 OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"response_type": "code id_token token"}
 

@@ -10,7 +10,6 @@ class User(AbstractUser):
     sub = models.CharField(
         max_length=255, unique=True, db_index=True, verbose_name="Subject identifier"
     )
-
     refresh_token = models.CharField(
         max_length=255, verbose_name="Refresh Token", null=True, blank=True
     )

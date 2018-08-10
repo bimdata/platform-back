@@ -19,7 +19,7 @@ API_INFO = openapi.Info(
 )
 
 schema_view = get_schema_view(
-    public=True, permission_classes=(AllowAny,), url=settings.PLATFORM_URL
+    public=True, permission_classes=(AllowAny,), url=settings.PLATFORM_BACK_URL
 )
 
 
