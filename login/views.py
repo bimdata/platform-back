@@ -19,9 +19,9 @@ class FrontCallbackView(TemplateView):
 
 class BackCallbackView(View):
     def get(self, request):
-        user = authenticate(request, nonce=request.GET.get("nonce"))
+        user = authenticate(request)
         if user:
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse("index"))
         else:
             return HttpResponseRedirect("/")
 

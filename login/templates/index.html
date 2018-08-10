@@ -2,8 +2,10 @@
 {% load i18n %}
 
 {% block content %}
-<div id="retrievedInfo">
+<div id="userName">
     Not connected
+</div>
+<div id="userBackPlat">
 </div>
 <script>
     var accessToken = sessionStorage.getItem('accessToken')
@@ -12,7 +14,15 @@
         type: "GET",
         beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer '+ accessToken);},
         success: function(data) {
-            $("#retrievedInfo").html(`Bienvenue, ${data.email}`);
+            $("#userName").html(`Bienvenue, ${data.email}`);
+        }
+    });
+    $.ajax({
+        url: "{% url 'v1:me' %}",
+        type: "GET",
+        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer '+ accessToken);},
+        success: function(data) {
+            $("#userBackPlat").html(`${data.id}-${data.demo_project}-${data.demo_cloud}`);
         }
     });
 

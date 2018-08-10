@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,13 +27,21 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "iu2q#x4!88w-!i-kkokwt!vvay%ngnv_q01or
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ENV = os.environ.get("ENV", "development")
+
+if os.environ.get("ALLOWED_HOSTS"):
+    ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "user",
     "login",
+    "rest_framework",
+    "drf_yasg",
     "django.contrib.admin",
     "django.contrib.auth",
     "mozilla_django_oidc",  # Load after auth
@@ -50,6 +60,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+APPEND_SLASH = False
 
 ROOT_URLCONF = "platform_back.urls"
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
@@ -103,7 +115,9 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-AUTH_USER_MODEL = "login.User"
+AUTH_USER_MODEL = "user.User"
+
+PLATFORM_URL = os.environ.get("PLATFORM_URL", "http://127.0.0.1:8080")
 
 OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "801561")
 OIDC_RP_CLIENT_SECRET = os.environ.get(
@@ -147,3 +161,120 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("login.auth.DrfOIDCAuthentication",),
+    "DEFAULT_FILTER_BACKENDS": (
+        "utils.contrib.drf.filters.FilterBackendWithQuerysetWorkaround",
+    ),
+    "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
+
+
+# LOGGING EMAIL
+SERVER_EMAIL = "bug@bimdata.io"
+EMAIL_HOST = "smtp.mandrillapp.com"
+EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_SMTP_KEY", False)
+EMAIL_HOST_USER = "BIMData.io"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+SWAGGER_SETTINGS = {
+    "DEEP_LINKING": True,
+    "DEFAULT_AUTO_SCHEMA_CLASS": "utils.doc.CamelCaseOperationIDAutoSchema",
+    "DEFAULT_FILTER_INSPECTORS": ["utils.filters.DjangoFilterDescriptionInspector"],
+    "DOC_EXPANSION": "none",
+    "OPERATIONS_SORTER": "alpha",
+    "TAGS_SORTER": "alpha",
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "description": 'Copy/paste a valid access token here prefixed with "Bearer "',
+            "name": "Authorization",
+            "in": "header",
+        }
+    },
+    "USE_SESSION_AUTH": False,
+    "DEFAULT_INFO": "utils.doc.API_INFO",
+    "DEFAULT_API_URL": "https://api-beta.bimdata.io/doc",
+}
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "verbose": {"format": "[django] %(levelname)s %(asctime)s %(module)s %(message)s"}
+    },
+    "handlers": {
+        "null": {"level": "DEBUG", "class": "logging.NullHandler"},
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+            "formatter": "verbose",
+        },
+        # Warning messages are sent to admin emails
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+            "include_html": True,
+        },
+    },
+    "loggers": {
+        "django.security.DisallowedHost": {"handlers": ["null"], "propagate": False},
+        "django": {
+            "handlers": ["console", "mail_admins"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "django.template": {
+            "handlers": ["console", "mail_admins"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
+
+
+if "test" in sys.argv:  # Covers regular testing and django-coverage
+    TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "psqlextra.backend",
+            "NAME": os.environ.get("TEST_DB_NAME", "bimdatatest"),
+            "USER": os.environ.get("TEST_DB_USER", "bimdata"),
+            "PASSWORD": os.environ.get("TEST_DB_PASSWORD", "bimdata"),
+            "HOST": os.environ.get("TEST_DB_HOST", "127.0.0.1"),
+            "PORT": os.environ.get("TEST_DB_PORT", 5432),
+            "CONN_MAX_AGE": 600,
+        }
+    }
+
+    # Disable migration during testsuite
+    class DisableMigrations(object):
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return None
+
+    PASSWORD_HASHERS = (
+        "django.contrib.auth.hashers.MD5PasswordHasher",  # Replace hasher with a simpler and faster hash method
+    )
+    DEBUG = False
+    TESTING = True
+    MIGRATION_MODULES = DisableMigrations()  # Disable migrations during tests
+    MEDIA_ROOT = "/tmp/django-tests"
+    MEDIA_URL = "/media/"
+
+    logging.disable(logging.INFO)
+
+    # Use default logger during tests
+    LOGGING = None

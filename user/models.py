@@ -11,12 +11,13 @@ class User(AbstractUser):
         max_length=255, unique=True, db_index=True, verbose_name="Subject identifier"
     )
 
-    access_token = models.CharField(
-        db_index=True, max_length=255, verbose_name="Access Token", null=True, blank=True
-    )
-
-    id_token = models.TextField(null=True, blank=True)
-
     refresh_token = models.CharField(
         max_length=255, verbose_name="Refresh Token", null=True, blank=True
     )
+    demo_cloud = models.IntegerField(null=True, blank=True)
+    demo_project = models.IntegerField(null=True, blank=True)
+
+
+class Notification(models.Model):
+    recipient = models.ForeignKey("User", on_delete=models.CASCADE)
+    text = models.TextField()

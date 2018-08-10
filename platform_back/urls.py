@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+app_name = "platform_back"
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("oidc/", include("mozilla_django_oidc.urls")),
     path("", include("login.urls")),
+    path("v1/", include("platform_back.v1.urls", namespace="v1")),
 ]

@@ -7,6 +7,10 @@ name = "pypi"
 django = "*"
 "psycopg2" = "*"
 mozilla-django-oidc = "*"
+django-rest-framework = "*"
+drf-yasg = "*"
+django-filter = "*"
+inflection = "*"
 
 [dev-packages]
 
