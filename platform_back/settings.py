@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY", "iu2q#x4!88w-!i-kkokwt!vvay%ngnv_q01orz1c#$^q1ww@_3")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ENV = os.environ.get("ENV", "development")
 
@@ -65,6 +65,12 @@ APPEND_SLASH = False
 
 ROOT_URLCONF = "platform_back.urls"
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_URL = "/static/"
+STATIC_ROOT = "statics"
 
 TEMPLATES = [
     {
@@ -158,12 +164,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = "/static/"
-
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("login.auth.DrfOIDCAuthentication",),
     "DEFAULT_FILTER_BACKENDS": (
@@ -242,6 +242,8 @@ LOGGING = {
     },
 }
 
+if ENV == "development":
+    DEBUG = True
 
 if "test" in sys.argv:  # Covers regular testing and django-coverage
     DATABASES = {
