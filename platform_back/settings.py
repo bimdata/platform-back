@@ -244,8 +244,6 @@ LOGGING = {
 
 
 if "test" in sys.argv:  # Covers regular testing and django-coverage
-    TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
-
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
