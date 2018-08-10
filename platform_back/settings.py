@@ -133,7 +133,8 @@ OIDC_RP_CLIENT_SECRET = os.environ.get(
 OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
 OIDC_RP_IDP_SIGN_KEY = os.environ.get("OIDC_RP_IDP_SIGN_KEY", None)
 OIDC_RP_SCOPES = "openid email profile"
-OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"response_type": "code id_token token"}
+OIDC_AUTH_REQUEST_RESPONSE_TYPE = "code id_token token"
+OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"response_type": OIDC_AUTH_REQUEST_RESPONSE_TYPE}
 
 
 OIDC_OP_ISSUER = os.environ.get("OIDC_OP_ISSUER", "http://localhost:8000")

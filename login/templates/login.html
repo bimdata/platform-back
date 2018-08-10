@@ -4,21 +4,21 @@
 {% block content %}
 <p> not authenticated</p>
     <div class="buttons">
-          <button onClick="OIDC.login( {scope : 'openid profile email', response_type : 'code id_token token'} );"
+          <button onClick="OIDC.login( {scope : '{{ OIDC_RP_SCOPES }}', response_type : '{{ OIDC_AUTH_REQUEST_RESPONSE_TYPE }}'} );"
           type="button" class="btn btn-success">Authenticate</button>
-	</div>
+  </div>
 {% endblock content %}
 
 
 {% block additionnal_script %}
     <script>
-    	var clientInfo = {
+      var clientInfo = {
         client_id : '{{ OIDC_RP_CLIENT_ID }}',
         redirect_uri : `${window.location.origin}/front_callback/`
       };
-    	var providerInfo = OIDC.discover('http://localhost:8000');
-    	OIDC.setProviderInfo(providerInfo);
-    	OIDC.setClientInfo(clientInfo);
-		  OIDC.storeInfo(providerInfo, clientInfo);
+      var providerInfo = OIDC.discover('{{ OIDC_OP_ISSUER }}');
+      OIDC.setProviderInfo(providerInfo);
+      OIDC.setClientInfo(clientInfo);
+      OIDC.storeInfo(providerInfo, clientInfo);
     </script>
 {% endblock additionnal_script %}

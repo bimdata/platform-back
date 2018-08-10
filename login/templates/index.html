@@ -10,7 +10,7 @@
 <script>
     var accessToken = sessionStorage.getItem('accessToken')
     $.ajax({
-        url: "http://localhost:8081/user",
+        url: "{{ API_URL }}/user",
         type: "GET",
         beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer '+ accessToken);},
         success: function(data) {
