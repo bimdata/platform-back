@@ -8,7 +8,7 @@ from django.core.exceptions import SuspiciousOperation
 from rest_framework import exceptions
 from user.models import User
 from mozilla_django_oidc.utils import parse_www_authenticate_header
-
+from login.utils import absolutify
 
 LOGGER = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
             "client_secret": self.OIDC_RP_CLIENT_SECRET,
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": settings.OIDC_AUTHENTICATION_CALLBACK_URL,
+            "redirect_uri": absolutify(request, settings.OIDC_AUTHENTICATION_CALLBACK_URL),
         }
 
         # Get the token
