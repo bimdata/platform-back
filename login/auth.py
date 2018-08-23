@@ -16,10 +16,8 @@ LOGGER = logging.getLogger(__name__)
 class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
     def authenticate(self, request, **kwargs):
         """Authenticates a user based on the OIDC code flow."""
-        self.request = request
-
-        code = self.request.GET.get("code")
-        nonce = self.request.GET.get("nonce")
+        code = kwargs.get("code")
+        nonce = kwargs.get("nonce")
 
         if not code:
             return None
@@ -33,7 +31,10 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
         }
 
         # Get the token
-        token_info = self.get_token(token_payload)
+        try:
+            token_info = self.get_token(token_payload)
+        except requests.exceptions.RequestException as e:
+            return None
         id_token = token_info.get("id_token")
         refresh_token = token_info.get("refresh_token")
 
