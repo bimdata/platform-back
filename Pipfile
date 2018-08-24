@@ -12,6 +12,7 @@ drf-yasg = "*"
 django-filter = "*"
 inflection = "*"
 gunicorn = "*"
+django-nose = "*"
 
 [dev-packages]
 

@@ -250,17 +250,7 @@ if ENV == "development":
     DEBUG = True
 
 if "test" in sys.argv:  # Covers regular testing and django-coverage
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.environ.get("TEST_DB_NAME", "bimdatatest"),
-            "USER": os.environ.get("TEST_DB_USER", "bimdata"),
-            "PASSWORD": os.environ.get("TEST_DB_PASSWORD", "bimdata"),
-            "HOST": os.environ.get("TEST_DB_HOST", "127.0.0.1"),
-            "PORT": os.environ.get("TEST_DB_PORT", 5432),
-            "CONN_MAX_AGE": 600,
-        }
-    }
+    TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
 
     # Disable migration during testsuite
     class DisableMigrations(object):
