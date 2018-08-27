@@ -13,6 +13,7 @@ django-filter = "*"
 inflection = "*"
 gunicorn = "*"
 django-nose = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
