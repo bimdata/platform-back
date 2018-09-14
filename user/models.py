@@ -16,7 +16,20 @@ class User(AbstractUser):
     demo_cloud = models.IntegerField(null=True, blank=True)
     demo_project = models.IntegerField(null=True, blank=True)
 
+    company = models.CharField(max_length=255, null=True, blank=True)
+
+    def to_json(self):
+        return {
+            "email": self.email,
+            "firstname": self.first_name,
+            "lastname": self.last_name,
+            "company": self.company,
+        }
+
 
 class Notification(models.Model):
     recipient = models.ForeignKey("User", on_delete=models.CASCADE)
     text = models.TextField()
+
+
+from user.signals import *

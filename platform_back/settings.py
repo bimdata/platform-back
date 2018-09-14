@@ -26,6 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "iu2q#x4!88w-!i-kkokwt!vvay%ngnv_q01or
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+TESTING = False
 
 ENV = os.environ.get("ENV", "development")
 
@@ -43,16 +44,17 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     "user",
-    "login",
     "rest_framework",
     "drf_yasg",
     "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "mozilla_django_oidc",  # Load after auth
+    "background_task",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.admindocs",
     "django.contrib.staticfiles",
 ]
 
@@ -124,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    "login.auth.OIDCAuthenticationBackend",
+    "user.auth.OIDCAuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 
@@ -158,6 +160,16 @@ LOGOUT_REDIRECT_URL = "/logout/"
 
 API_URL = os.environ.get("API_URL", "http://localhost:8081")
 
+
+MANDRILL_KEY = os.environ.get("MANDRILL_KEY", False)
+MANDRILL_TEST_KEY = os.environ.get("MANDRILL_TEST_KEY", False)
+
+ACTIVE_CAMPAIGN_EVENT_KEY = os.environ.get("ACTIVE_CAMPAIGN_EVENT_KEY", False)
+ACTIVE_CAMPAIGN_KEY = os.environ.get("ACTIVE_CAMPAIGN_KEY", False)
+ACTIVE_CAMPAIGN_URL = os.environ.get("ACTIVE_CAMPAIGN_URL", False)
+ACTIVE_CAMPAIGN_APP_LIST_ID = os.environ.get("ACTIVE_CAMPAIGN_APP_LIST_ID", False)
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -173,7 +185,7 @@ USE_TZ = True
 
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("login.auth.DrfOIDCAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": ("user.auth.DrfOIDCAuthentication",),
     "DEFAULT_FILTER_BACKENDS": (
         "utils.contrib.drf.filters.FilterBackendWithQuerysetWorkaround",
     ),
