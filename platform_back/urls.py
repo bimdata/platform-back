@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from user import views
 
 app_name = "platform_back"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("oidc/", include("mozilla_django_oidc.urls")),
-    path("", include("login.urls")),
+    path("back_callback/", views.back_callback, name="back_callback"),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
 ]
