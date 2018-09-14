@@ -153,7 +153,7 @@ OIDC_OP_SIGNUP_URL = f"{OIDC_OP_ISSUER}/signup/"
 
 
 API_URL = os.environ.get("API_URL", "http://localhost:8081")
-
+APP_URL = os.environ.get("APP_URL", "http://localhost:8080")
 
 MANDRILL_KEY = os.environ.get("MANDRILL_KEY", False)
 MANDRILL_TEST_KEY = os.environ.get("MANDRILL_TEST_KEY", False)

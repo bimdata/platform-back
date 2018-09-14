@@ -9,7 +9,7 @@ def send_onboarding(user):
 
 
 def send_invitation_accepted(invitor, invited, cloud, project=None):
-    invited_name = f"{invited.firstname} {invited.lastname}"
+    invited_name = f"{invited.first_name} {invited.last_name}"
     if project:
         invitor_content = {
             "user_name": invited_name,
@@ -28,7 +28,7 @@ def send_invitation_accepted(invitor, invited, cloud, project=None):
 
 
 def send_invitation_new_user(invitor, invited, cloud, project=None, created=False):
-    invitor_name = f"{invitor.firstname} {invitor.lastname}"
+    invitor_name = f"{invitor.firs_tname} {invitor.last_name}"
 
     if created:
         qs = urlencode(
