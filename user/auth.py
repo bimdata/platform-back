@@ -1,7 +1,6 @@
 import logging
 import requests
 from requests.exceptions import HTTPError
-from django.urls import reverse
 from django.conf import settings
 from mozilla_django_oidc import auth
 from mozilla_django_oidc.contrib.drf import OIDCAuthentication
@@ -11,11 +10,6 @@ from user.models import User
 from mozilla_django_oidc.utils import parse_www_authenticate_header
 
 LOGGER = logging.getLogger(__name__)
-
-
-def absolutify(request, view_name):
-    """Return the absolute URL of a path."""
-    return request.build_absolute_uri(reverse(view_name))
 
 
 class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
@@ -32,7 +26,7 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
             "client_secret": self.OIDC_RP_CLIENT_SECRET,
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": absolutify(request, settings.OIDC_AUTHENTICATION_CALLBACK_URL),
+            "redirect_uri": settings.PLATFORM_BACK_URL,
         }
 
         # Get the token

@@ -152,9 +152,6 @@ OIDC_OP_USER_ENDPOINT = f"{OIDC_OP_ISSUER}/userinfo"
 OIDC_OP_SIGNUP_URL = f"{OIDC_OP_ISSUER}/signup/"
 
 
-OIDC_AUTHENTICATION_CALLBACK_URL = "front_callback"
-
-
 API_URL = os.environ.get("API_URL", "http://localhost:8081")
 
 
