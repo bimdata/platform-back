@@ -91,7 +91,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "login.context_processors.oidc_settings",
             ]
         },
     }
@@ -155,8 +154,6 @@ OIDC_OP_SIGNUP_URL = f"{OIDC_OP_ISSUER}/signup/"
 
 OIDC_AUTHENTICATION_CALLBACK_URL = "front_callback"
 
-LOGIN_REDIRECT_URL = "/logged/"
-LOGOUT_REDIRECT_URL = "/logout/"
 
 API_URL = os.environ.get("API_URL", "http://localhost:8081")
 
