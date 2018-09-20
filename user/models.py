@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from externals.bimdata_api import ApiClient
+from django.db import transaction
 
 
 class User(AbstractUser):
@@ -18,6 +20,9 @@ class User(AbstractUser):
 
     company = models.CharField(max_length=255, null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.sub}: {self.email}"
+
     def to_json(self):
         return {
             "email": self.email,
@@ -25,6 +30,20 @@ class User(AbstractUser):
             "lastname": self.last_name,
             "company": self.company,
         }
+
+    @classmethod
+    @transaction.atomic
+    def create(cls, access_token=None, **kwargs):
+        username = kwargs.get("sub")
+        user = User.objects.create(username=username, **kwargs)
+        client = ApiClient(access_token, user)
+        cloud = client.cloud_api.create_cloud(cloud={"name": "Demo"})
+        demo = client.cloud_api.create_demo(id=cloud.id)
+
+        user.demo_cloud = cloud.id
+        user.demo_project = demo.id
+        user.save()
+        return user
 
 
 class Notification(models.Model):

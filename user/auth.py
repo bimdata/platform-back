@@ -36,20 +36,21 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
             return None
         id_token = token_info.get("id_token")
         refresh_token = token_info.get("refresh_token")
+        access_token = token_info.get("access_token")
 
         # Validate the token
         payload = self.verify_token(id_token, nonce=nonce)
 
         if payload:
             try:
-                return self.get_or_create_user(refresh_token, payload)
+                return self.get_or_create_user(refresh_token, access_token, payload)
             except SuspiciousOperation as exc:
                 LOGGER.warning("failed to get or create user: %s", exc)
                 return None
 
         return None
 
-    def get_or_create_user(self, refresh_token, user_info):
+    def get_or_create_user(self, refresh_token, access_token, user_info):
         """Returns a User instance if 1 user is found. Creates a user if not found
         and configured to do so. Returns nothing if multiple users are matched."""
         claims_verified = self.verify_claims(user_info)
@@ -62,15 +63,15 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
             user = self.UserModel.objects.get(sub=sub)
             return self.update_user(user, refresh_token, user_info)
         except self.UserModel.DoesNotExist:
-            return self.create_user(refresh_token, user_info)
+            return self.create_user(refresh_token, access_token, user_info)
 
-    def create_user(self, refresh_token, user_info):
+    def create_user(self, refresh_token, access_token, user_info):
         """Return object for a newly created user account."""
 
         sub = user_info.get("sub")
 
-        return self.UserModel.objects.create_user(
-            username=sub,
+        return self.UserModel.create(
+            access_token=access_token,
             sub=sub,
             refresh_token=refresh_token,
             email=user_info.get("email"),

@@ -17,6 +17,8 @@ django-cors-headers = "*"
 mandrill-really-maintained = "*"
 docutils = "*"
 django-background-tasks = "*"
+bimdata-api-client = ">=2.3.1"
+requests = "*"
 
 [dev-packages]
 
