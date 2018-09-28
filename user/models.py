@@ -51,4 +51,18 @@ class Notification(models.Model):
     text = models.TextField()
 
 
+class IfcMail(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    ifc_id = models.PositiveIntegerField()
+
+    MAIL_SUCCESS = "S"
+    MAIL_ERRORED = "E"
+    MAIL_CHOICES = ((MAIL_SUCCESS, "success"), (MAIL_ERRORED, "failed"))
+
+    last_sent = models.CharField(max_length=1, choices=MAIL_CHOICES)
+
+    class Meta:
+        unique_together = (("user", "ifc_id"),)
+
+
 from user.signals import *
