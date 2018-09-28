@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from externals.bimdata_api import ApiClient
 from django.db import transaction
+from webhooks.utils import register_webhook
 
 
 class User(AbstractUser):
@@ -38,6 +39,7 @@ class User(AbstractUser):
         user = User.objects.create(username=username, **kwargs)
         client = ApiClient(access_token, user)
         cloud = client.cloud_api.create_cloud(cloud={"name": "Demo"})
+        register_webhook(cloud.id)
         demo = client.cloud_api.create_demo(id=cloud.id)
 
         user.demo_cloud = cloud.id
