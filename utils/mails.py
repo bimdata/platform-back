@@ -27,7 +27,7 @@ def send_invitation_accepted(payload):
         mandrill.send_mail(
             "invitation-du-user-ok-cloud",
             invitor_content,
-            [{"email": payload["invitor_email"]}],
+            [{"email": payload["invitor"]["email"]}],
         )
 
 
