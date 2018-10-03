@@ -163,6 +163,7 @@ ACTIVE_CAMPAIGN_KEY = os.environ.get("ACTIVE_CAMPAIGN_KEY", False)
 ACTIVE_CAMPAIGN_URL = os.environ.get("ACTIVE_CAMPAIGN_URL", False)
 ACTIVE_CAMPAIGN_APP_LIST_ID = os.environ.get("ACTIVE_CAMPAIGN_APP_LIST_ID", False)
 
+WEBHOOKS_SECRET = os.environ.get("WEBHOOKS_SECRET", "123").encode()
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

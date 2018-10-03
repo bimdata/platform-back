@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from user import views
+from webhooks.views import WebHookHandler
 
 app_name = "platform_back"
 
@@ -25,4 +26,5 @@ urlpatterns = [
     path("oidc/", include("mozilla_django_oidc.urls")),
     path("back_callback/", views.back_callback, name="back_callback"),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
+    path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
 ]

@@ -9,7 +9,7 @@ else:
     fake_client = mandrill.Mandrill(settings.MANDRILL_TEST_KEY)
 
 
-# @params users: a list of User
+# @params users: a list of User {email, first_name, last_name}
 @background()
 def send_mail(template_name, content, users, fake=False):
     if not client:
@@ -18,7 +18,9 @@ def send_mail(template_name, content, users, fake=False):
     to = [
         {
             "email": user["email"],
-            "name": f"{user['first_name']} {user['last_name']}",
+            "name": f"{user['first_name']} {user['last_name']}"
+            if user.get("first_name")
+            else None,
             "type": "to",
         }
         for user in users

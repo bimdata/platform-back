@@ -1,6 +1,5 @@
 from django.conf import settings
 from externals import mandrill
-from urllib.parse import urlencode
 
 
 def send_onboarding(user):
@@ -8,71 +7,45 @@ def send_onboarding(user):
     mandrill.send_mail("emailing-onboarding", content, [user.to_json()])
 
 
-def send_invitation_accepted(invitor, invited, cloud, project=None):
-    invited_name = f"{invited.first_name} {invited.last_name}"
-    if project:
-        invitor_content = {
-            "user_name": invited_name,
-            "project_name": project.name,
-            "cloud_name": cloud.name,
-            "project_url": f"{settings.APP_URL}/cloud/{cloud.pk}/project/{project.pk}/dashboard",
+def send_invitation_accepted(payload):
+    if payload.get("project"):
+        mail_content = {
+            "user_name": f"{payload['user']['firstname']} {payload['user']['lastname']}",
+            "project_name": payload["project"]["name"],
+            "cloud_name": payload["cloud"]["name"],
+            "project_url": f"{settings.APP_URL}/project/{payload['project']['id']}",
         }
-        mandrill.send_mail("invitation-du-user-ok", invitor_content, [invitor.to_json()])
+        mandrill.send_mail(
+            "invitation-du-user-ok", mail_content, [{"email": payload["invitor_email"]}]
+        )
     else:
         invitor_content = {
-            "user_name": invited_name,
-            "cloud_name": cloud.name,
+            "user_name": f"{payload['user']['firstname']} {payload['user']['lastname']}",
+            "cloud_name": payload["cloud"]["name"],
             "cloud_url": settings.APP_URL,
         }
-        mandrill.send_mail("invitation-du-user-ok-cloud", invitor_content, [invitor.to_json()])
-
-
-def send_invitation_new_user(invitor, invited, cloud, project=None, created=False):
-    invitor_name = f"{invitor.firs_tname} {invitor.last_name}"
-
-    if created:
-        qs = urlencode(
-            {"invitation_token": invited.invitation_token, "default_email": invited.email}
+        mandrill.send_mail(
+            "invitation-du-user-ok-cloud",
+            invitor_content,
+            [{"email": payload["invitor"]["email"]}],
         )
-        content = {"user_name": invitor_name, "signup_url": f"{settings.APP_URL}/login?{qs}"}
-        mandrill.send_mail("creation-user-avec-sign-up", content, [invited.to_json()])
-    else:
-        if project:
-            invited_content = {
-                "user_name": invitor_name,
-                "project_name": project.name,
-                "cloud_name": cloud.name,
-                "project_url": f"{settings.APP_URL}/cloud/{cloud.pk}/project/{project.pk}/dashboard",
-            }
-            mandrill.send_mail("user-ajout-un-projet", invited_content, [invited.to_json()])
-
-            send_invitation_accepted(invitor, invited, cloud, project)
-        else:
-            invited_content = {
-                "user_name": invitor_name,
-                "cloud_name": cloud.name,
-                "cloud_url": settings.APP_URL,
-            }
-            mandrill.send_mail("user-ajout-un-cloud", invited_content, [invited.to_json()])
-
-            send_invitation_accepted(invitor, invited, cloud)
 
 
-def send_ifc_ok(user, ifc):
-    if not user:
-        return
+def send_ifc_ok(payload):
     content = {
-        "ifc_name": ifc.name,
-        "viewer_url": f"{settings.APP_URL}/cloud/{ifc.project.cloud.pk}/project/{ifc.project.pk}/ifc/{ifc.pk}/viewer",
+        "ifc_name": payload.get("name"),
+        "viewer_url": f"{settings.APP_URL}/cloud/{payload['cloud_id']}/project/{payload['project_id']}/ifc/{payload['id']}/viewer",
     }
-    mandrill.send_mail("votre-ifc-t-converti", content, [user.to_json()])
+    mandrill.send_mail(
+        "votre-ifc-t-converti", content, [{"email": payload["creator"]["email"]}]
+    )
 
 
-def send_ifc_ko(user, ifc):
-    if not user:
-        return
+def send_ifc_ko(payload):
     content = {
-        "ifc_name": ifc.name,
-        "project_url": f"{settings.APP_URL}/cloud/{ifc.project.cloud.pk}/project/{ifc.project.pk}/dashboard",
+        "ifc_name": payload.get("name"),
+        "project_url": f"{settings.APP_URL}/project/{payload['project_id']}",
     }
-    mandrill.send_mail("erreur-la-conversion-de-votre-ifc", content, [user.to_json()])
+    mandrill.send_mail(
+        "erreur-la-conversion-de-votre-ifc", content, [{"email": payload["creator"]["email"]}]
+    )

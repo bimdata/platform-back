@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from externals.bimdata_api import ApiClient
 from django.db import transaction
+from webhooks.utils import register_webhook
 
 
 class User(AbstractUser):
@@ -38,6 +39,7 @@ class User(AbstractUser):
         user = User.objects.create(username=username, **kwargs)
         client = ApiClient(access_token, user)
         cloud = client.cloud_api.create_cloud(cloud={"name": "Demo"})
+        register_webhook(cloud.id)
         demo = client.cloud_api.create_demo(id=cloud.id)
 
         user.demo_cloud = cloud.id
@@ -49,6 +51,20 @@ class User(AbstractUser):
 class Notification(models.Model):
     recipient = models.ForeignKey("User", on_delete=models.CASCADE)
     text = models.TextField()
+
+
+class IfcMail(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    ifc_id = models.PositiveIntegerField()
+
+    MAIL_SUCCESS = "S"
+    MAIL_ERRORED = "E"
+    MAIL_CHOICES = ((MAIL_SUCCESS, "success"), (MAIL_ERRORED, "failed"))
+
+    last_sent = models.CharField(max_length=1, choices=MAIL_CHOICES)
+
+    class Meta:
+        unique_together = (("user", "ifc_id"),)
 
 
 from user.signals import *
