@@ -14,25 +14,27 @@ class ApiClient:
         elif user:
             # We need to retrive an access_token
             token_payload = {
-                "client_id": self.OIDC_RP_CLIENT_ID,
-                "client_secret": self.OIDC_RP_CLIENT_SECRET,
+                "client_id": settings.OIDC_RP_CLIENT_ID,
+                "client_secret": settings.OIDC_RP_CLIENT_SECRET,
                 "grant_type": "refresh_token",
                 "refresh_token": user.refresh_token,
             }
 
             # Get the token
-            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, token_payload)
-            self.config.api_key["Authorization"] = response.json.get("access_token")
+            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
+            assert response.status_code == 200
+            self.config.api_key["Authorization"] = response.json().get("access_token")
         else:
             token_payload = {
-                "client_id": self.OIDC_RP_CLIENT_ID,
-                "client_secret": self.OIDC_RP_CLIENT_SECRET,
-                "client_credentials": "refresh_token",
+                "client_id": settings.OIDC_RP_CLIENT_ID,
+                "client_secret": settings.OIDC_RP_CLIENT_SECRET,
+                "grant_type": "client_credentials",
             }
 
             # Get the token
-            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, token_payload)
-            self.config.api_key["Authorization"] = response.json.get("access_token")
+            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
+            assert response.status_code == 200
+            self.config.api_key["Authorization"] = response.json().get("access_token")
 
         self.client = bimdata_api_client.ApiClient(self.config)
 

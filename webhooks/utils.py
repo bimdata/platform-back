@@ -9,6 +9,7 @@ def register_webhook(cloud_id):
         web_hook={
             "events": ["org.members", "ifc.process_update"],
             "url": f"{settings.PLATFORM_BACK_URL}/webhook",
+            "secret": settings.WEBHOOKS_SECRET,
         },
     )
     return webhook

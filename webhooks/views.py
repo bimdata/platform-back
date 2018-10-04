@@ -20,7 +20,7 @@ class WebHookHandler(APIView):
             raise ValidationError(detail={"x-bimdata-signature": "Header required"})
 
         body_signature = hmac.new(
-            settings.WEBHOOKS_SECRET, request.body, hashlib.sha256
+            settings.WEBHOOKS_SECRET.encode(), request.body, hashlib.sha256
         ).hexdigest()
         if not hmac.compare_digest(req_signature, body_signature):
             raise ValidationError(detail={"x-bimdata-signature": "Bad request signature"})
