@@ -38,12 +38,21 @@ class User(AbstractUser):
         username = kwargs.get("sub")
         user = User.objects.create(username=username, **kwargs)
         client = ApiClient(access_token, user)
-        cloud = client.cloud_api.create_cloud(cloud={"name": "Demo"})
-        register_webhook(cloud.id)
-        demo = client.cloud_api.create_demo(id=cloud.id)
-
-        user.demo_cloud = cloud.id
-        user.demo_project = demo.id
+        projects = client.user_api.get_self_projects()
+        demo = None
+        for project in projects:
+            if project.name == "Demo":
+                demo = project
+                break
+        if not demo:
+            cloud = client.cloud_api.create_cloud(cloud={"name": "Demo"})
+            register_webhook(cloud.id)
+            demo = client.cloud_api.create_demo(id=cloud.id)
+            user.demo_cloud = cloud.id
+            user.demo_project = demo.id
+        else:
+            user.demo_cloud = project.cloud.id
+            user.demo_project = project.id
         user.save()
         return user
 

@@ -66,13 +66,9 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
             return self.create_user(refresh_token, access_token, user_info)
 
     def create_user(self, refresh_token, access_token, user_info):
-        """Return object for a newly created user account."""
-
-        sub = user_info.get("sub")
-
         return self.UserModel.create(
             access_token=access_token,
-            sub=sub,
+            sub=user_info.get("sub"),
             refresh_token=refresh_token,
             email=user_info.get("email"),
             first_name=user_info.get("given_name"),
