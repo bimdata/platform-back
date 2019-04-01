@@ -3,6 +3,7 @@ from externals import mandrill
 
 
 def send_onboarding(user):
+    return
     content = {"bimdata_url": settings.APP_URL}
     mandrill.send_mail("emailing-onboarding", content, [user.to_json()])
 
