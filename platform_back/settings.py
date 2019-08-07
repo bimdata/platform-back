@@ -243,6 +243,11 @@ LOGGING = {
         },
     },
     "loggers": {
+        "django.utils.autoreload": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
         "django.security.DisallowedHost": {"handlers": ["null"], "propagate": False},
         "django": {
             "handlers": ["console", "mail_admins"],
