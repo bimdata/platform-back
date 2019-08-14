@@ -26,7 +26,7 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
             "client_secret": self.OIDC_RP_CLIENT_SECRET,
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": settings.PLATFORM_BACK_URL,
+            "redirect_uri": f"{settings.APP_URL}/oidc-callback",
         }
 
         # Get the token
@@ -37,7 +37,6 @@ class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
         id_token = token_info.get("id_token")
         refresh_token = token_info.get("refresh_token")
         access_token = token_info.get("access_token")
-
         # Validate the token
         payload = self.verify_token(id_token, nonce=nonce)
 

@@ -7,7 +7,7 @@ class ApiClient:
     def __init__(self, access_token=None, user=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
-        self.config.api_key_prefix["Authorization"] = "Bearer"
+        self.config.api_key_prefix["Authorization"] = "JWT"
         if access_token:
             # when we have a valid access_token
             self.config.api_key["Authorization"] = access_token
@@ -22,7 +22,7 @@ class ApiClient:
 
             # Get the token
             response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
-            assert response.status_code == 200
+            response.raise_for_status()
             self.config.api_key["Authorization"] = response.json().get("access_token")
         else:
             token_payload = {
@@ -33,7 +33,7 @@ class ApiClient:
 
             # Get the token
             response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
-            assert response.status_code == 200
+            response.raise_for_status()
             self.config.api_key["Authorization"] = response.json().get("access_token")
 
         self.client = bimdata_api_client.ApiClient(self.config)

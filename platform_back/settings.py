@@ -145,10 +145,10 @@ OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"response_type": OIDC_AUTH_REQUEST_RESPONSE_TY
 
 
 OIDC_OP_ISSUER = os.environ.get("OIDC_OP_ISSUER", "http://localhost:8000")
-OIDC_OP_JWKS_ENDPOINT = f"{OIDC_OP_ISSUER}/jwks"
-OIDC_OP_AUTHORIZATION_ENDPOINT = f"{OIDC_OP_ISSUER}/authorize"
-OIDC_OP_TOKEN_ENDPOINT = f"{OIDC_OP_ISSUER}/token"
-OIDC_OP_USER_ENDPOINT = f"{OIDC_OP_ISSUER}/userinfo"
+OIDC_OP_JWKS_ENDPOINT = f"{OIDC_OP_ISSUER}/protocol/openid-connect/certs"
+OIDC_OP_AUTHORIZATION_ENDPOINT = f"{OIDC_OP_ISSUER}/bimdata/protocol/openid-connect/auth"
+OIDC_OP_TOKEN_ENDPOINT = f"{OIDC_OP_ISSUER}/protocol/openid-connect/token"
+OIDC_OP_USER_ENDPOINT = f"{OIDC_OP_ISSUER}/protocol/openid-connect/userinfo"
 OIDC_OP_SIGNUP_URL = f"{OIDC_OP_ISSUER}/signup/"
 
 
