@@ -7,7 +7,7 @@ class ApiClient:
     def __init__(self, access_token=None, user=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
-        self.config.api_key_prefix["Authorization"] = "JWT"
+        self.config.api_key_prefix["Authorization"] = "Bearer"
         if access_token:
             # when we have a valid access_token
             self.config.api_key["Authorization"] = access_token
