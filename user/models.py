@@ -10,17 +10,32 @@ class User(AbstractUser):
     # identifier within the issuer for the end-user. It is intended to be consumed by relying
     # parties and does not change over time. It corresponds to the only way to uniquely
     # identify users between OIDC provider and relying parties.
-    sub = models.CharField(
-        max_length=255, unique=True, db_index=True, verbose_name="Subject identifier"
+    legacy_sub = models.CharField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        null=True,
+        blank=True,
+        verbose_name="Subject identifier",
+        help_text="sub from BIMData Connect. Kept for backward compatibility",
     )
-    refresh_token = models.TextField(verbose_name="Refresh Token", null=True, blank=True)
+
+    sub = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        unique=True,
+        db_index=True,
+        help_text="sub from Keycloak",
+    )
+
     demo_cloud = models.IntegerField(null=True, blank=True)
     demo_project = models.IntegerField(null=True, blank=True)
 
     company = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.sub}: {self.email}"
+        return f"{self.sub or self.legacy_sub}: {self.email}"
 
     def to_json(self):
         return {
@@ -37,7 +52,7 @@ class User(AbstractUser):
         user = User.objects.create(username=username, **kwargs)
         client = ApiClient(access_token, user)
         cloud = client.cloud_api.create_cloud(
-            cloud={"name": f"{user.first_name} {user.last_name}"}
+            data={"name": f"{user.first_name} {user.last_name}"}
         )
         register_webhook(cloud.id)
         demo = client.cloud_api.create_demo(id=cloud.id)

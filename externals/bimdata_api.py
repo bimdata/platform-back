@@ -7,23 +7,9 @@ class ApiClient:
     def __init__(self, access_token=None, user=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
-        self.config.api_key_prefix["Authorization"] = "Bearer"
         if access_token:
-            # when we have a valid access_token
-            self.config.api_key["Authorization"] = access_token
-        elif user:
-            # We need to retrive an access_token
-            token_payload = {
-                "client_id": settings.OIDC_RP_CLIENT_ID,
-                "client_secret": settings.OIDC_RP_CLIENT_SECRET,
-                "grant_type": "refresh_token",
-                "refresh_token": user.refresh_token,
-            }
-
-            # Get the token
-            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
-            response.raise_for_status()
-            self.config.api_key["Authorization"] = response.json().get("access_token")
+            # when we have a user access_token
+            self.config.access_token = access_token
         else:
             token_payload = {
                 "client_id": settings.OIDC_RP_CLIENT_ID,
@@ -34,7 +20,7 @@ class ApiClient:
             # Get the token
             response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
             response.raise_for_status()
-            self.config.api_key["Authorization"] = response.json().get("access_token")
+            self.config.access_token = response.json().get("access_token")
 
         self.client = bimdata_api_client.ApiClient(self.config)
 

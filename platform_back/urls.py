@@ -23,8 +23,7 @@ app_name = "platform_back"
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("admin/doc/", include("django.contrib.admindocs.urls")),
-    path("oidc/", include("mozilla_django_oidc.urls")),
-    path("back_callback/", views.back_callback, name="back_callback"),
+    path("create_or_update_user/", views.create_or_update_user, name="create_or_update_user"),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
     path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
 ]

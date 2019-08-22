@@ -7,7 +7,6 @@ name = "pypi"
 django = "*"
 "psycopg2" = "*"
 mozilla-django-oidc = "*"
-django-rest-framework = "*"
 drf-yasg = "*"
 django-filter = "*"
 inflection = "*"
@@ -19,6 +18,9 @@ docutils = "*"
 django-background-tasks = "*"
 bimdata-api-client = ">=2.3.1"
 requests = "*"
+drf-oidc-auth = {ref = "68a962446788ee55909f04daf2896b14820cfbec",git = "git://github.com/ByteInternet/drf-oidc-auth/"}
+djangorestframework = "*"
+packaging = "*"
 
 [dev-packages]
 
