@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
-    "mozilla_django_oidc",  # Load after auth
     "background_task",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -131,37 +130,23 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_USER_MODEL = "user.User"
 
-PLATFORM_BACK_URL = os.environ.get("PLATFORM_BACK_URL", "http://127.0.0.1:8082")
 
 OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "952974")
 OIDC_RP_CLIENT_SECRET = os.environ.get(
     "OIDC_RP_CLIENT_SECRET", "579ed56ef143e48e7464541832eb21f9e51f87d42146772b590dfafc"
 )
-OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
-OIDC_RP_IDP_SIGN_KEY = os.environ.get("OIDC_RP_IDP_SIGN_KEY", None)
-OIDC_RP_SCOPES = "openid email profile"
-OIDC_AUTH_REQUEST_RESPONSE_TYPE = "code id_token token"
-OIDC_AUTH_REQUEST_EXTRA_PARAMS = {"response_type": OIDC_AUTH_REQUEST_RESPONSE_TYPE}
 
-
-OIDC_OP_ISSUER = os.environ.get("OIDC_OP_ISSUER", "http://localhost:8000")
-OIDC_OP_JWKS_ENDPOINT = f"{OIDC_OP_ISSUER}/jwks"
-OIDC_OP_AUTHORIZATION_ENDPOINT = f"{OIDC_OP_ISSUER}/authorize"
-OIDC_OP_TOKEN_ENDPOINT = f"{OIDC_OP_ISSUER}/token"
-OIDC_OP_USER_ENDPOINT = f"{OIDC_OP_ISSUER}/userinfo"
-OIDC_OP_SIGNUP_URL = f"{OIDC_OP_ISSUER}/signup/"
-
+OIDC_OP_ISSUER = (
+    os.environ.get("OIDC_OP_ISSUER", "http://localhost:8000") + "/auth/realms/bimdata"
+)
+OIDC_OP_TOKEN_ENDPOINT = f"{OIDC_OP_ISSUER}/protocol/openid-connect/token"
 
 API_URL = os.environ.get("API_URL", "http://localhost:8081")
 APP_URL = os.environ.get("APP_URL", "http://localhost:8080")
+PLATFORM_BACK_URL = os.environ.get("PLATFORM_BACK_URL", "http://127.0.0.1:8082")
 
 MANDRILL_KEY = os.environ.get("MANDRILL_KEY", False)
 MANDRILL_TEST_KEY = os.environ.get("MANDRILL_TEST_KEY", False)
-
-ACTIVE_CAMPAIGN_EVENT_KEY = os.environ.get("ACTIVE_CAMPAIGN_EVENT_KEY", False)
-ACTIVE_CAMPAIGN_KEY = os.environ.get("ACTIVE_CAMPAIGN_KEY", False)
-ACTIVE_CAMPAIGN_URL = os.environ.get("ACTIVE_CAMPAIGN_URL", False)
-ACTIVE_CAMPAIGN_APP_LIST_ID = os.environ.get("ACTIVE_CAMPAIGN_APP_LIST_ID", False)
 
 WEBHOOKS_SECRET = os.environ.get("WEBHOOKS_SECRET", "123")
 
@@ -180,7 +165,7 @@ USE_TZ = True
 
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("user.auth.DrfOIDCAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": ("oidc_auth.authentication.JSONWebTokenAuthentication",),
     "DEFAULT_FILTER_BACKENDS": (
         "utils.contrib.drf.filters.FilterBackendWithQuerysetWorkaround",
     ),
@@ -289,3 +274,31 @@ if "test" in sys.argv:  # Covers regular testing and django-coverage
 
     # Use default logger during tests
     LOGGING = None
+
+OIDC_AUTH = {
+    # Specify OpenID Connect endpoint. Configuration will be
+    # automatically done based on the discovery document found
+    # at <endpoint>/.well-known/openid-configuration
+    "OIDC_ENDPOINT": OIDC_OP_ISSUER,
+    # Accepted audiences the ID Tokens can be issued to
+    "OIDC_AUDIENCES": ("account",),
+    # (Optional) Function that resolves id_token into user.
+    # This function receives a request and an id_token dict and expects to
+    # return a User object. The default implementation tries to find the user
+    # based on username (natural key) taken from the 'sub'-claim of the
+    # id_token.
+    "OIDC_RESOLVE_USER_FUNCTION": "user.auth.get_user_by_id",
+    # (Optional) Number of seconds in the past valid tokens can be
+    # issued (default 600)
+    "OIDC_LEEWAY": 600,
+    # (Optional) Time before signing keys will be refreshed (default 24 hrs)
+    "OIDC_JWKS_EXPIRATION_TIME": 24 * 60 * 60,
+    # (Optional) Time before bearer token validity is verified again (default 10 minutes)
+    "OIDC_BEARER_TOKEN_EXPIRATION_TIME": 10 * 60,
+    # (Optional) Token prefix in JWT authorization header (default 'JWT')
+    "JWT_AUTH_HEADER_PREFIX": "Bearer",
+    # (Optional) Which Django cache to use
+    "OIDC_CACHE_NAME": "default",
+    # (Optional) A cache key prefix when storing and retrieving cached values
+    "OIDC_CACHE_PREFIX": "oidc_auth.",
+}

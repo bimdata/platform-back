@@ -1,138 +1,48 @@
-import logging
-import requests
-from requests.exceptions import HTTPError
 from django.conf import settings
-from mozilla_django_oidc import auth
-from mozilla_django_oidc.contrib.drf import OIDCAuthentication
-from django.core.exceptions import SuspiciousOperation
-from rest_framework import exceptions
 from user.models import User
-from mozilla_django_oidc.utils import parse_www_authenticate_header
+from rest_framework.authentication import get_authorization_header
+from django.utils.encoding import smart_text
 
-LOGGER = logging.getLogger(__name__)
 
+def get_jwt_value(request):
+    auth = get_authorization_header(request).split()
+    auth_header_prefix = settings.OIDC_AUTH.get("JWT_AUTH_HEADER_PREFIX").lower()
 
-class OIDCAuthenticationBackend(auth.OIDCAuthenticationBackend):
-    def authenticate(self, request, **kwargs):
-        """Authenticates a user based on the OIDC code flow."""
-        code = kwargs.get("code")
-        nonce = kwargs.get("nonce")
-
-        if not code:
-            return None
-
-        token_payload = {
-            "client_id": self.OIDC_RP_CLIENT_ID,
-            "client_secret": self.OIDC_RP_CLIENT_SECRET,
-            "grant_type": "authorization_code",
-            "code": code,
-            "redirect_uri": settings.PLATFORM_BACK_URL,
-        }
-
-        # Get the token
-        try:
-            token_info = self.get_token(token_payload)
-        except requests.exceptions.RequestException as e:
-            return None
-        id_token = token_info.get("id_token")
-        refresh_token = token_info.get("refresh_token")
-        access_token = token_info.get("access_token")
-
-        # Validate the token
-        payload = self.verify_token(id_token, nonce=nonce)
-
-        if payload:
-            try:
-                return self.get_or_create_user(refresh_token, access_token, payload)
-            except SuspiciousOperation as exc:
-                LOGGER.warning("failed to get or create user: %s", exc)
-                return None
-
+    if not auth or smart_text(auth[0].lower()) != auth_header_prefix:
         return None
 
-    def get_or_create_user(self, refresh_token, access_token, user_info):
-        """Returns a User instance if 1 user is found. Creates a user if not found
-        and configured to do so. Returns nothing if multiple users are matched."""
-        claims_verified = self.verify_claims(user_info)
-        if not claims_verified:
-            msg = "Claims verification failed"
-            raise SuspiciousOperation(msg)
+    if len(auth) == 1:
+        msg = _("Invalid Authorization header. No credentials provided")
+        raise AuthenticationFailed(msg)
+    elif len(auth) > 2:
+        msg = _("Invalid Authorization header. Credentials string should not contain spaces.")
+        raise AuthenticationFailed(msg)
 
-        sub = user_info.get("sub")
-        try:
-            user = self.UserModel.objects.get(sub=sub)
-            return self.update_user(user, refresh_token, user_info)
-        except self.UserModel.DoesNotExist:
-            return self.create_user(refresh_token, access_token, user_info)
-
-    def create_user(self, refresh_token, access_token, user_info):
-        return self.UserModel.create(
-            access_token=access_token,
-            sub=user_info.get("sub"),
-            refresh_token=refresh_token,
-            email=user_info.get("email"),
-            first_name=user_info.get("given_name"),
-            last_name=user_info.get("family_name"),
-        )
-
-    def update_user(self, user, refresh_token, user_info):
-        update = False
-        if user.refresh_token != refresh_token:
-            user.refresh_token = refresh_token
-            update = True
-        if user.email != user_info.get("email"):
-            user.email = user_info.get("email")
-            update = True
-        if user.first_name != user_info.get("given_name"):
-            user.first_name = user_info.get("given_name")
-            update = True
-        if user.last_name != user_info.get("family_name"):
-            user.last_name = user_info.get("family_name")
-            update = True
-
-        if update:
-            user.save()
-        return user
+    return auth[1]
 
 
-class DrfOIDCAuthentication(OIDCAuthentication):
-    def __init__(self, backend=None):
-        # We're not using lib's init
-        pass
+def create_user(request, id_token):
+    access_token = get_jwt_value(request).decode("utf-8")
+    return User.create(
+        access_token=access_token,
+        email=id_token.get("email").lower(),
+        first_name=id_token.get("given_name"),
+        last_name=id_token.get("family_name"),
+        sub=id_token.get("sub"),
+    )
 
-    def authenticate(self, request):
-        """
-        Authenticate the request and return a tuple of (user, token) or None
-        if there was no authentication attempt.
-        """
-        access_token = self.get_access_token(request)
 
-        if not access_token:
-            return None
-
-        try:
-            user_response = requests.get(
-                settings.OIDC_OP_USER_ENDPOINT,
-                headers={"Authorization": f"Bearer {access_token}"},
-            )
-            user_response.raise_for_status()
-        except HTTPError as exc:
-            resp = exc.response
-
-            # if the oidc provider returns 401, it means the token is invalid.
-            # in that case, we want to return the upstream error message (which
-            # we can get from the www-authentication header) in the response.
-            if resp.status_code == 401 and "www-authenticate" in resp.headers:
-                data = parse_www_authenticate_header(resp.headers["www-authenticate"])
-                raise exceptions.AuthenticationFailed(data["error_description"])
-
-            # for all other http errors, check other auth methods
-            return None
-
-        user_info = user_response.json()
-        user = User.objects.filter(sub=user_info.get("sub")).first()
-        if not user:
-            msg = "Login failed: No user found for the given access token."
-            raise exceptions.AuthenticationFailed(msg)
-
-        return user, access_token
+def get_user_by_id(request, id_token):
+    try:
+        return User.objects.get(sub=id_token.get("sub"))
+    except User.DoesNotExist:
+        if id_token.get("bimdata_connect_sub"):
+            try:
+                user = User.objects.get(legacy_sub=id_token.get("bimdata_connect_sub"))
+                user.sub = id_token.get("sub")
+                user.save()
+                return user
+            except User.DoesNotExist:
+                return create_user(request, id_token)
+        else:
+            return create_user(request, id_token)
