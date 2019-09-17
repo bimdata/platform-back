@@ -54,7 +54,10 @@ class User(AbstractUser):
         cloud = client.cloud_api.create_cloud(
             data={"name": f"{user.first_name} {user.last_name}"}
         )
-        register_webhook(cloud.id)
+        # register_webhook(cloud.id)
+        # We can't use PKCE with confidential app
+        # Therefore the front and the back use two different apps and the back have no right to app created byt he front
+        # See https://issues.jboss.org/browse/KEYCLOAK-11438
         demo = client.cloud_api.create_demo(id=cloud.id)
         user.demo_cloud = cloud.id
         user.demo_project = demo.id
