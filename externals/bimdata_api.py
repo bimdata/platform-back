@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class ApiClient:
-    def __init__(self, access_token=None, user=None):
+    def __init__(self, access_token=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
         if access_token:
