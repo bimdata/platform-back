@@ -176,6 +176,7 @@ REST_FRAMEWORK = {
 
 
 # LOGGING EMAIL
+ADMINS = [('infra', 'infra@bimdata.io')]
 SERVER_EMAIL = "bug@bimdata.io"
 EMAIL_HOST = "smtp.mandrillapp.com"
 EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_SMTP_KEY", False)
