@@ -13,9 +13,11 @@ Pre-requisites
 ---------------
 
 You need:
- * a running Database System: we recommend PostGresQL, MariaDB
- * Python 3
+ * Python 3.6 or later
  * PipEnv: [Download pipenv](https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv)
+ * a running database system: we support PostgreSQL only. 
+
+    **Note:** Any other DBMS compatible with Django should work, but we don't officially support them
 
 ## Install
 
@@ -62,6 +64,16 @@ Create a super user (access to admin page)
 ```
 ./manage.py runserver
 ```
+
+## Documentation
+
+Check https://developers.bimdata.io.
+Our documentation helps you to understand the concepts and architecture of the Platform. 
+
+
+Need more [information about the API](https://developers.bimdata.io/api/index.html)?
+
+Need some details [about the authentication workflow](https://developers.bimdata.io/guide/authentication_bimdata_connect.html)?
 
 ## Testing
 
