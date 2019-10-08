@@ -1,6 +1,11 @@
+# This file is part of the BIMData Platform package.
+# (c) BIMData support@bimdata.io
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 from django.conf import settings
 from user.models import User
 from rest_framework.authentication import get_authorization_header
+from rest_framework.exceptions import AuthenticationFailed
 from django.utils.encoding import smart_text
 
 
@@ -12,10 +17,10 @@ def get_jwt_value(request):
         return None
 
     if len(auth) == 1:
-        msg = _("Invalid Authorization header. No credentials provided")
+        msg = "Invalid Authorization header. No credentials provided"
         raise AuthenticationFailed(msg)
     elif len(auth) > 2:
-        msg = _("Invalid Authorization header. Credentials string should not contain spaces.")
+        msg = "Invalid Authorization header. Credentials string should not contain spaces."
         raise AuthenticationFailed(msg)
 
     return auth[1]

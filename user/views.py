@@ -1,6 +1,9 @@
-from django.contrib.auth import authenticate
+# This file is part of the BIMData Platform package.
+# (c) BIMData support@bimdata.io
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 from rest_framework.decorators import api_view
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.response import Response
 
 

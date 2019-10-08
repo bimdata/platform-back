@@ -1,6 +1,10 @@
+# This file is part of the BIMData Platform package.
+# (c) BIMData support@bimdata.io
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from user.models import User, Notification
+from user.models import User
 
 
 @admin.register(User)

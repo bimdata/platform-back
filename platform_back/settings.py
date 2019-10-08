@@ -1,3 +1,7 @@
+# This file is part of the BIMData Platform package.
+# (c) BIMData support@bimdata.io
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 """
 Django settings for platform_back project.
 
@@ -176,7 +180,7 @@ REST_FRAMEWORK = {
 
 
 # LOGGING EMAIL
-ADMINS = [('infra', 'infra@bimdata.io')]
+ADMINS = [("infra", "infra@bimdata.io")]
 SERVER_EMAIL = "bug@bimdata.io"
 EMAIL_HOST = "smtp.mandrillapp.com"
 EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_SMTP_KEY", False)
