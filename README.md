@@ -90,3 +90,10 @@ sudo apt install libpq-server
 pipenv install
 ```
 
+## License
+
+
+    You are free to copy, modify, and distribute BIMData Platform Backend under the terms of the LGPL 3.0 license.
+    See the LICENSE file for details.
+
+
