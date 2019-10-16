@@ -1,3 +1,7 @@
+# This file is part of the BIMData Platform package.
+# (c) BIMData support@bimdata.io
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 from rest_framework.response import Response
 from rest_framework import permissions, viewsets, mixins, status
 from user.v1.serializers import NotificationSerializer, UserSerializer
