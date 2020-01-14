@@ -67,7 +67,7 @@ jobs:
 
             # deploy master branch
             docker pull bimdata/deployment:latest
-            docker run -it bimdata/deployment:latest ansible-playbook -i inventories/staging deploy.yml --tags=platform_back --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
+            docker run -e ANSIBLE_VAULT_PASSWD -it bimdata/deployment:latest ansible-playbook -i inventories/staging deploy.yml --tags=platform_back --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
 
 workflows:
   version: 2
