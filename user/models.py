@@ -55,11 +55,11 @@ class User(AbstractUser):
         username = kwargs.get("sub")
         user = User.objects.create(username=username, **kwargs)
         client = ApiClient(access_token)
-        cloud = client.cloud_api.create_cloud(
+        cloud = client.collaboration_api.create_cloud(
             data={"name": f"{user.first_name} {user.last_name}"}
         )
         register_webhook(cloud.id, access_token)
-        demo = client.cloud_api.create_demo(id=cloud.id)
+        demo = client.collaboration_api.create_demo(id=cloud.id)
         user.demo_cloud = cloud.id
         user.demo_project = demo.id
         user.save()

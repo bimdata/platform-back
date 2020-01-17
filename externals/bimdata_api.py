@@ -28,9 +28,6 @@ class ApiClient:
 
         self.client = bimdata_api_client.ApiClient(self.config)
 
-        self.cloud_api = bimdata_api_client.CloudApi(self.client)
-        self.project_api = bimdata_api_client.ProjectApi(self.client)
-        self.checkplan_api = bimdata_api_client.CheckplanApi(self.client)
+        self.collaboration_api = bimdata_api_client.CollaborationApi(self.client)
         self.ifc_api = bimdata_api_client.IfcApi(self.client)
-        self.application_api = bimdata_api_client.ApplicationApi(self.client)
-        self.user_api = bimdata_api_client.UserApi(self.client)
+        self.webhook_api = bimdata_api_client.WebhookApi(self.client)
