@@ -2,7 +2,9 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
+import requests
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from externals.bimdata_api import ApiClient
 from django.db import transaction
@@ -58,6 +60,15 @@ class User(AbstractUser):
         cloud = client.collaboration_api.create_cloud(
             data={"name": f"{user.first_name} {user.last_name}"}
         )
+        with open("demo_icon.png", "rb") as file:
+            demo_icon = ("image", ("demo_icon.png", file))
+            response = requests.patch(
+                url=f"{settings.API_URL}/cloud/{cloud.id}",
+                files=[demo_icon],
+                headers={"Authorization": f"Bearer {access_token}"},
+            )
+        response.raise_for_status()
+
         register_webhook(cloud.id, access_token)
         demo = client.collaboration_api.create_demo(id=cloud.id)
         user.demo_cloud = cloud.id
