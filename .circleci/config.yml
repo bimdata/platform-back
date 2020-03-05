@@ -3,7 +3,7 @@ version: 2
 references:
   container_config: &container_config
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.8
       - image: circleci/postgres:10-alpine
         environment:
           POSTGRES_PASSWORD: "platform_back"
@@ -11,26 +11,11 @@ references:
           POSTGRES_USER: "platform_back"
     working_directory: ~/repo
 
-  restore_repo: &restore_repo
-    restore_cache:
-      keys:
-        - repo-{{ .Branch }}-{{ .Revision }}
-
 jobs:
-  checkout_code:
-    <<: *container_config
-    steps:
-      - *restore_repo
-      - checkout
-      - save_cache:
-          key: repo-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - .
-
   test:
     <<: *container_config
     steps:
-      - *restore_repo
+      - checkout
 
       # Download and cache dependencies
       - restore_cache:
@@ -56,7 +41,7 @@ jobs:
   deploy:
     <<: *container_config
     steps:
-      - *restore_repo
+      - checkout
       - setup_remote_docker
       - run:
           name: push to docker hub
@@ -73,13 +58,9 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - checkout_code
-      - test:
-          requires:
-            - checkout_code
+      - test
       - deploy:
           requires:
-            - checkout_code
             - test
           filters:
             branches:
