@@ -30,4 +30,5 @@ urlpatterns = [
     path("create_or_update_user/", views.create_or_update_user, name="create_or_update_user"),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
     path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
+    path("health/", include("health_check.urls")),
 ]

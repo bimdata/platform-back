@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    "health_check",
+    "health_check.db",
     "django.contrib.admin",
     "django.contrib.auth",
     "background_task",
@@ -127,10 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-AUTHENTICATION_BACKENDS = [
-    "user.auth.OIDCAuthenticationBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
+AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
 AUTH_USER_MODEL = "user.User"
 
