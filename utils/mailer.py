@@ -10,6 +10,7 @@ def subjects(template_name):
         "invitation-du-user-ok-cloud": "{{user_name}} a accepté votre invitation dans le cloud {{cloud_name}}",
         "invitation-du-user-ok": "{{user_name}} a accepté votre invitation dans le projet {{project_name}}",
         "votre-ifc-t-converti": "Votre IFC a été converti",
+        "emailing-onboarding": "Découvrez dès maintenant la plateforme BIMData.io",
     }
     return subs[template_name]
 
