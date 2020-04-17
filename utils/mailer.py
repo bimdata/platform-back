@@ -29,7 +29,7 @@ def send_mail(template_name, content, users, fake=False):
     template_subject = engines["django"].from_string(subjects(template_name))
     subject = template_subject.render(content)
 
-    content["bimdata_url"] = settings.SITE_URL
+    content["bimdata_url"] = settings.APP_URL
     html_content = render_to_string(f"mails/{template_name}.html", content)
 
     email = EmailMessage(subject, html_content, from_email, to_emails)

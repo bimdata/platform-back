@@ -21,6 +21,7 @@ requests = "*"
 drf-oidc-auth = {ref = "68a962446788ee55909f04daf2896b14820cfbec",git = "git://github.com/ByteInternet/drf-oidc-auth/"}
 djangorestframework = "*"
 django-health-check = "*"
+parameterized = "*"
 
 [dev-packages]
 

@@ -77,7 +77,7 @@ MIDDLEWARE = [
 APPEND_SLASH = False
 
 ROOT_URLCONF = "platform_back.urls"
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
