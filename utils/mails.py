@@ -3,13 +3,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 from django.conf import settings
-from externals import mandrill
+from utils.mailer import send_mail
 
 
 def send_onboarding(user):
     return
     content = {"bimdata_url": settings.APP_URL}
-    mandrill.send_mail("emailing-onboarding", content, [user.to_json()])
+    send_mail("emailing-onboarding", content, [user.to_json()])
 
 
 def send_invitation_accepted(payload):
@@ -20,7 +20,7 @@ def send_invitation_accepted(payload):
             "cloud_name": payload["cloud"]["name"],
             "project_url": f"{settings.APP_URL}/project/{payload['project']['id']}",
         }
-        mandrill.send_mail(
+        send_mail(
             "invitation-du-user-ok", mail_content, [{"email": payload["invitor_email"]}]
         )
     else:
@@ -29,7 +29,7 @@ def send_invitation_accepted(payload):
             "cloud_name": payload["cloud"]["name"],
             "cloud_url": settings.APP_URL,
         }
-        mandrill.send_mail(
+        send_mail(
             "invitation-du-user-ok-cloud",
             invitor_content,
             [{"email": payload["invitor"]["email"]}],
@@ -41,7 +41,7 @@ def send_ifc_ok(payload):
         "ifc_name": payload.get("name"),
         "viewer_url": f"{settings.APP_URL}/cloud/{payload['cloud_id']}/project/{payload['project_id']}/ifc/{payload['id']}/viewer",
     }
-    mandrill.send_mail(
+    send_mail(
         "votre-ifc-t-converti", content, [{"email": payload["creator"]["email"]}]
     )
 
@@ -51,6 +51,6 @@ def send_ifc_ko(payload):
         "ifc_name": payload.get("name"),
         "project_url": f"{settings.APP_URL}/project/{payload['project_id']}",
     }
-    mandrill.send_mail(
+    send_mail(
         "erreur-la-conversion-de-votre-ifc", content, [{"email": payload["creator"]["email"]}]
     )

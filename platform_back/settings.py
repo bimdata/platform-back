@@ -77,7 +77,7 @@ MIDDLEWARE = [
 APPEND_SLASH = False
 
 ROOT_URLCONF = "platform_back.urls"
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -148,9 +148,6 @@ API_URL = os.environ.get("API_URL", "http://localhost:8081")
 APP_URL = os.environ.get("APP_URL", "http://localhost:8080")
 PLATFORM_BACK_URL = os.environ.get("PLATFORM_BACK_URL", "http://127.0.0.1:8082")
 
-MANDRILL_KEY = os.environ.get("MANDRILL_KEY", False)
-MANDRILL_TEST_KEY = os.environ.get("MANDRILL_TEST_KEY", False)
-
 WEBHOOKS_SECRET = os.environ.get("WEBHOOKS_SECRET", "123")
 
 # Internationalization
@@ -181,11 +178,15 @@ REST_FRAMEWORK = {
 # LOGGING EMAIL
 ADMINS = [("infra", "infra@bimdata.io")]
 SERVER_EMAIL = "bug@bimdata.io"
-EMAIL_HOST = "smtp.mandrillapp.com"
-EMAIL_HOST_PASSWORD = os.environ.get("MANDRILL_SMTP_KEY", False)
-EMAIL_HOST_USER = "BIMData.io"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "support@bimdata.io")
+
+EMAIL_HOST = os.environ.get("SMTP_HOST", "smtp.mandrillapp.com")
+EMAIL_HOST_PASSWORD = os.environ.get("SMTP_PASS", os.environ.get("MANDRILL_SMTP_KEY", False))
+EMAIL_HOST_USER = os.environ.get("SMTP_USER", "BIMData.io")
+EMAIL_PORT = os.environ.get("SMTP_PORT", 587)
+EMAIL_USE_TLS = os.environ.get("SMTP_USE_TLS", "True") == "True"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 SWAGGER_SETTINGS = {
     "DEEP_LINKING": True,
