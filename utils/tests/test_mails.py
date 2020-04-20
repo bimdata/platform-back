@@ -1,4 +1,3 @@
-from django.test.utils import override_settings
 from django.core import mail
 from django.test import TestCase
 from utils import mailer
@@ -14,7 +13,6 @@ class EmailTest(TestCase):
         ("votre-ifc-t-converti", {}, "Votre IFC a été converti"),
         ("emailing-onboarding", {}, "Découvrez dès maintenant la plateforme BIMData.io"),
     ])
-    @override_settings(ON_PREMISE=True)
     def test_send_email_invitation_with_django(self, template_name, context, subject_expected):
         # Send message.
         mailer.send_mail(

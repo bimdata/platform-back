@@ -188,11 +188,6 @@ EMAIL_USE_TLS = os.environ.get("SMTP_USE_TLS", "True") == "True"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-MANDRILL_KEY = os.environ.get("MANDRILL_KEY", False)
-MANDRILL_TEST_KEY = os.environ.get("MANDRILL_TEST_KEY", False)
-
-
-
 SWAGGER_SETTINGS = {
     "DEEP_LINKING": True,
     "DEFAULT_AUTO_SCHEMA_CLASS": "utils.doc.CamelCaseOperationIDAutoSchema",
