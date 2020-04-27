@@ -150,6 +150,8 @@ PLATFORM_BACK_URL = os.environ.get("PLATFORM_BACK_URL", "http://127.0.0.1:8082")
 
 WEBHOOKS_SECRET = os.environ.get("WEBHOOKS_SECRET", "123")
 
+REQUESTS_CA_BUNDLE = os.environ.get("REQUESTS_CA_BUNDLE", "")
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 

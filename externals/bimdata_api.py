@@ -11,6 +11,8 @@ class ApiClient:
     def __init__(self, access_token=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
+        if settings.REQUESTS_CA_BUNDLE:
+            self.config.ssl_ca_cert = settings.REQUESTS_CA_BUNDLE
         if access_token:
             # when we have a user access_token
             self.config.access_token = access_token
