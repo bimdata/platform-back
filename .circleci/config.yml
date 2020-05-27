@@ -61,7 +61,9 @@ jobs:
           key: v1-dependencies-{{ checksum "Pipfile.lock" }}
 
   build_and_push:
-    <<: *container_config
+    docker:
+      - image: circleci/python:3.8
+    working_directory: ~/repo
     steps:
       - checkout
       - setup_remote_docker
@@ -93,7 +95,9 @@ jobs:
             fi
 
   deploy:
-    <<: *container_config
+    docker:
+      - image: circleci/python:3.8
+    working_directory: ~/repo
     steps:
       - checkout
       - setup_remote_docker
