@@ -21,6 +21,7 @@ drf-oidc-auth = {ref = "68a962446788ee55909f04daf2896b14820cfbec",git = "git://g
 djangorestframework = "*"
 django-health-check = "*"
 parameterized = "*"
+pyjwkest = "*"
 
 [dev-packages]
 
