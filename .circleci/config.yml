@@ -15,7 +15,7 @@ mapping-var-env: &mapping-var-env
         ;;
       "develop") ENV=staging
         ;;
-      *) ENV=dev_$(echo $CIRCLE_BRANCH | tr "/" "-")
+      *) ENV=dev_$(echo "$CIRCLE_BRANCH" | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
         ;;
     esac
     echo 'export ENV='$ENV >> $BASH_ENV
