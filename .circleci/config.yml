@@ -3,7 +3,8 @@ docker-sign-in: &docker-sign-in
   command: |
     docker login \
       --username $DOCKER_USER \
-      --password $DOCKER_PASS
+      --password $DOCKER_PASS \
+      https://docker-registry.bimdata.io
 
 mapping-var-env: &mapping-var-env
   name: define var with branch
@@ -73,25 +74,25 @@ jobs:
       - run:
           name: backup previous image
           command: |
-            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "bimdata/platform_back:prev-$ENV" > /dev/null; then
-              docker pull "bimdata/platform_back:$ENV"
-              docker image tag "bimdata/platform_back:$ENV" "bimdata/platform_back:prev-$ENV"
-              docker push "bimdata/platform_back:prev-$ENV"
+            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "docker-registry.bimdata.io/bimdata/platform_back:prev-$ENV" > /dev/null; then
+              docker pull "docker-registry.bimdata.io/bimdata/platform_back:$ENV"
+              docker image tag "docker-registry.bimdata.io/bimdata/platform_back:$ENV" "docker-registry.bimdata.io/bimdata/platform_back:prev-$ENV"
+              docker push "docker-registry.bimdata.io/bimdata/platform_back:prev-$ENV"
             fi
       - run:
           name: build docker image
           command: |
             echo $CIRCLE_SHA1 > VERSION
-            docker build --tag "bimdata/platform_back:$ENV" .
+            docker build --tag "docker-registry.bimdata.io/bimdata/platform_back:$ENV" .
       - run:
           name: push new image
-          command: docker push "bimdata/platform_back:$ENV"
+          command: docker push "docker-registry.bimdata.io/bimdata/platform_back:$ENV"
       - run:
           name: push latest tag image
           command: |
             if [[ "$CIRCLE_BRANCH" == "develop" ]]; then
-              docker tag "bimdata/platform_back:$ENV" bimdata/platform_back:latest
-              docker push bimdata/platform_back:latest
+              docker tag "docker-registry.bimdata.io/bimdata/platform_back:$ENV" docker-registry.bimdata.io/bimdata/platform_back:latest
+              docker push docker-registry.bimdata.io/bimdata/platform_back:latest
             fi
 
   deploy:
@@ -99,26 +100,19 @@ jobs:
       - image: circleci/python:3.8
     working_directory: ~/repo
     steps:
-      - checkout
       - setup_remote_docker
       - run: *docker-sign-in
       - run: *mapping-var-env
       - run:
           name: ansible deployment
           command: |
-            docker run -e ANSIBLE_VAULT_PASSWD bimdata/deployment:latest \
+            docker run -e ANSIBLE_VAULT_PASSWD docker-registry.bimdata.io/bimdata/deployment:latest \
               ansible-playbook \
               --inventory-file inventories/$ENV \
               --tags platform_back \
               --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" \
               --user deploy  \
               deploy.yml
-      - run:
-          name: sliding tag gitflow
-          command: |
-            git tag --force $ENV
-            echo -e "Host github.com\n  StrictHostKeyChecking no" >> ~/.ssh/config
-            git push --force origin $ENV
 
 workflows:
   test_and_deploy:
