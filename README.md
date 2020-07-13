@@ -103,4 +103,4 @@ pipenv install
 ## License
 
 You are free to copy, modify, and distribute BIMData Platform Backend under the terms of the LGPL 3.0 license.
-See [the LICENSE file](/blob/develop/LICENSE) for details.
+See [the LICENSE file](LICENSE) for details.
