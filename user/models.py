@@ -9,6 +9,8 @@ from django.contrib.auth.models import AbstractUser
 from externals.bimdata_api import ApiClient
 from django.db import transaction
 from webhooks.utils import register_webhook
+from bimdata_api_client.exceptions import ApiException
+from rest_framework import exceptions
 
 
 class User(AbstractUser):
@@ -57,9 +59,12 @@ class User(AbstractUser):
         username = kwargs.get("sub")
         user = User.objects.create(username=username, **kwargs)
         client = ApiClient(access_token)
-        cloud = client.collaboration_api.create_cloud(
-            data={"name": f"{user.first_name} {user.last_name}"}
-        )
+        try:
+            cloud = client.collaboration_api.create_cloud(
+                data={"name": f"{user.first_name} {user.last_name}"}
+            )
+        except ApiException as err:
+            raise exceptions.AuthenticationFailed(err.body)
         with open("demo_icon.png", "rb") as file:
             demo_icon = ("image", ("demo_icon.png", file))
             response = requests.patch(
