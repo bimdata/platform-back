@@ -18,6 +18,7 @@ import os
 import sys
 import logging
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -189,6 +190,10 @@ EMAIL_PORT = os.environ.get("SMTP_PORT", 587)
 EMAIL_USE_TLS = os.environ.get("SMTP_USE_TLS", "True") == "True"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+FLUENTD_SERVER = os.environ.get("FLUENTD_SERVER", "172.17.0.1")
+FLUENTD_PORT = os.environ.get("FLUENTD_PORT", 24224)
+FLUENTD_TAG = "app.bimdata.platformback"
 
 SWAGGER_SETTINGS = {
     "DEEP_LINKING": True,
