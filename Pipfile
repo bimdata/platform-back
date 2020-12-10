@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==2.2.13"
+django = "==3.1.2"
 "psycopg2" = "*"
 mozilla-django-oidc = "*"
 drf-yasg = "*"
@@ -17,11 +17,12 @@ docutils = "*"
 django-background-tasks = "*"
 bimdata-api-client = ">=2.3.1"
 requests = "*"
-drf-oidc-auth = {ref = "68a962446788ee55909f04daf2896b14820cfbec",git = "git://github.com/ByteInternet/drf-oidc-auth/"}
+drf-oidc-auth = "==0.10.0"
 djangorestframework = "*"
 django-health-check = "*"
 parameterized = "*"
 pyjwkest = "*"
+fluent-logger = "*"
 
 [dev-packages]
 
