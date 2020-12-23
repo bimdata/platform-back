@@ -18,6 +18,6 @@ logger.addHandler(logHandler)
 def log_user_connect(func):
     def wrapper(*args, **kwargs):
         user = func(*args, **kwargs)
-        logger.info({"email": user.email, "action": "connect_to_platform"})
+        logger.info({"email": user.email, "action": "connect_to_platform", "message": f"{user.email} has just logged on to the platform"})
 
     return wrapper
