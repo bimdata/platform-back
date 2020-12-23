@@ -7,7 +7,7 @@ logger.setLevel(level=logging.INFO)
 logHandler = handler.FluentHandler(
     settings.FLUENTD_TAG,
     host=settings.FLUENTD_SERVER,
-    port=settings.FLUENTD_PORT,
+    port=int(settings.FLUENTD_PORT),
     nanosecond_precision=True,
 )
 formatter = handler.FluentRecordFormatter()
