@@ -28,3 +28,18 @@ def log_user_connect(func):
         )
 
     return wrapper
+
+
+def log_user_first_connection(func):
+    def wrapper(*args, **kwargs):
+        user = func(*args, **kwargs)
+        logger.info(
+            {
+                "env": settings.ENV,
+                "email": user.email,
+                "action": "first_connection_to_platform",
+                "message": f"{user.email} has logged on to the platform for the first time",
+            }
+        )
+
+    return wrapper
