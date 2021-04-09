@@ -650,7 +650,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "07806ce721e68352cec3644bc3313c88f86b3937ccdbea0feee3c91c566a50e5"
+content-hash = "cdae2396469fe0ba352aa183dc3d9d15b4b2ec31b62cdf6d08304875847f8d96"
 
 [metadata.files]
 ansimarkup = [
