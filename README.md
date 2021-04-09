@@ -13,8 +13,8 @@ Pre-requisites
 ---------------
 
 You need:
- * Python 3.6 or later
- * PipEnv: [Download pipenv](https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv)
+ * Python 3.9 or later
+ * Poetry: [Download poetry](https://python-poetry.org/docs/#installation)
  * a running database system: we support PostgreSQL only. 
 
     **Note:** Any other DBMS compatible with Django should work, but we don't officially support it.
@@ -31,13 +31,13 @@ Place yourself in the proper directory and type this:
 
 ```
 cd platform-back
-pipenv shell
+poetry shell
 ```
 
-### Install all requirements with pipenv
+### Install all requirements with poetry
 
 ```
-pipenv install
+poetry install
 ```
 
 ##  Configure your environment
@@ -97,7 +97,7 @@ Install `libpq-server` with your packet manager, and re-do the procedure from th
 
 ``` 
 sudo apt install libpq-server
-pipenv install
+poetry install
 ```
 
 ## License

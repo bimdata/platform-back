@@ -1,2 +1,36 @@
-[tool.black]
-line-length = 95
+[tool.poetry]
+name = "platform-back"
+version = "1.0.0"
+description = ""
+authors = ["BIMData Team <infra@bimdata.io>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "==3.1.2"
+psycopg2 = "*"
+mozilla-django-oidc = "*"
+drf-yasg = "*"
+django-filter = "*"
+inflection = "*"
+gunicorn = "*"
+django-nose = "*"
+django-cors-headers = "*"
+docutils = "*"
+django-background-tasks = "*"
+bimdata-api-client = ">=2.3.1"
+requests = "*"
+drf-oidc-auth = "==0.10.0"
+djangorestframework = "*"
+django-health-check = "*"
+parameterized = "*"
+pyjwkest = "*"
+fluent-logger = "*"
+python-dotenv = "^0.17.0"
+django-replicated = {git = "https://github.com/bimdata/django_replicated.git"}
+django-postgres-extra = "^2.0.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

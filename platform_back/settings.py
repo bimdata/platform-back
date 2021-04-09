@@ -17,7 +17,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import sys
 import logging
+from os.path import dirname
+from os.path import join
 
+from dotenv import load_dotenv
+
+load_dotenv(join(dirname(__file__), "../.env"))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -119,6 +124,47 @@ DATABASES = {
         "CONN_MAX_AGE": 600,
     }
 }
+
+if os.environ.get("REPLICA_DB_HOSTS"):
+    from django_replicated.settings import *  # noqa F401,F403
+
+    MIDDLEWARE += ["django_replicated.middleware.ReplicationMiddleware"]
+    DATABASE_ROUTERS = ["django_replicated.router.ReplicationRouter"]
+    REPLICATED_DATABASE_SLAVES = []
+    REPLICATED_DATABASE_DOWNTIME = 60
+
+    r_db_hosts = os.environ.get("REPLICA_DB_HOSTS").split(",")
+    r_db_ports = os.environ.get("REPLICA_DB_PORTS").split(",")
+
+    r_db_names = (
+        names.split(",")
+        if (names := os.environ.get("REPLICA_DB_NAMES"))
+        else [DATABASES["default"]["NAME"]] * len(r_db_hosts)
+    )
+    r_db_users = (
+        users.split(",")
+        if (users := os.environ.get("REPLICA_DB_USERS"))
+        else [DATABASES["default"]["USER"]] * len(r_db_hosts)
+    )
+    r_db_passwords = (
+        passwords.split(",")
+        if (passwords := os.environ.get("REPLICA_DB_PASSWORDS"))
+        else [DATABASES["default"]["PASSWORD"]] * len(r_db_hosts)
+    )
+
+    for i, (host, port, name, user, password) in enumerate(
+        zip(r_db_hosts, r_db_ports, r_db_names, r_db_users, r_db_passwords)
+    ):
+        DATABASES[f"replica_{i}"] = {
+            "ENGINE": "psqlextra.backend",
+            "NAME": name,
+            "USER": user,
+            "PASSWORD": password,
+            "HOST": host,
+            "PORT": port,
+            "CONN_MAX_AGE": 600,
+        }
+        REPLICATED_DATABASE_SLAVES += [f"replica_{i}"]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
