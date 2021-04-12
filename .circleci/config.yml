@@ -26,7 +26,7 @@ version: 2.1
 references:
   container_config: &container_config
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.9
       - image: circleci/postgres:10-alpine
         environment:
           POSTGRES_PASSWORD: "platform_back"
@@ -43,27 +43,25 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Pipfile.lock" }}
-            - v1-dependencies
-
+            - v1-dependencies-{{ checksum "poetry.lock" }}
       - run:
           name: install dependencies
-          command: pipenv sync --dev
-
-      # run tests!
+          command: poetry install
+      - run:
+          name: run migrations test
+          command: poetry run python manage.py migrate
       - run:
           name: run tests
-          command: pipenv run python manage.py test
-
+          command: poetry run python manage.py test
       - save_cache:
           paths:
             - ~/.local
             - ~/.cache
-          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+          key: v1-dependencies-{{ checksum "poetry.lock" }}
 
   build_and_push:
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.9
     working_directory: ~/repo
     steps:
       - checkout
@@ -97,7 +95,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.9
     working_directory: ~/repo
     steps:
       - setup_remote_docker
@@ -118,14 +116,6 @@ workflows:
   test_and_deploy:
     jobs:
       - test
-      - deploy_docker_dev:
-          type: approval
-          filters:
-            branches:
-              ignore:
-                - master
-                - release
-                - develop
       - build_and_push:
           requires:
             - test
@@ -138,7 +128,3 @@ workflows:
       - deploy:
           requires:
             - build_and_push
-      - build_and_push:
-          name: build_and_push_docker_dev
-          requires:
-            - deploy_docker_dev

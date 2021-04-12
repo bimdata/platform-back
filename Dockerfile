@@ -1,8 +1,15 @@
-FROM python:3.8
+FROM python:3.9
+
 ENV PYTHONUNBUFFERED 1
-RUN pip3 install pipenv
+ENV POETRY_VERSION="1.1.3"
+
+RUN wget -O get-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py && \
+    python get-poetry.py --version ${POETRY_VERSION} -y && \
+    rm get-poetry.py
+ENV PATH="/root/.poetry/bin:${PATH}"
 WORKDIR /opt
-ADD Pipfile /opt
-ADD Pipfile.lock /opt
-RUN pipenv install --deploy --system
+
+RUN poetry config virtualenvs.create false
+COPY poetry.lock pyproject.toml /opt/
+RUN poetry install --no-dev --no-root
 COPY ./ /opt
