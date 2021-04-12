@@ -119,14 +119,14 @@ test = ["pytest (>=6.0)", "pytest-cov", "pytest-subtests", "pytest-xdist", "pret
 
 [[package]]
 name = "django"
-version = "3.1.2"
+version = "3.1.8"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-asgiref = ">=3.2.10,<3.3.0"
+asgiref = ">=3.2.10,<4"
 pytz = "*"
 sqlparse = ">=0.2.2"
 
@@ -650,7 +650,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "cdae2396469fe0ba352aa183dc3d9d15b4b2ec31b62cdf6d08304875847f8d96"
+content-hash = "88fd771f3b700a5d81aafe7e5ed504fcf503b77ba405bca63781089d6b15ca74"
 
 [metadata.files]
 ansimarkup = [
@@ -739,8 +739,8 @@ cryptography = [
     {file = "cryptography-3.4.7.tar.gz", hash = "sha256:3d10de8116d25649631977cb37da6cbdd2d6fa0e0281d014a5b7d337255ca713"},
 ]
 django = [
-    {file = "Django-3.1.2-py3-none-any.whl", hash = "sha256:c93c28ccf1d094cbd00d860e83128a39e45d2c571d3b54361713aaaf9a94cac4"},
-    {file = "Django-3.1.2.tar.gz", hash = "sha256:a2127ad0150ec6966655bedf15dbbff9697cc86d61653db2da1afa506c0b04cc"},
+    {file = "Django-3.1.8-py3-none-any.whl", hash = "sha256:c348b3ddc452bf4b62361f0752f71a339140c777ebea3cdaaaa8fdb7f417a862"},
+    {file = "Django-3.1.8.tar.gz", hash = "sha256:f8393103e15ec2d2d313ccbb95a3f1da092f9f58d74ac1c61ca2ac0436ae1eac"},
 ]
 django-background-tasks = [
     {file = "django-background-tasks-1.2.5.tar.gz", hash = "sha256:e1b19e8d495a276c9d64c5a1ff8b41132f75d2f58e45be71b78650dad59af9de"},
