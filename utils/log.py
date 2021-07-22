@@ -26,6 +26,7 @@ def log_user_connect(func):
                 "message": f"{user.email} has just logged on to the platform",
             }
         )
+        return user
 
     return wrapper
 
@@ -41,5 +42,6 @@ def log_user_first_connection(func):
                 "message": f"{user.email} has logged on to the platform for the first time",
             }
         )
+        return user
 
     return wrapper
