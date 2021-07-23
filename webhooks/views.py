@@ -16,10 +16,7 @@ class WebHookHandler(APIView):
     authentication_classes = tuple()
 
     def post(self, request, format=None):
-        if not request.META.get("headers"):
-            raise ValidationError(detail={"x-bimdata-signature": "Header required"})
-
-        req_signature = request.META.get("headers").get("x-bimdata-signature")
+        req_signature = request.META.get("HTTP_X_BIMDATA_SIGNATURE")
         if not req_signature:
             raise ValidationError(detail={"x-bimdata-signature": "Header required"})
 
@@ -27,7 +24,9 @@ class WebHookHandler(APIView):
             settings.WEBHOOKS_SECRET.encode(), request.body, hashlib.sha256
         ).hexdigest()
         if not hmac.compare_digest(req_signature, body_signature):
-            raise ValidationError(detail={"x-bimdata-signature": "Bad request signature"})
+            raise ValidationError(
+                detail={"x-bimdata-signature": "Bad request signature"}
+            )
 
         route_webhook(request.data)
         return Response(status=status.HTTP_204_NO_CONTENT)

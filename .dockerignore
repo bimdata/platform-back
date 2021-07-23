@@ -1,3 +1,6 @@
-.git/
-__pycache__/
-.circleci/
+.*
+
+**/__pycache__/
+**.pyc
+
+Dockerfile

@@ -17,7 +17,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
 from user import views
 from webhooks.views import WebHookHandler
@@ -25,10 +25,24 @@ from webhooks.views import WebHookHandler
 app_name = "platform_back"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("create_or_update_user/", views.create_or_update_user, name="create_or_update_user"),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
     path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
     path("health/", include("health_check.urls")),
 ]
+
+if settings.ADMIN_INTERFACE == "True":
+    from django.contrib import admin
+
+    urlpatterns += [
+        path("grappelli/", include("grappelli.urls")),
+        path("admin/", admin.site.urls, name="admin"),
+        path("admin/doc/", include("django.contrib.admindocs.urls")),
+    ]
+
+if "development" in settings.ENV:
+    import debug_toolbar
+    from django.conf.urls.static import static
+
+    urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
