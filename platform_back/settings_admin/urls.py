@@ -1,1 +1,1 @@
-ROOT_URLCONF = "bimdata.urls_admin"
+ROOT_URLCONF = "platform_back.urls_admin"
