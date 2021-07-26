@@ -8,7 +8,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from externals.bimdata_api import ApiClient
 from django.db import transaction
-from webhooks.utils import register_webhook
 
 
 class User(AbstractUser):
@@ -69,7 +68,6 @@ class User(AbstractUser):
             )
         response.raise_for_status()
 
-        register_webhook(cloud.id, access_token)
         demo = client.collaboration_api.create_demo(id=cloud.id)
         user.demo_cloud = cloud.id
         user.demo_project = demo.id
