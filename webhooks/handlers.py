@@ -20,7 +20,7 @@ def handler_ifc_process_update(payload):
     if data.get("status") == "C" or data.get("status") == "E":
         try:
             ifc_mail = IfcMail.objects.get(
-                user__sub=data["creator"]["oidc_sub"], ifc_id=data["id"]
+                user__sub=data["creator"]["sub"], ifc_id=data["id"]
             )
             if data.get("status") == "C" and ifc_mail.last_sent == IfcMail.MAIL_ERRORED:
                 ifc_mail.last_sent = IfcMail.MAIL_SUCCESS
@@ -28,7 +28,7 @@ def handler_ifc_process_update(payload):
                 mails.send_ifc_ok(data)
 
         except IfcMail.DoesNotExist:
-            user = User.objects.get(sub=data["creator"]["oidc_sub"])
+            user = User.objects.get(sub=data["creator"]["sub"])
             ifc_mail = IfcMail(ifc_id=data["id"], user=user)
 
             if data.get("status") == "C":
