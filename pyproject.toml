@@ -6,7 +6,7 @@ authors = ["BIMData Team <infra@bimdata.io>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-django = {extras = ["argon2"], version = "3.1.5"}
+django = {extras = ["argon2"], version = "3.1.12"}
 psycopg2 = "^2.8.6"
 mozilla-django-oidc = "^1.2.4"
 drf-yasg = "^1.20.0"
