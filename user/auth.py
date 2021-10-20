@@ -51,6 +51,10 @@ def get_user_by_id(request, id_token):
                 user.save()
                 return user
             except User.DoesNotExist:
-                return create_user(request, id_token)
+                user = create_user(request, id_token)
+                setattr(request, 'user_created', True)
+                return user
         else:
-            return create_user(request, id_token)
+            user = create_user(request, id_token)
+            setattr(request, 'user_created', True)
+            return user
