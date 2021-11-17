@@ -11,20 +11,18 @@ class ApiClient:
     def __init__(self, access_token=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
-        if settings.REQUESTS_CA_BUNDLE:
-            self.config.ssl_ca_cert = settings.REQUESTS_CA_BUNDLE
         if access_token:
             # when we have a user access_token
             self.config.access_token = access_token
         else:
             token_payload = {
-                "client_id": settings.OIDC_RP_CLIENT_ID,
-                "client_secret": settings.OIDC_RP_CLIENT_SECRET,
+                "client_id": settings.IAM_CLIENT_ID,
+                "client_secret": settings.IAM_CLIENT_SECRET,
                 "grant_type": "client_credentials",
             }
 
             # Get the token
-            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
+            response = requests.post(settings.IAM_OP_TOKEN_ENDPOINT, data=token_payload)
             response.raise_for_status()
             self.config.access_token = response.json().get("access_token")
 

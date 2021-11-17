@@ -31,7 +31,7 @@ urlpatterns = [
     path("health/", include("health_check.urls")),
 ]
 
-if settings.ADMIN_INTERFACE == "True":
+if settings.ADMIN_INTERFACE:
     from django.contrib import admin
 
     urlpatterns += [
@@ -45,4 +45,3 @@ if "development" in settings.ENV:
     from django.conf.urls.static import static
 
     urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

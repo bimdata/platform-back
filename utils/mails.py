@@ -8,7 +8,7 @@ from utils.mailer import send_mail
 
 def send_onboarding(user):
     return
-    content = {"bimdata_url": settings.APP_URL}
+    content = {"bimdata_url": settings.PLATFORM_URL}
     send_mail("emailing-onboarding", content, [user.to_json()])
 
 
@@ -18,7 +18,7 @@ def send_invitation_accepted(payload):
             "user_name": f"{payload['user']['firstname']} {payload['user']['lastname']}",
             "project_name": payload["project"]["name"],
             "cloud_name": payload["cloud"]["name"],
-            "project_url": f"{settings.APP_URL}/spaces/{payload['cloud']['id']}/projects/{payload['project']['id']}",
+            "project_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud']['id']}/projects/{payload['project']['id']}",
         }
         send_mail(
             "invitation-du-user-ok", mail_content, [{"email": payload["invitor_email"]}]
@@ -27,7 +27,7 @@ def send_invitation_accepted(payload):
         invitor_content = {
             "user_name": f"{payload['user']['firstname']} {payload['user']['lastname']}",
             "cloud_name": payload["cloud"]["name"],
-            "cloud_url": f"{settings.APP_URL}/spaces/{payload['cloud']['id']}",
+            "cloud_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud']['id']}",
         }
         send_mail(
             "invitation-du-user-ok-cloud",
@@ -39,7 +39,7 @@ def send_invitation_accepted(payload):
 def send_ifc_ok(payload):
     content = {
         "ifc_name": payload.get("name"),
-        "viewer_url": f"{settings.APP_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}/viewer/{payload['id']}",
+        "viewer_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}/viewer/{payload['id']}",
     }
     send_mail(
         "votre-ifc-t-converti", content, [{"email": payload["creator"]["email"]}]
@@ -49,7 +49,7 @@ def send_ifc_ok(payload):
 def send_ifc_ko(payload):
     content = {
         "ifc_name": payload.get("name"),
-        "project_url": f"{settings.APP_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}",
+        "project_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}",
     }
     send_mail(
         "erreur-la-conversion-de-votre-ifc", content, [{"email": payload["creator"]["email"]}]
