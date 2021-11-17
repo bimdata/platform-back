@@ -1,6 +1,7 @@
 import logging
 import sys
-from os import environ
+
+from platform_back.settings.environ import env
 
 CONSOLE_LOG_LEVEL = logging.INFO
 
@@ -47,6 +48,10 @@ LOGGING = {
     },
 }
 
-FLUENTD_SERVER = environ.get("FLUENTD_SERVER", "172.17.0.1")
-FLUENTD_PORT = environ.get("FLUENTD_PORT", 24224)
-FLUENTD_TAG = "app.bimdata.platformback"
+FLUENTD_ENABLED = env.bool("FLUENTD_ENABLED", default=False)
+
+if FLUENTD_ENABLED:
+    FLUENTD_SERVER = env("FLUENTD_SERVER")
+    FLUENTD_PORT = env.int("FLUENTD_PORT")
+    FLUENTD_TAG = env("FLUENTD_TAG")
+

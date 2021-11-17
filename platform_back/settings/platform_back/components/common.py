@@ -1,28 +1,23 @@
-from os import environ
-
 from corsheaders.defaults import default_headers
-from platform_back.settings_base.components import BASE_DIR
+
+from platform_back.settings.environ import BASE_DIR
+from platform_back.settings.environ import env
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-ENV = environ.get("ENV", "development")
-ADMIN_INTERFACE = environ.get("ADMIN_INTERFACE", "True")
+DEBUG = env.bool("DEBUG", False)
+SECRET_KEY = env("SECRET_KEY", default="SET_DEVELOPMENT_DJANGO_SECRET_KEY")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get("SECRET_KEY", "7rvr*q1&_eqcetu^2x#2q+4&g8(&n&6*68+6xd#mxqs^6-u2rp")
+API_URL = env("API_URL", default="")
+PLATFORM_URL = env("PLATFORM_URL", default="")
+PLATFORM_BACK_URL = env("PLATFORM_BACK_URL", default="")
 
-API_URL = environ.get("API_URL", "http://localhost:8081")
-APP_URL = environ.get("APP_URL", "http://localhost:8080")
-PLATFORM_BACK_URL = environ.get("PLATFORM_BACK_URL", "http://127.0.0.1:8082")
-
-WEBHOOKS_SECRET = environ.get("WEBHOOKS_SECRET", "123")
-
-REQUESTS_CA_BUNDLE = environ.get("REQUESTS_CA_BUNDLE", "")
-
-if environ.get("ALLOWED_HOSTS"):
-    ALLOWED_HOSTS = environ.get("ALLOWED_HOSTS").split(",")
+WEBHOOKS_SECRET = env("WEBHOOKS_SECRET", default="")
+REQUESTS_CA_BUNDLE = env("REQUESTS_CA_BUNDLE", default="")
+MASTER_TOKEN = env("MASTER_TOKEN", default="")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
 INSTALLED_APPS = [
@@ -35,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     "psqlextra",
@@ -43,6 +39,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -64,6 +61,7 @@ WSGI_APPLICATION = "platform_back.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = "/static/"
 STATIC_ROOT = "statics"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 TEMPLATES = [
@@ -129,25 +127,3 @@ USE_L10N = True
 USE_TZ = True
 
 APPEND_SLASH = False
-
-SWAGGER_SETTINGS = {
-    "DEEP_LINKING": True,
-    "DEFAULT_AUTO_SCHEMA_CLASS": "utils.doc.CamelCaseOperationIDAutoSchema",
-    "DEFAULT_FILTER_INSPECTORS": ["utils.filters.DjangoFilterDescriptionInspector"],
-    "DOC_EXPANSION": "none",
-    "OPERATIONS_SORTER": "alpha",
-    "TAGS_SORTER": "alpha",
-    "SECURITY_DEFINITIONS": {
-        "Bearer": {
-            "type": "apiKey",
-            "description": 'Copy/paste a valid access token here prefixed with "Bearer "',
-            "name": "Authorization",
-            "in": "header",
-        }
-    },
-    "USE_SESSION_AUTH": False,
-    "DEFAULT_INFO": "utils.doc.API_INFO",
-    "DEFAULT_API_URL": "https://api.bimdata.io/doc",
-}
-
-MASTER_TOKEN = environ.get("MASTER_TOKEN", "123")

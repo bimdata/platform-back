@@ -24,13 +24,13 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       - name: Run tests
-        run: poetry run python manage.py test
+        run: poetry run pytest
         env: 
-          DB_HOST: postgres
-          DB_PORT: 5432
-          DB_NAME: ${{ github.run_id }}
-          DB_USER: bimdata
-          DB_PASSWORD: bimdata
+          TEST_DB_HOST: postgres
+          TEST_DB_PORT: 5432
+          TEST_DB_NAME: ${{ github.run_id }}
+          TEST_DB_USER: bimdata
+          TEST_DB_PASSWORD: bimdata
 
   build-and-push:
     runs-on: self-hosted

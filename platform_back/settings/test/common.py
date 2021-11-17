@@ -1,8 +1,11 @@
 import logging
 
+TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+
 PASSWORD_HASHERS = (
     "django.contrib.auth.hashers.MD5PasswordHasher",  # Replace hasher with a simpler and faster hash method
 )
+ENV = "test"
 DEBUG = False
 TESTING = True
 ADMIN_INTERFACE = False
@@ -18,13 +21,8 @@ class DisableMigrations(object):
 
 
 MIGRATION_MODULES = DisableMigrations()  # Disable migrations during tests
-MEDIA_ROOT = "/tmp/django-tests"
-MEDIA_URL = "/media/"
 
 logging.disable(logging.INFO)
 
 # Use default logger during tests
 LOGGING = None
-
-
-DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"

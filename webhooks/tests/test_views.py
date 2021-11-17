@@ -19,15 +19,15 @@ class TestWebHooks(APITestCase):
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    @override_settings(WEBHOOKS_SECRET="123".encode())
+    @override_settings(WEBHOOKS_SECRET="123")
     def test_bad_signature(self):
         url = reverse("webhook-handler")
 
-        response = self.client.post(url, data={}, headers={"x-bimdata-signature": "456"})
+        response = self.client.post(url, data={}, HTTP_X_BIMDATA_SIGNATURE="456")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    @override_settings(WEBHOOKS_SECRET="123".encode())
+    @override_settings(WEBHOOKS_SECRET="123")
     def test_good_signature(self):
         url = reverse("webhook-handler")
 
@@ -38,7 +38,7 @@ class TestWebHooks(APITestCase):
         response = self.client.post(
             url,
             data=data_encoded,
-            headers={"x-bimdata-signature": signature},
+            HTTP_X_BIMDATA_SIGNATURE=signature,
             content_type="application/json",
         )
         assert response.status_code == status.HTTP_204_NO_CONTENT

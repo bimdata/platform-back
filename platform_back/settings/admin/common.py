@@ -1,7 +1,15 @@
-from platform_back.settings_base.components.common import ENV
-from platform_back.settings_base.components.common import INSTALLED_APPS
-from platform_back.settings_base.components.common import MIDDLEWARE
-from platform_back.settings_base.components.common import TEMPLATES
+# flake8: noqa E402
+import sys
+
+from platform_back.settings.environ import env
+
+sys.path.append("platform_back/settings/platform_back/")
+
+from components.common import INSTALLED_APPS
+from components.common import MIDDLEWARE
+from components.common import TEMPLATES
+
+ENV = env("ENV")
 
 if "development" in ENV:
     ENV_COLOR = "grey"

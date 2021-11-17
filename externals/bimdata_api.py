@@ -18,13 +18,13 @@ class ApiClient:
             self.config.access_token = access_token
         else:
             token_payload = {
-                "client_id": settings.OIDC_RP_CLIENT_ID,
-                "client_secret": settings.OIDC_RP_CLIENT_SECRET,
+                "client_id": settings.IAM_CLIENT_ID,
+                "client_secret": settings.IAM_CLIENT_SECRET,
                 "grant_type": "client_credentials",
             }
 
             # Get the token
-            response = requests.post(settings.OIDC_OP_TOKEN_ENDPOINT, data=token_payload)
+            response = requests.post(settings.IAM_OP_TOKEN_ENDPOINT, data=token_payload)
             response.raise_for_status()
             self.config.access_token = response.json().get("access_token")
 
