@@ -3,16 +3,18 @@ from django.conf import settings
 from fluent import handler
 
 logger = logging.getLogger("platformback")
-logger.setLevel(level=logging.INFO)
-logHandler = handler.FluentHandler(
-    settings.FLUENTD_TAG,
-    host=settings.FLUENTD_SERVER,
-    port=int(settings.FLUENTD_PORT),
-    nanosecond_precision=True,
-)
-formatter = handler.FluentRecordFormatter()
-logHandler.setFormatter(formatter)
-logger.addHandler(logHandler)
+
+if settings.FLUENTD_ENABLED:
+    logger.setLevel(level=logging.INFO)
+    logHandler = handler.FluentHandler(
+        settings.FLUENTD_TAG,
+        host=settings.FLUENTD_SERVER,
+        port=int(settings.FLUENTD_PORT),
+        nanosecond_precision=True,
+    )
+    formatter = handler.FluentRecordFormatter()
+    logHandler.setFormatter(formatter)
+    logger.addHandler(logHandler)
 
 
 def log_user_connect(func):
