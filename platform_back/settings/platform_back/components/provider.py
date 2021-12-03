@@ -4,9 +4,6 @@ IAM_URL = env("IAM_URL") + "/auth/realms/bimdata"
 
 IAM_OP_TOKEN_ENDPOINT = f"{IAM_URL}/protocol/openid-connect/token"
 
-IAM_CLIENT_ID = env("IAM_CLIENT_ID")
-IAM_CLIENT_SECRET = env("IAM_CLIENT_SECRET")
-
 OIDC_AUTH = {
     # Specify OpenID Connect endpoint. Configuration will be
     # automatically done based on the discovery document found
