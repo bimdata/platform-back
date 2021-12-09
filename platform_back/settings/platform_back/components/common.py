@@ -52,6 +52,7 @@ CORS_ALLOW_HEADERS = default_headers + ("Content-Encoding",)
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+SSL_CERT_FILE = env("SSL_CERT_FILE", default=None)
 
 ROOT_URLCONF = "platform_back.urls"
 WSGI_APPLICATION = "platform_back.wsgi.application"
