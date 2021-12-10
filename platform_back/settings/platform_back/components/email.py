@@ -2,7 +2,7 @@ from platform_back.settings.environ import env
 
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="support@bimdata.io")
 
-SERVER_EMAIL = "bug@bimdata.io"
+SERVER_EMAIL = env("DEBUG_MAIL_TO", default="bug@bimdata.io")
 
 if EMAIL_HOST := env("SMTP_HOST", default=None):
     EMAIL_PORT = env("SMTP_PORT")
