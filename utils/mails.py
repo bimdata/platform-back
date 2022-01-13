@@ -4,12 +4,18 @@
 # file that was distributed with this source code.
 from django.conf import settings
 from utils.mailer import send_mail
+from smtplib import SMTPException
 
 
 def send_onboarding(user):
-    return
-    content = {"bimdata_url": settings.PLATFORM_URL}
-    send_mail("emailing-onboarding", content, [user.to_json()])
+    try:
+        content = {
+            "bimdata_url": settings.PLATFORM_URL,
+            "user_name": user.first_name
+        }
+        send_mail("mailing-welcome", content, [user.to_json()])
+    except BaseException as e:
+        print('[ERROR] An error occurred while sending welcome email: ', e)
 
 
 def send_invitation_accepted(payload):

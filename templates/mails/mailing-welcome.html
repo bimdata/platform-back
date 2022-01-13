@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- fix WINDOWS PHONE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- google WEBFONT : Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+
+    <title>newsletter - BIMData</title>
+
+    <style type="text/css">
+      @media only screen and (max-width: 360px) {
+        table[class="container_table"] {
+          width: 320px;
+        }
+        table[class="container_table-inner"] {
+          width: 300px;
+        }
+
+        /*  */
+        td[class="td_hidden"] {
+          display: none;
+        }
+        td[class="td_block-center"] {
+          margin: auto;
+          display: block;
+        }
+        td[class="td_text"] {
+          display: block;
+          width: 260px;
+          padding: 0 20px;
+        }
+        td[class="td_img"] {
+          display: block;
+          width: 300px;
+          /* padding: 0 20px; */
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    bgcolor="#ffffff"
+    leftmargin="0"
+    rightmargin="0"
+    topmargin="0"
+    bottommargin="0"
+    alink="#2F374A"
+    vlink="#2F374A"
+    link="#2F374A"
+  >
+    <!-- LINE ==================================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#F8C62C"
+      align="center"
+      width="640"
+      height="8"
+      style="border-collapse: collapse; display: block"
+      class="container_table"
+    >
+      <tr height="8">
+        <td height="8">&nbsp;</td>
+      </tr>
+    </table>
+
+    <!-- HEADER ==================================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#ffffff"
+      align="center"
+      width="640"
+      style="border-collapse: collapse"
+      class="container_table"
+    >
+      <tr>
+        <td height="38">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">
+          <img
+            src="https://statics.bimdata.io/mails/img/platform/bimdata_logo-platform.png"
+            width="166px"
+            height="57px"
+            style="display: block"
+            border="0"
+            alt="BIMData logo"
+            title="BIMData logo"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td height="38">&nbsp;</td>
+      </tr>
+    </table>
+
+    <!-- CONTENT ============================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#F7F7F7"
+      align="center"
+      width="640"
+      style="border-collapse: collapse"
+      class="container_table"
+    >
+      <tr>
+        <td height="50">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="60" class="td_hidden">&nbsp;</td>
+        <td align="center" class="td_block-center" width="300">
+          <strong
+            style="
+              font-family: Arial, sans-serif;
+              color: #2f374a;
+              font-size: 24px;
+              line-height: 27.5px;
+            "
+          >
+            Nous sommes heureux de vous accueillir sur BIMData.io, {{user_name}}
+          </strong>
+        </td>
+        <td width="60" class="td_hidden">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="20" colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="60" class="td_hidden">&nbsp;</td>
+        <td align="center" class="td_block-center" width="300">
+          <span
+            style="
+              font-family: Arial, sans-serif;
+              color: #2f374a;
+              font-size: 14px;
+              line-height: 22px;
+            "
+          >
+            Bienvenue sur la plateforme BIMData.io.<br />
+            Collaborez, g&eacute;rez et priorisez votre travail, partout et &agrave; tout moment.<br />
+            Vous &ecirc;tes pr&ecirc;t ? Allons-y !
+          </span>
+        </td>
+        <td width="60" class="td_hidden">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="35" class="">&nbsp;</td>
+      </tr>
+      <!-- BLOC BTN ============================== -->
+      <tr>
+        <td colspan="3">
+          <table
+            align="center"
+            width="230"
+            bgcolor="#2f374a"
+            border="0"
+            style="border-collapse: collapse"
+          >
+            <tr>
+              <td align="center" height="60" width="230">
+                <strong>
+                  <a
+                    href="{{ accept_url }}"
+                    style="
+                      font-family: Arial, sans-serif;
+                      color: #fff;
+                      font-size: 16px;
+                      line-height: 21px;
+                      text-decoration: none;
+                    "
+                  >
+                    Acc&eacute;der &agrave; votre compte
+                  </a>
+                </strong>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <!-- BLOC IMG ============================== -->
+      <tr>
+        <td align="center" colspan="3" class="td_img">
+          <img
+            src="https://statics.bimdata.io/mails/img/platform/mailing-welcome_platform-bimdata.png"
+            width="320px"
+            height="182px"
+            style="display: block"
+            border="0"
+            alt="BIMData Platform"
+            title="BIMData Platform"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <!-- BLOC TEXT ============================== -->
+      <tr>
+        <td width="60" class="td_hidden">&nbsp;</td>
+        <td align="center" class="td_block-center" width="300">
+          <strong
+            style="
+              font-family: Arial, sans-serif;
+              color: #2f374a;
+              font-size: 24px;
+              line-height: 30px;
+            "
+          >
+            Bravo ! Vous rejoignez <br />
+            plus de 100 000 utilisateurs !
+          </strong>
+        </td>
+        <td width="60" class="td_hidden">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="60" class="td_hidden">&nbsp;</td>
+        <td align="center" class="td_block-center" width="300">
+          <span
+            style="
+              font-family: Arial, sans-serif;
+              color: #2f374a;
+              font-size: 14px;
+              line-height: 22px;
+            "
+          >
+            Des &eacute;quipes de toutes tailles utilisent BIMData.io pour &eacute;changer et garder leurs
+            collaborateurs synchronis&eacute;s.
+          </span>
+        </td>
+        <td width="60" class="td_hidden">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <!-- BLOC LIST ============================== -->
+      <tr>
+        <td colspan="3">
+          <table align="center" width="486" border="0" style="border-collapse: collapse" class="container_table-inner">
+            <tr>
+              <td width="110" valign="top">
+                <img
+                  src="https://statics.bimdata.io/mails/img/platform/mailing-welcome_collaboration.png"
+                  width="52px"
+                  height="52px"
+                  style="display: block"
+                  border="0"
+                  alt="BIMData Platform - COLLABORATION"
+                  title="BIMData Platform - COLLABORATION"
+                />
+              </td>
+              <td width="376">
+                <span
+                  style="
+                    font-family: Arial, sans-serif;
+                    color: #2f374a;
+                    font-size: 14px;
+                    line-height: 22px;
+                  "
+                >
+                  <strong>La collaboration au c&oelig;ur de vos projets</strong><br />
+                  Cr&eacute;ez, g&eacute;rez et faites &eacute;voluer facilement votre travail sur une seule plateforme.
+                  Collaborez sur un seul espace de travail virtuel partag&eacute;.
+                </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <!-- BLOC LIST ============================== -->
+      <tr>
+        <td colspan="3">
+          <table align="center" width="486" border="0" style="border-collapse: collapse" class="container_table-inner">
+            <tr>
+              <td width="110" valign="top">
+                <img
+                  src="https://statics.bimdata.io/mails/img/platform/mailing-welcome_viewer.png"
+                  width="52px"
+                  height="52px"
+                  style="display: block"
+                  border="0"
+                  alt="BIMData Platform - VIEWER"
+                  title="BIMData Platform - VIEWER"
+                />
+              </td>
+              <td width="376">
+                <span
+                  style="
+                    font-family: Arial, sans-serif;
+                    color: #2f374a;
+                    font-size: 14px;
+                    line-height: 22px;
+                  "
+                >
+                  <strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br />
+                  BIMData Viewer, et ses outils de mesures et coupes, est automatiquement int&eacute;gr&eacute; &agrave; la plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click seulement.
+                </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <!-- BLOC LIST ============================== -->
+      <tr>
+        <td colspan="3">
+          <table align="center" width="486" border="0" style="border-collapse: collapse" class="container_table-inner">
+            <tr>
+              <td width="110" valign="top">
+                <img
+                  src="https://statics.bimdata.io/mails/img/platform/mailing-welcome_ged.png"
+                  width="52px"
+                  height="52px"
+                  style="display: block"
+                  border="0"
+                  alt="BIMData Platform - GED"
+                  title="BIMData Platform - GED"
+                />
+              </td>
+              <td width="376">
+                <span
+                  style="
+                    font-family: Arial, sans-serif;
+                    color: #2f374a;
+                    font-size: 14px;
+                    line-height: 22px;
+                  "
+                >
+                  <strong>Priorisez et caract&eacute;risez vos donn&eacute;es</strong><br />
+                  La Gestion Electronique des Documents (GED) vous permet de suivre, g&eacute;rer et
+                  caract&eacute;riser les informations de vos projets en cours. V&eacute;ritable outil de
+                  collaboration et gestion de projet, la GED vous permet de prioriser et
+                  caract&eacute;riser les donn&eacute;es afin de mieux les interpr&eacute;ter.
+                </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="30" colspan="3">&nbsp;</td>
+      </tr>
+      <!-- BLOC BTN ============================== -->
+      <tr>
+        <td colspan="3">
+          <table
+            align="center"
+            width="230"
+            bgcolor="#2f374a"
+            border="0"
+            style="border-collapse: collapse"
+          >
+            <tr>
+              <td align="center" height="60" width="230">
+                <strong>
+                  <a
+                    href="{{ accept_url }}"
+                    style="
+                      font-family: Arial, sans-serif;
+                      color: #fff;
+                      font-size: 16px;
+                      line-height: 21px;
+                      text-decoration: none;
+                    "
+                  >
+                    Acc&eacute;der &agrave; votre compte
+                  </a>
+                </strong>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="48" colspan="3">&nbsp;</td>
+      </tr>
+    </table>
+    <!-- HEADER ==================================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#ffffff"
+      align="center"
+      width="640"
+      style="border-collapse: collapse"
+      class="container_table"
+    >
+      <tr>
+        <td height="60">&nbsp;</td>
+      </tr>
+      <tr>
+    </table>
+  </body>
+</html>
