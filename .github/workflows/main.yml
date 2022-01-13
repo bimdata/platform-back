@@ -20,7 +20,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install python3.9-dev libpq-dev -y
       - name: Install poetry
-        uses: snok/install-poetry@v1.1.2   
+        uses: snok/install-poetry@v1.3.0
       - name: Install library
         run: poetry install --no-interaction
       - name: Run tests
