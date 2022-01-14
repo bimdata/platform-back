@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,7 +12,7 @@
     <!-- google WEBFONT : Roboto -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
 
-    <title>newsletter - BIMData</title>
+    <title>{% trans "Bienvenue chez BIMData !" %}</title>
 
     <style type="text/css">
       @media only screen and (max-width: 360px) {
@@ -20,8 +22,6 @@
         table[class="container_table-inner"] {
           width: 300px;
         }
-
-        /*  */
         td[class="td_hidden"] {
           display: none;
         }
@@ -37,7 +37,6 @@
         td[class="td_img"] {
           display: block;
           width: 300px;
-          /* padding: 0 20px; */
         }
       }
     </style>
@@ -127,7 +126,9 @@
               line-height: 27.5px;
             "
           >
-            Nous sommes heureux de vous accueillir sur BIMData.io, {{user_name}}
+            {% blocktrans %}
+              Nous sommes heureux de vous accueillir sur BIMData.io, {{user_name}}
+            {% endblocktrans %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -146,9 +147,11 @@
               line-height: 22px;
             "
           >
-            Bienvenue sur la plateforme BIMData.io.<br />
-            Collaborez, g&eacute;rez et priorisez votre travail, partout et &agrave; tout moment.<br />
-            Vous &ecirc;tes pr&ecirc;t ? Allons-y !
+            {% trans
+              "Bienvenue sur la plateforme BIMData.io.<br />
+              Collaborez, gérez et priorisez votre travail, partout et à tout moment.<br />
+              Vous êtes prêt ? Allons-y !"
+            %}
           </span>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -179,7 +182,7 @@
                       text-decoration: none;
                     "
                   >
-                    Acc&eacute;der &agrave; votre compte
+                    {% trans "Accéder à votre compte %}
                   </a>
                 </strong>
               </td>
@@ -219,8 +222,10 @@
               line-height: 30px;
             "
           >
-            Bravo ! Vous rejoignez <br />
-            plus de 100 000 utilisateurs !
+            {% trans
+              "Bravo ! Vous rejoignez <br />
+              plus de 100 000 utilisateurs !"
+            %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -239,8 +244,10 @@
               line-height: 22px;
             "
           >
-            Des &eacute;quipes de toutes tailles utilisent BIMData.io pour &eacute;changer et garder leurs
-            collaborateurs synchronis&eacute;s.
+            {% trans
+              "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder leurs
+              collaborateurs synchronisés."
+            %}
           </span>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -273,9 +280,11 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>La collaboration au c&oelig;ur de vos projets</strong><br />
-                  Cr&eacute;ez, g&eacute;rez et faites &eacute;voluer facilement votre travail sur une seule plateforme.
-                  Collaborez sur un seul espace de travail virtuel partag&eacute;.
+                  {% trans
+                    "<strong>La collaboration au cœur de vos projets</strong><br />
+                    Créez, gérez et faites évoluer facilement votre travail sur une seule plateforme.
+                    Collaborez sur un seul espace de travail virtuel partagé."
+                  %}
                 </span>
               </td>
             </tr>
@@ -310,8 +319,11 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br />
-                  BIMData Viewer, et ses outils de mesures et coupes, est automatiquement int&eacute;gr&eacute; &agrave; la plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click seulement.
+                  {% trans
+                    "<strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br />
+                    BIMData Viewer, et ses outils de mesures et coupes, est automatiquement 
+                    intégré à la plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click seulement."
+                  %}
                 </span>
               </td>
             </tr>
@@ -346,11 +358,13 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Priorisez et caract&eacute;risez vos donn&eacute;es</strong><br />
-                  La Gestion Electronique des Documents (GED) vous permet de suivre, g&eacute;rer et
-                  caract&eacute;riser les informations de vos projets en cours. V&eacute;ritable outil de
-                  collaboration et gestion de projet, la GED vous permet de prioriser et
-                  caract&eacute;riser les donn&eacute;es afin de mieux les interpr&eacute;ter.
+                  {% trans
+                    "<strong>Priorisez et caractérisez vos données</strong><br />
+                    La Gestion Electronique des Documents (GED) vous permet de suivre, gérer et
+                    caractériser les informations de vos projets en cours. Véritable outil de
+                    collaboration et gestion de projet, la GED vous permet de prioriser et
+                    caractériser les données afin de mieux les interpréter."
+                  %}
                 </span>
               </td>
             </tr>
@@ -383,7 +397,7 @@
                       text-decoration: none;
                     "
                   >
-                    Acc&eacute;der &agrave; votre compte
+                    {% trans "Accéder à votre compte" %}
                   </a>
                 </strong>
               </td>

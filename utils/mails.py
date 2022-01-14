@@ -4,7 +4,6 @@
 # file that was distributed with this source code.
 from django.conf import settings
 from utils.mailer import send_mail
-from smtplib import SMTPException
 
 
 def send_onboarding(user):
