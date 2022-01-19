@@ -9,7 +9,7 @@ from utils.mailer import send_mail
 def send_onboarding(user):
     try:
         content = {
-            "bimdata_url": settings.PLATFORM_URL,
+            "platform_url": settings.PLATFORM_URL,
             "user_name": user.first_name
         }
         send_mail("mailing-welcome", content, [user.to_json()])

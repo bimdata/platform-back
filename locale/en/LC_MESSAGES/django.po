@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-14 14:36+0100\n"
+"POT-Creation-Date: 2022-01-19 10:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,8 +32,8 @@ msgid ""
 "Bienvenue sur la plateforme BIMData.io.<br /> Collaborez, gérez et priorisez "
 "votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
 msgstr ""
-"Welcome on BIMData Platform.<br /> Collaborate, manage and prioritize "
-"your work, anytime, anywhere.<br /> Are you ready ? Let's go !"
+"Welcome on BIMData Platform.<br /> Collaborate, manage and prioritize your "
+"work, anytime, anywhere.<br /> Are you ready ? Let's go !"
 
 #: templates/mails/mailing-welcome.html:185
 #: templates/mails/mailing-welcome.html:399
@@ -42,15 +42,16 @@ msgstr "Access your account"
 
 #: templates/mails/mailing-welcome.html:225
 msgid "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
-msgstr "Congrats ! You joined a community <br /> of more than 100 000 collaborators !"
+msgstr ""
+"Congrats ! You joined a community <br /> of more than 100 000 collaborators !"
 
 #: templates/mails/mailing-welcome.html:247
 msgid ""
 "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
 "leurs collaborateurs synchronisés."
 msgstr ""
-"Teams of all size are using BIMData.io to share and keep "
-"their collaborators in sync."
+"Teams of all size are using BIMData.io to share and keep their collaborators "
+"in sync."
 
 #: templates/mails/mailing-welcome.html:282
 msgid ""
@@ -58,8 +59,8 @@ msgid ""
 "et faites évoluer facilement votre travail sur une seule plateforme. "
 "Collaborez sur un seul espace de travail virtuel partagé."
 msgstr ""
-"<strong>Collaboration is at the heart of your projects.</strong><br /> Create, manage "
-"and improve your workflow all in one place with ease. "
+"<strong>Collaboration is at the heart of your projects.</strong><br /> "
+"Create, manage and improve your workflow all in one place with ease. "
 "Collaborate on a single shared virtual space."
 
 #: templates/mails/mailing-welcome.html:321
@@ -70,8 +71,8 @@ msgid ""
 "seulement."
 msgstr ""
 "<strong>Visualize your 2D/3D models in one click</strong><br /> BIMData "
-"Viewer, along with its measure and section tools, is integrated in "
-"the platform, you can then visualize your IFC models in only one click."
+"Viewer, along with its measure and section tools, is integrated in the "
+"platform, you can then visualize your IFC models in only one click."
 
 #: templates/mails/mailing-welcome.html:360
 msgid ""
@@ -82,7 +83,11 @@ msgid ""
 "caractériser les données afin de mieux les interpréter."
 msgstr ""
 "<strong>Prioritize & Categorize your data</strong><br /> The Document "
-"Management System (DMS) allows you to track, manage and "
-"categorize the data in your current projects. Designed to be a real "
-"collaboration and project management tool, the DMS gives you the ability to "
-"get the best out of your data and thus to take better decisions."
+"Management System (DMS) allows you to track, manage and categorize the data "
+"in your current projects. Designed to be a real collaboration and project "
+"management tool, the DMS gives you the ability to get the best out of your "
+"data and thus to take better decisions."
+
+#: utils/mailer.py:13
+msgid "Bienvenue sur la plateforme BIMData.io"
+msgstr "Welcome to BIMData.io Platform !"

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.template import engines
+from django.utils.translation import gettext as _
 
 def subjects(template_name):
     subs = {
@@ -9,7 +10,7 @@ def subjects(template_name):
         "invitation-du-user-ok-cloud": "{{user_name}} a accepté votre invitation dans le cloud {{cloud_name}}",
         "invitation-du-user-ok": "{{user_name}} a accepté votre invitation dans le projet {{project_name}}",
         "votre-ifc-t-converti": "Votre IFC a été converti",
-        "mailing-welcome": "Bienvenue sur la plateforme BIMData.io",
+        "mailing-welcome": _("Bienvenue sur la plateforme BIMData.io"),
     }
     return subs[template_name]
 
