@@ -20,33 +20,37 @@ msgstr ""
 
 #: templates/mails/mailing-welcome.html:15
 msgid "Bienvenue chez BIMData !"
-msgstr ""
+msgstr "Bienvenue chez BIMData !"
 
 #: templates/mails/mailing-welcome.html:129
 #, python-format
 msgid "Nous sommes heureux de vous accueillir sur BIMData.io, %(user_name)s"
-msgstr ""
+msgstr "Nous sommes heureux de vous accueillir sur BIMData.io, %(user_name)s"
 
 #: templates/mails/mailing-welcome.html:150
 msgid ""
 "Bienvenue sur la plateforme BIMData.io.<br /> Collaborez, gérez et priorisez "
 "votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
 msgstr ""
+"Bienvenue sur la plateforme BIMData.io.<br /> Collaborez, gérez et priorisez "
+"votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
 
 #: templates/mails/mailing-welcome.html:185
 #: templates/mails/mailing-welcome.html:399
 msgid "Accéder à votre compte"
-msgstr ""
+msgstr "Accéder à votre compte"
 
 #: templates/mails/mailing-welcome.html:225
 msgid "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
-msgstr ""
+msgstr "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
 
 #: templates/mails/mailing-welcome.html:247
 msgid ""
 "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
 "leurs collaborateurs synchronisés."
 msgstr ""
+"Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
+"leurs collaborateurs synchronisés."
 
 #: templates/mails/mailing-welcome.html:282
 msgid ""
@@ -54,6 +58,9 @@ msgid ""
 "et faites évoluer facilement votre travail sur une seule plateforme. "
 "Collaborez sur un seul espace de travail virtuel partagé."
 msgstr ""
+"<strong>La collaboration au cœur de vos projets</strong><br /> Créez, gérez "
+"et faites évoluer facilement votre travail sur une seule plateforme. "
+"Collaborez sur un seul espace de travail virtuel partagé."
 
 #: templates/mails/mailing-welcome.html:321
 msgid ""
@@ -62,6 +69,10 @@ msgid ""
 "plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click "
 "seulement."
 msgstr ""
+"<strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br /> BIMData "
+"Viewer, et ses outils de mesures et coupes, est automatiquement intégré à la "
+"plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click "
+"seulement."
 
 #: templates/mails/mailing-welcome.html:360
 msgid ""
@@ -71,7 +82,12 @@ msgid ""
 "collaboration et gestion de projet, la GED vous permet de prioriser et "
 "caractériser les données afin de mieux les interpréter."
 msgstr ""
+"<strong>Priorisez et caractérisez vos données</strong><br /> La Gestion "
+"Electronique des Documents (GED) vous permet de suivre, gérer et "
+"caractériser les informations de vos projets en cours. Véritable outil de "
+"collaboration et gestion de projet, la GED vous permet de prioriser et "
+"caractériser les données afin de mieux les interpréter."
 
 #: utils/mailer.py:13
 msgid "Bienvenue sur la plateforme BIMData.io"
-msgstr ""
+msgstr "Bienvenue sur la plateforme BIMData.io"
