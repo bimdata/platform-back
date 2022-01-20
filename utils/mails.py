@@ -7,14 +7,11 @@ from utils.mailer import send_mail
 
 
 def send_onboarding(user):
-    try:
-        content = {
-            "platform_url": settings.PLATFORM_URL,
-            "user_name": user.first_name
-        }
-        send_mail("mailing-welcome", content, [user.to_json()])
-    except BaseException as e:
-        print('[ERROR] An error occurred while sending welcome email: ', e)
+    content = {
+        "platform_url": settings.PLATFORM_URL,
+        "user_name": user.first_name
+    }
+    send_mail("mailing-welcome", content, [user.to_json()])
 
 
 def send_invitation_accepted(payload):
