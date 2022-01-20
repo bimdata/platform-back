@@ -7,9 +7,11 @@ from utils.mailer import send_mail
 
 
 def send_onboarding(user):
-    return
-    content = {"bimdata_url": settings.PLATFORM_URL}
-    send_mail("emailing-onboarding", content, [user.to_json()])
+    content = {
+        "platform_url": settings.PLATFORM_URL,
+        "user_name": user.first_name
+    }
+    send_mail("mailing-welcome", content, [user.to_json()])
 
 
 def send_invitation_accepted(payload):
