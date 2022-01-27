@@ -9,6 +9,6 @@ from utils import mails
 
 
 @receiver(post_save, sender=User)
-def create_root_folder_on_create(sender, instance, created, **kwargs):
+def send_onboarding_mail(sender, instance, created, **kwargs):
     if created:
         mails.send_onboarding(instance)
