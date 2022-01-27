@@ -12,15 +12,17 @@ class ApiClient:
     def __init__(self, access_token=None):
         self.config = bimdata_api_client.Configuration()
         self.config.host = settings.API_URL
-        
+
         if ssl_ca_cert := settings.SSL_CERT_FILE:
             self.config.ssl_ca_cert = ssl_ca_cert
         if access_token:
             # when we have a user access_token
             self.config.access_token = access_token
         else:
-            raise AuthenticationFailed("Making a request to the api without a user access token is not implemented.")
-        
+            raise AuthenticationFailed(
+                "Making a request to the api without a user access token is not implemented."
+            )
+
         self.client = bimdata_api_client.ApiClient(self.config)
 
         self.collaboration_api = bimdata_api_client.CollaborationApi(self.client)

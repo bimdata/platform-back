@@ -46,7 +46,8 @@ if env.list("REPLICA_DB_HOSTS", default=None):
         "REPLICA_DB_USERS", default=[DATABASES["default"]["USER"]] * len(r_db_hosts)
     )
     r_db_passwords = env.list(
-        "REPLICA_DB_PASSWORDS", default=[DATABASES["default"]["PASSWORD"]] * len(r_db_hosts)
+        "REPLICA_DB_PASSWORDS",
+        default=[DATABASES["default"]["PASSWORD"]] * len(r_db_hosts),
     )
 
     for i, (host, port, name, user, password) in enumerate(

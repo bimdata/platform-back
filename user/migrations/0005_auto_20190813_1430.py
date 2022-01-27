@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user', '0004_auto_20181003_1154'),
+        ("user", "0004_auto_20181003_1154"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='refresh_token',
-            field=models.TextField(blank=True, null=True, verbose_name='Refresh Token'),
+            model_name="user",
+            name="refresh_token",
+            field=models.TextField(blank=True, null=True, verbose_name="Refresh Token"),
         ),
     ]

@@ -7,10 +7,7 @@ from utils.mailer import send_mail
 
 
 def send_onboarding(user):
-    content = {
-        "platform_url": settings.PLATFORM_URL,
-        "user_name": user.first_name
-    }
+    content = {"platform_url": settings.PLATFORM_URL, "user_name": user.first_name}
     send_mail("mailing-welcome", content, [user.to_json()])
 
 
@@ -43,9 +40,7 @@ def send_ifc_ok(payload):
         "ifc_name": payload.get("name"),
         "viewer_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}/viewer/{payload['id']}",
     }
-    send_mail(
-        "votre-ifc-t-converti", content, [{"email": payload["creator"]["email"]}]
-    )
+    send_mail("votre-ifc-t-converti", content, [{"email": payload["creator"]["email"]}])
 
 
 def send_ifc_ko(payload):
@@ -54,5 +49,7 @@ def send_ifc_ko(payload):
         "project_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}",
     }
     send_mail(
-        "erreur-la-conversion-de-votre-ifc", content, [{"email": payload["creator"]["email"]}]
+        "erreur-la-conversion-de-votre-ifc",
+        content,
+        [{"email": payload["creator"]["email"]}],
     )

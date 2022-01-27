@@ -8,21 +8,39 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user', '0003_user_company'),
+        ("user", "0003_user_company"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='IfcMail',
+            name="IfcMail",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ifc_id', models.PositiveIntegerField()),
-                ('last_sent', models.CharField(choices=[('S', 'success'), ('E', 'failed')], max_length=1)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("ifc_id", models.PositiveIntegerField()),
+                (
+                    "last_sent",
+                    models.CharField(
+                        choices=[("S", "success"), ("E", "failed")], max_length=1
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.AlterUniqueTogether(
-            name='ifcmail',
-            unique_together={('user', 'ifc_id')},
+            name="ifcmail", unique_together={("user", "ifc_id")},
         ),
     ]

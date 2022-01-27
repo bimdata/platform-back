@@ -85,7 +85,9 @@ DEFAULT_AUTHENTICATION_CLASSES = (
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": DEFAULT_AUTHENTICATION_CLASSES,
-    "DEFAULT_FILTER_BACKENDS": ("utils.contrib.drf.filters.FilterBackendWithQuerysetWorkaround",),
+    "DEFAULT_FILTER_BACKENDS": (
+        "utils.contrib.drf.filters.FilterBackendWithQuerysetWorkaround",
+    ),
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
@@ -105,7 +107,9 @@ AUTH_USER_MODEL = "user.User"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -115,9 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-LOCALE_PATHS = [
-    BASE_DIR.joinpath("locale")
-]
+LOCALE_PATHS = [BASE_DIR.joinpath("locale")]
 
 TIME_ZONE = "UTC"
 

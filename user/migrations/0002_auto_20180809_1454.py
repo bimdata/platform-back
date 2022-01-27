@@ -8,30 +8,40 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user', '0001_initial'),
+        ("user", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Notification',
+            name="Notification",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField()),
             ],
         ),
         migrations.AddField(
-            model_name='user',
-            name='demo_cloud',
+            model_name="user",
+            name="demo_cloud",
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='demo_project',
+            model_name="user",
+            name="demo_project",
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='notification',
-            name='recipient',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="notification",
+            name="recipient",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

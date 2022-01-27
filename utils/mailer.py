@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.template import engines
 from django.utils.translation import gettext as _
 
+
 def subjects(template_name):
     subs = {
         "erreur-la-conversion-de-votre-ifc": "Erreur à la conversion de votre IFC",
