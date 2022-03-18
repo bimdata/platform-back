@@ -8,7 +8,10 @@ CONSOLE_LOG_LEVEL = logging.INFO
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "skip_health_check": {"()": "utils.filters.HealthCheckFilter"},
+    },
     "formatters": {
         "verbose": {
             "format": "[django] %(levelname)s %(asctime)s %(module)s %(message)s"
@@ -25,7 +28,7 @@ LOGGING = {
         # Warning messages are sent to admin emails
         "mail_admins": {
             "level": "ERROR",
-            "filters": ["require_debug_false"],
+            "filters": ["require_debug_false", "skip_health_check"],
             "class": "django.utils.log.AdminEmailHandler",
             "include_html": True,
         },
