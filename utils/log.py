@@ -24,6 +24,7 @@ def log_user_connect(func):
             {
                 "env": settings.ENV,
                 "email": user.email,
+                "email_domain": user.email.split("@")[-1],
                 "action": "connect_to_platform",
                 "message": f"{user.email} has just logged on to the platform",
             }
