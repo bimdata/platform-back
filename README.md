@@ -50,13 +50,6 @@ You can duplicate `.env.example` in `.env` and customize your config.
 cp .env.example .env
 ```
 
-### Create a super-user
-
-Create a super-user (access to admin page)
-```
-./manage.py createsuperuser
-```
-
 ## Database
 
 * Create the database and edit the configuration file `.env`
@@ -64,6 +57,13 @@ Create a super-user (access to admin page)
 
 ```
 ./manage.py migrate
+```
+
+## Create a super-user
+
+Create a super-user (access to admin page)
+```
+./manage.py createsuperuser
 ```
 
 ## Launch your local instance
