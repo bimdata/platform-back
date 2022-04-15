@@ -3,11 +3,11 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 import requests
-from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.db import transaction, models
+from django.conf import settings
+
 from externals.bimdata_api import ApiClient
-from django.db import transaction
 
 
 class User(AbstractUser):
@@ -92,6 +92,21 @@ class IfcMail(models.Model):
 
     class Meta:
         unique_together = (("user", "ifc_id"),)
+
+
+class GuidedTour(models.Model):
+    PLATFORM_INTRO = 'PLATFORM_INTRO'
+    PLATFORM_VISA = 'PLATFORM_VISA'
+    NAME_CHOICES = [
+        (PLATFORM_INTRO, 'PLATFORM_INTRO'),
+        (PLATFORM_VISA, 'PLATFORM_VISA'),
+    ]
+
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    name = models.CharField(max_length=128, choices=NAME_CHOICES)
+
+    class Meta:
+        unique_together = (("user", "name"),)
 
 
 from user.signals import *

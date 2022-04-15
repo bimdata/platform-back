@@ -21,8 +21,13 @@ from django.conf import settings
 from django.urls import path, include
 from user import views
 from webhooks.views import WebHookHandler
+from rest_framework.routers import DefaultRouter
 
 app_name = "platform_back"
+
+router = DefaultRouter()
+
+router.register(r'guidedtour', views.GuidedTourViewSet, basename="tours")
 
 urlpatterns = [
     path(
@@ -33,6 +38,7 @@ urlpatterns = [
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
     path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
     path("health/", include("health_check.urls")),
+    path('', include(router.urls)),
 ]
 
 if settings.ADMIN_INTERFACE:
