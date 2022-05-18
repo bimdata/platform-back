@@ -1,6 +1,6 @@
 from platform_back.settings.environ import env
 
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="support@bimdata.io")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="no-reply@bimdata.io")
 
 SERVER_EMAIL = env("DEBUG_MAIL_TO", default="bug@bimdata.io")
 
