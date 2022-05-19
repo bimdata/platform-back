@@ -53,7 +53,7 @@ class User(AbstractUser):
     @classmethod
     @transaction.atomic
     def create(cls, **kwargs):
-        username = kwargs.get("email")
+        username = kwargs.get("sub")
         user = User.objects.create(username=username, **kwargs)
         return user
 
