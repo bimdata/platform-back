@@ -29,10 +29,8 @@ def get_jwt_value(request):
 
 
 @log_user_first_connection
-def create_user(request, id_token):
-    access_token = get_jwt_value(request).decode("utf-8")
+def create_user(id_token):
     return User.create(
-        access_token=access_token,
         email=id_token.get("email").lower(),
         first_name=id_token.get("given_name"),
         last_name=id_token.get("family_name"),
@@ -46,17 +44,6 @@ def get_user_by_id(request, id_token):
     try:
         return User.objects.get(sub=id_token.get("sub"))
     except User.DoesNotExist:
-        if id_token.get("bimdata_connect_sub"):
-            try:
-                user = User.objects.get(legacy_sub=id_token.get("bimdata_connect_sub"))
-                user.sub = id_token.get("sub")
-                user.save()
-                return user
-            except User.DoesNotExist:
-                user = create_user(request, id_token)
-                setattr(request, "user_created", True)
-                return user
-        else:
-            user = create_user(request, id_token)
-            setattr(request, "user_created", True)
-            return user
+        user = create_user(id_token)
+        setattr(request, "user_created", True)
+        return user
