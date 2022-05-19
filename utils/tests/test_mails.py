@@ -2,6 +2,7 @@ from django.core import mail
 from django.test import TestCase
 from utils import mailer
 from parameterized import parameterized
+from user.auth import activateLocale
 
 
 class EmailTest(TestCase):
@@ -30,6 +31,7 @@ class EmailTest(TestCase):
         self, template_name, context, subject_expected
     ):
         # Send message.
+        activateLocale("FR")
         mailer.send_mail(
             template_name, context, [{"email": "test@bimdata.io"}],
         )

@@ -3,17 +3,20 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 from rest_framework import status, permissions, viewsets, mixins
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from user.v1.serializers import GuidedTourSerializer
+from user.auth import get_jwt_value
 from user.models import GuidedTour
 
 
 @api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
 def create_or_update_user(request):
-    # Empty route. All stuff is done in auth
     if hasattr(request, "user_created"):
+        access_token = get_jwt_value(request).decode("utf-8")
+        request.user.create_demo(access_token)
         return Response("", status=status.HTTP_201_CREATED)
     return Response("", status=status.HTTP_200_OK)
 

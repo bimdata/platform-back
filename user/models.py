@@ -52,12 +52,15 @@ class User(AbstractUser):
 
     @classmethod
     @transaction.atomic
-    def create(cls, access_token=None, **kwargs):
+    def create(cls, **kwargs):
         username = kwargs.get("sub")
         user = User.objects.create(username=username, **kwargs)
+        return user
+
+    def create_demo(self, access_token=None):
         client = ApiClient(access_token)
         cloud = client.collaboration_api.create_cloud(
-            data={"name": f"{user.first_name} {user.last_name}"}
+            data={"name": f"{self.first_name} {self.last_name}"}
         )
         with open("demo_icon.png", "rb") as file:
             demo_icon = ("image", ("demo_icon.png", file))
@@ -69,10 +72,9 @@ class User(AbstractUser):
         response.raise_for_status()
 
         demo = client.collaboration_api.create_demo(id=cloud.id)
-        user.demo_cloud = cloud.id
-        user.demo_project = demo.id
-        user.save()
-        return user
+        self.demo_cloud = cloud.id
+        self.demo_project = demo.id
+        self.save()
 
 
 class Notification(models.Model):
@@ -107,6 +109,5 @@ class GuidedTour(models.Model):
 
     class Meta:
         unique_together = (("user", "name"),)
-
 
 from user.signals import *
