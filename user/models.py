@@ -2,7 +2,6 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
-from user.signals import *
 import requests
 from django.contrib.auth.models import AbstractUser
 from django.db import transaction, models
@@ -110,3 +109,5 @@ class GuidedTour(models.Model):
 
     class Meta:
         unique_together = (("user", "name"),)
+
+from user.signals import *
