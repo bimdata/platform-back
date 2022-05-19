@@ -12,10 +12,8 @@ from user.models import GuidedTour
 
 
 @api_view(["POST"])
-@permission_classes([permissions.IsAuthenticated])  # added code
+@permission_classes([permissions.IsAuthenticated])
 def create_or_update_user(request):
-    requestParsed = request
-    breakpoint()
     if hasattr(request, "user_created"):
         access_token = get_jwt_value(request).decode("utf-8")
         request.user.create_demo(access_token)
