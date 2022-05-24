@@ -6,9 +6,9 @@ from rest_framework import status, permissions, viewsets, mixins
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
-from user.v1.serializers import GuidedTourSerializer
+from user.v1.serializers import GuidedTourSerializer, WorkSpaceSerializer
 from user.auth import get_jwt_value
-from user.models import GuidedTour
+from user.models import GuidedTour, WorkSpace
 
 
 @api_view(["POST"])
@@ -27,6 +27,17 @@ class GuidedTourViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets
 
     def get_queryset(self):
         return GuidedTour.objects.select_related('user').filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class WorkSpaceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = WorkSpaceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return WorkSpace.objects.select_related('user').filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

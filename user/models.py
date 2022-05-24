@@ -110,4 +110,13 @@ class GuidedTour(models.Model):
     class Meta:
         unique_together = (("user", "name"),)
 
+
+class WorkSpace(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    name = models.CharField(max_length=20)
+    work_space = models.JSONField()
+
+    class Meta:
+        unique_together = (("user", "name", "work_space"),)
+
 from user.signals import *
