@@ -5,7 +5,7 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
-from user.models import User, GuidedTour
+from user.models import User, GuidedTour, WorkSpace
 
 
 class TestGuidedTour(APITestCase):
@@ -44,6 +44,74 @@ class TestGuidedTour(APITestCase):
         GuidedTour.objects.create(user=fakeUser, name="PLATFORM_VISA")
 
         GuidedTour.objects.create(user=self.user, name="PLATFORM_VISA")
+
+        response = self.client.get(url)
+
+        assert response.status_code == status.HTTP_200_OK
+
+        data = response.json()
+
+        assert len(data) == 1
+
+
+class TestWorkSpace(APITestCase):
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create(
+            username="John Doe", first_name="John", last_name="Doe"
+        )
+        self.client.force_authenticate(user=self.user, token="don't care for now")
+
+    def test_create_success(self):
+        url = reverse("workspace-list")
+
+        body = {
+            "name": "electrician-view",
+            "work_space": {
+                "ratios": [50, 50],
+                "direction": "row",
+                "children": ["3d", "null"]
+            }}
+
+        response = self.client.post(url, data=body)
+
+        assert response.status_code == status.HTTP_201_CREATED
+
+    def test_create_fail(self):
+        url = reverse("workspace-list")
+        body = {
+            "name": "electrician-view",
+            "work_space": {
+                "ratios": [50, 50],
+                "direction": "row",
+                "children": ["3d", "null"]
+            }}
+
+        WorkSpace.objects.create(user=self.user, name="electrician-view", work_space={
+            "ratios": [50, 50],
+            "direction": "row",
+            "children": ["3d", "null"]
+        })
+
+        response = self.client.post(url, data=body)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_read_success(self):
+        url = reverse("workspace-list")
+
+        fakeUser = User.objects.create(
+            username="Miles Davis", first_name="Miles", last_name="Davis"
+        )
+        workSpace = {
+            "ratios": [50, 50],
+            "direction": "row",
+            "children": ["3d", "null"]
+        }
+
+        WorkSpace.objects.create(user=fakeUser, name="electrician-view", work_space=workSpace)
+        WorkSpace.objects.create(
+            user=self.user, name="electrician-view", work_space=workSpace)
 
         response = self.client.get(url)
 
