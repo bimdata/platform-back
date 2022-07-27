@@ -8,22 +8,6 @@ from user.auth import activateLocale
 class EmailTest(TestCase):
     @parameterized.expand(
         [
-            (
-                "erreur-la-conversion-de-votre-ifc",
-                {},
-                "Erreur à la conversion de votre IFC",
-            ),
-            (
-                "invitation-du-user-ok-cloud",
-                {"user_name": "plop", "cloud_name": "titi"},
-                "plop a accepté votre invitation dans le cloud titi",
-            ),
-            (
-                "invitation-du-user-ok",
-                {"user_name": "plop", "project_name": "titi"},
-                "plop a accepté votre invitation dans le projet titi",
-            ),
-            ("votre-ifc-t-converti", {}, "Votre IFC a été converti"),
             ("mailing-welcome", {}, "Bienvenue sur la plateforme BIMData.io"),
         ]
     )
