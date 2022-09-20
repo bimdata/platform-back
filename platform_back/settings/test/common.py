@@ -27,3 +27,5 @@ logging.disable(logging.INFO)
 # Use default logger during tests
 LOGGING = None
 FLUENTD_ENABLED = False
+
+APP_EMAIL_HOST = None
