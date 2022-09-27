@@ -1,9 +1,14 @@
+import logging
+
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.core.mail import get_connection
 from django.template import engines
 from django.utils.translation import gettext as _
+from django.core.mail.backends.smtp import EmailBackend
+
+logger = logging.getLogger("django")
 
 
 def subjects(template_name):
@@ -46,5 +51,8 @@ def send_mail(template_name, content, users, fake=False):
 
     email = EmailMessage(subject, html_content, from_email, to_emails, connection=connection)
     email.content_subtype = "html"
-    email.send()
+    try:
+        email.send()
+    except Exception as e:
+        logger.warning(f'There was an error sending an email: \n{e}')
     connection.close()
