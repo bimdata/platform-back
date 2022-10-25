@@ -44,7 +44,7 @@ def send_mail(template_name, content, users, fake=False):
             port=settings.APP_EMAIL_PORT,
             username=settings.APP_EMAIL_HOST_USER,
             password=settings.APP_EMAIL_HOST_PASSWORD,
-            user_tls=settings.APP_EMAIL_USE_TLS,
+            use_tls=settings.APP_EMAIL_USE_TLS,
         )
     else:
         connection = get_connection()
