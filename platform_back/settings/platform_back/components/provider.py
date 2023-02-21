@@ -18,7 +18,7 @@ OIDC_AUTH = {
     # id_token.
     "OIDC_RESOLVE_USER_FUNCTION": "user.auth.get_user_by_id",
     # (Optional) Number of seconds in the past valid tokens can be issued (default 600)
-    "OIDC_LEEWAY": 60 * 60,  # 60 minutes
+    "OIDC_LEEWAY": 4 * 60 * 60,  # 4 hours
     # (Optional) Time before signing keys will be refreshed (default 24 hrs)
     "OIDC_JWKS_EXPIRATION_TIME": 24 * 60 * 60,
     # (Optional) Time before bearer token validity is verified again (default 10 minutes)
