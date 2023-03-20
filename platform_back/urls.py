@@ -28,6 +28,8 @@ app_name = "platform_back"
 router = DefaultRouter()
 
 router.register(r'guidedtour', views.GuidedTourViewSet, basename="tours")
+router.register(r'workspace', views.WorkSpaceViewSet, basename="workspace")
+
 
 urlpatterns = [
     path(

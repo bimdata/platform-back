@@ -5,7 +5,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from user.models import User, Notification, GuidedTour
+from user.models import User, Notification, GuidedTour, WorkSpace
 
 
 class NotificationSerializer(serializers.ModelSerializer):
@@ -39,3 +39,22 @@ class GuidedTourSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {"name": instance.name}
+
+
+class WorkSpaceSerializer(serializers.ModelSerializer):
+    user = UserSerializer(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
+
+    class Meta:
+        model = WorkSpace
+        fields = ("user", "name", "work_space")
+        validators = [
+            UniqueTogetherValidator(
+                queryset=WorkSpace.objects.all(), fields=("user", "name", "work_space")
+            )
+        ]
+
+    def to_representation(self, instance):
+        return {"name": instance.name, "workSpace": instance.work_space}
