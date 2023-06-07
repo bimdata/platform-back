@@ -6,7 +6,7 @@ from django.conf import settings
 from user.models import User
 from rest_framework.authentication import get_authorization_header
 from rest_framework.exceptions import AuthenticationFailed
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.utils.translation import activate as activateLocale
 from utils.log import log_user_connect, log_user_first_connection
 
@@ -15,7 +15,7 @@ def get_jwt_value(request):
     auth = get_authorization_header(request).split()
     auth_header_prefix = settings.OIDC_AUTH.get("JWT_AUTH_HEADER_PREFIX").lower()
 
-    if not auth or smart_text(auth[0].lower()) != auth_header_prefix:
+    if not auth or smart_str(auth[0].lower()) != auth_header_prefix:
         return None
 
     if len(auth) == 1:

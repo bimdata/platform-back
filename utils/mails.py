@@ -11,45 +11,9 @@ def send_onboarding(user):
     send_mail("mailing-welcome", content, [user.to_json()])
 
 
-def send_invitation_accepted(payload):
-    if payload.get("project"):
-        mail_content = {
-            "user_name": f"{payload['user']['firstname']} {payload['user']['lastname']}",
-            "project_name": payload["project"]["name"],
-            "cloud_name": payload["cloud"]["name"],
-            "project_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud']['id']}/projects/{payload['project']['id']}",
-        }
-        send_mail(
-            "invitation-du-user-ok", mail_content, [{"email": payload["invitor_email"]}]
-        )
-    else:
-        invitor_content = {
-            "user_name": f"{payload['user']['firstname']} {payload['user']['lastname']}",
-            "cloud_name": payload["cloud"]["name"],
-            "cloud_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud']['id']}",
-        }
-        send_mail(
-            "invitation-du-user-ok-cloud",
-            invitor_content,
-            [{"email": payload["invitor"]["email"]}],
-        )
-
-
-def send_ifc_ok(payload):
+def send_notifications(user, notifications):
     content = {
-        "ifc_name": payload.get("name"),
-        "viewer_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}/viewer/{payload['id']}",
+        "notifications": notifications,
+        "platform_url": settings.PLATFORM_URL,
     }
-    send_mail("votre-ifc-t-converti", content, [{"email": payload["creator"]["email"]}])
-
-
-def send_ifc_ko(payload):
-    content = {
-        "ifc_name": payload.get("name"),
-        "project_url": f"{settings.PLATFORM_URL}/spaces/{payload['cloud_id']}/projects/{payload['project_id']}",
-    }
-    send_mail(
-        "erreur-la-conversion-de-votre-ifc",
-        content,
-        [{"email": payload["creator"]["email"]}],
-    )
+    send_mail("notifications", content, [user.to_json()], fail_silently=False)

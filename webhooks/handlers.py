@@ -4,6 +4,126 @@
 # file that was distributed with this source code.
 from utils import mails
 from user.models import IfcMail, User
+from user.models import Notification
+from externals.bimdata_api import ApiClient
+from externals.keycloak import get_access_token
+
+
+def get_user_from_sub(sub):
+    try:
+        return User.objects.get(sub=sub)
+    except User.DoesNotExist:
+        return None
+
+
+def get_user_from_email(email):
+    try:
+        return User.objects.get(email=email)
+    except User.DoesNotExist:
+        return None
+
+
+class WebhookHandler:
+    actions = {
+        "visa.validation.add": "add_validation",
+        "visa.validation.remove": "remove_validation",
+        "bcf.topic.creation": "add_bcf",
+        "bcf.topic.update": "update_bcf",
+    }
+
+    def __init__(self, data):
+        self.event_name = data.get("event_name")
+        self.cloud_id = (
+            data["cloud_id"] if "cloud_id" in data else data.get("cloud")["id"]
+        )
+        self.payload = data.get("data")
+
+    @classmethod
+    def get_action(cls, event_name):
+        return cls.actions.get(event_name)
+
+    def get_handle_method(self):
+        return getattr(self, "handle_" + self.get_action(self.event_name))
+
+    def handle(self):
+        handler = self.get_handle_method()
+        handler()
+
+    def handle_add_validation(self):
+        validator = get_user_from_sub(self.payload["validation"]["validator"]["sub"])
+        action = self.get_action(self.event_name)
+
+        Notification.objects.create(
+            user=validator,
+            cloud_id=self.cloud_id,
+            action=action,
+            payload=self.payload,
+        )
+
+    def handle_remove_validation(self):
+        validator = get_user_from_sub(self.payload["validation"]["validator"]["sub"])
+        action = self.get_action(self.event_name)
+
+        # notifications = Notification.objects.filter(
+        #     user=validator,
+        #     payload__validation__id=self.payload["validation"]["id"],
+        #     action="add_validation",
+        # ).order_by("-created_at")
+        # if len(notifications) > 0:
+        #     add_notification = notifications.first()
+        #     if add_notification.consumed is False:
+        #         add_notification.delete()
+        #         return
+
+        Notification.objects.create(
+            user=validator,
+            cloud_id=self.cloud_id,
+            action=action,
+            payload=self.payload,
+        )
+
+    def handle_add_bcf(self):
+        assigned_to = get_user_from_email(self.payload["topic"]["assigned_to"])
+        action = self.get_action(self.event_name)
+
+        viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
+            self.payload["topic"]["project"],
+            self.payload["topic"]["guid"],
+            img_format="url",
+        )
+        self.payload["topic"]["snapshot_urls"] = [
+            viewpoint["snapshot"]["snapshot_data"] for viewpoint in viewpoints
+        ]
+        if assigned_to:
+            Notification.objects.create(
+                user=assigned_to,
+                cloud_id=self.cloud_id,
+                action=action,
+                payload=self.payload,
+            )
+
+    def handle_update_bcf(self):
+        assigned_to = get_user_from_email(self.payload["topic"]["assigned_to"])
+        action = self.get_action(self.event_name)
+
+        viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
+            self.payload["topic"]["project"],
+            self.payload["topic"]["guid"],
+            img_format="url",
+        )
+        self.payload["topic"]["snapshot_urls"] = [
+            viewpoint["snapshot"]["snapshot_data"] for viewpoint in viewpoints
+        ]
+        if assigned_to:
+            if not Notification.objects.filter(
+                payload__topic__guid=self.payload["topic"]["guid"], user=assigned_to
+            ).exists():
+                Notification.objects.create(
+                    user=assigned_to,
+                    cloud_id=self.cloud_id,
+                    action=action,
+                    payload=self.payload,
+                )
 
 
 def handle_org_member(payload):

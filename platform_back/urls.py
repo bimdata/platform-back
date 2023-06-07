@@ -19,24 +19,30 @@ Including another URLconf
 """
 from django.conf import settings
 from django.urls import path, include
-from user import views
-from webhooks.views import WebHookHandler
+from user import views as user_views
+from organization import views as organization_views
+from webhooks import views as webhook_views
 from rest_framework.routers import DefaultRouter
 
 app_name = "platform_back"
 
 router = DefaultRouter()
 
-router.register(r'guidedtour', views.GuidedTourViewSet, basename="tours")
+router.register(r'guidedtour', user_views.GuidedTourViewSet, basename="tours")
 
 urlpatterns = [
     path(
         "create_or_update_user/",
-        views.create_or_update_user,
+        user_views.create_or_update_user,
         name="create_or_update_user",
     ),
+    path(
+        "create-cloud/",
+        organization_views.create_cloud,
+        name="create_cloud",
+    ),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
-    path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
+    path("webhook", webhook_views.WebHookView.as_view(), name="webhook-handler"),
     path("health/", include("health_check.urls")),
     path('', include(router.urls)),
 ]

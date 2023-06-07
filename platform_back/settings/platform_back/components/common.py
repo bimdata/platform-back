@@ -14,8 +14,8 @@ API_URL = env("API_URL", default="")
 PLATFORM_URL = env("PLATFORM_URL", default="")
 PLATFORM_BACK_URL = env("PLATFORM_BACK_URL", default="")
 
-WEBHOOKS_SECRET = env("WEBHOOKS_SECRET", default="")
-MASTER_TOKEN = env("MASTER_TOKEN", default="")
+WEBHOOKS_SECRET = env("WEBHOOKS_SECRET")
+
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     "psqlextra",
+    "django_cron",
 ]
 
 MIDDLEWARE = [
@@ -43,6 +44,10 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+CRON_CLASSES = [
+    "user.cron.SendEmailNotifJob"
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True

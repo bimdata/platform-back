@@ -9,10 +9,11 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
-from webhooks.handlers import route_webhook
+
+from webhooks.handlers import WebhookHandler
 
 
-class WebHookHandler(APIView):
+class WebHookView(APIView):
     authentication_classes = tuple()
 
     def post(self, request, format=None):
@@ -28,5 +29,6 @@ class WebHookHandler(APIView):
                 detail={"x-bimdata-signature": "Bad request signature"}
             )
 
-        route_webhook(request.data)
+        WebhookHandler(request.data).handle()
+
         return Response(status=status.HTTP_204_NO_CONTENT)

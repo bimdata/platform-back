@@ -13,18 +13,14 @@ logger = logging.getLogger("django")
 
 def subjects(template_name):
     subs = {
-        "erreur-la-conversion-de-votre-ifc": "Erreur à la conversion de votre IFC",
-        "invitation-du-user-ok-cloud": "{{user_name}} a accepté votre invitation dans le cloud {{cloud_name}}",
-        "invitation-du-user-ok": "{{user_name}} a accepté votre invitation dans le projet {{project_name}}",
-        "votre-ifc-t-converti": "Votre IFC a été converti",
+        "notifications": _("Texte sur sujet des notifications"),
         "mailing-welcome": _("Bienvenue sur la plateforme BIMData.io"),
     }
     return subs[template_name]
 
 
 # @params user_ids: a list {email, first_name, last_name}
-def send_mail(template_name, content, users, fake=False):
-
+def send_mail(template_name, content, users, fail_silently=True):
     from_email = settings.DEFAULT_FROM_EMAIL
     to_emails = [
         f"{user.get('first_name')} {user.get('last_name')}"
@@ -49,10 +45,15 @@ def send_mail(template_name, content, users, fake=False):
     else:
         connection = get_connection()
 
-    email = EmailMessage(subject, html_content, from_email, to_emails, connection=connection)
+    email = EmailMessage(
+        subject, html_content, from_email, to_emails, connection=connection
+    )
     email.content_subtype = "html"
     try:
         email.send()
     except Exception as e:
-        logger.warning(f'There was an error sending an email: \n{e}')
+        if fail_silently:
+            logger.warning(f"There was an error sending an email: \n{e}")
+        else:
+            raise e
     connection.close()

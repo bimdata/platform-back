@@ -1,7 +1,5 @@
 import logging
 
-TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
-
 PASSWORD_HASHERS = (
     "django.contrib.auth.hashers.MD5PasswordHasher",  # Replace hasher with a simpler and faster hash method
 )
