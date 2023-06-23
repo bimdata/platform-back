@@ -151,11 +151,10 @@
                     line-height: 22px;
                   "
                 >
-                  {% blocktrans trimmed %} {{ visa.payload.visa.creator.firstname }} {{
-                  visa.payload.visa.creator.lastname }} a ajouté une nouvelle demande de
-                  validation dans le projet {{ visa.payload.project.name }}, sur le {{
-                  visa.payload.document.name }} à valider avant le {{
-                  visa.payload.visa.deadline }}. {% endblocktrans %}
+                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline%}
+                  {{ firstname }} {{ lastname }} a ajouté une nouvelle demande de
+                  validation dans le projet {{ project_name }}, sur le {{ document_name }}
+                  à valider avant le {{ deadline }}. {% endblocktrans %}
                 </span>
               </td>
               <td width="60" class="td_hidden">&nbsp;</td>
@@ -177,7 +176,7 @@
                     <td align="center" height="40" width="230">
                       <strong>
                         <a
-                          href="{{ platform_url }}"
+                          href="{{ platform_url }}/spaces/{{ visa.payload.cloud_id }}/projects/{{ visa.payload.project_id }}"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;

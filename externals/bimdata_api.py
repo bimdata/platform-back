@@ -6,6 +6,8 @@ import bimdata_api_client
 from bimdata_api_client.api import collaboration_api, ifc_api, webhook_api, bcf_api
 from django.conf import settings
 from rest_framework.exceptions import AuthenticationFailed
+import requests
+from django.conf import settings
 
 
 class ApiClient:
@@ -30,3 +32,23 @@ class ApiClient:
         self.collaboration_api = collaboration_api.CollaborationApi(self.client)
         self.ifc_api = ifc_api.IfcApi(self.client)
         self.webhook_api = webhook_api.WebhookApi(self.client)
+
+
+session = requests.Session()
+
+
+def api_request(verb, path, access_token, raise_for_status=False, **kwargs):
+    url = settings.API_URL + path
+
+    response = session.request(
+        method=verb,
+        url=url,
+        **kwargs,
+        headers={"Authorization": f"Bearer {access_token}"},
+    )
+    if raise_for_status:
+        response.raise_for_status()
+    try:
+        return response, response.json()
+    except ValueError:
+        return response, response.content

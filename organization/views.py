@@ -22,7 +22,6 @@ def create_cloud(request):
         cloud_id=cloud["id"],
         events=[
             "bcf.topic.creation",
-            "bcf.topic.update",
             "visa.validation.add",
             "visa.validation.remove",
         ],

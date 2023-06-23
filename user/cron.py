@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 from django.db.models import Max
 from django.db.models import Q
+from django.conf import settings
 import logging
 from user.models import User
 
@@ -20,7 +21,9 @@ class SendEmailNotifJob(CronJobBase):
             last_notif=Max(
                 "notification__created_at", filter=Q(notification__consumed=False)
             )
-        ).filter(last_notif__lt=datetime.now() - timedelta(minutes=1))
+        ).filter(
+            last_notif__lt=datetime.now() - timedelta(minutes=settings.NOTIFS_DELAY)
+        )
 
         for user in users:
             logger.info("Sending email notification to user %s", user)

@@ -21,6 +21,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 INSTALLED_APPS = [
     "user",
+    "webhooks",
     "rest_framework",
     "drf_yasg",
     "corsheaders",
@@ -46,9 +47,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CRON_CLASSES = [
-    "user.cron.SendEmailNotifJob"
-]
+CRON_CLASSES = ["user.cron.SendEmailNotifJob"]
+
+NOTIFS_DELAY = 1  # minutes
 
 CORS_ORIGIN_ALLOW_ALL = True
 

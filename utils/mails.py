@@ -11,9 +11,11 @@ def send_onboarding(user):
     send_mail("mailing-welcome", content, [user.to_json()])
 
 
-def send_notifications(user, notifications):
+def send_notifications(user, event_type, notifications):
     content = {
         "notifications": notifications,
         "platform_url": settings.PLATFORM_URL,
     }
-    send_mail("notifications", content, [user.to_json()], fail_silently=False)
+    send_mail(
+        f"notifications-{event_type}", content, [user.to_json()], fail_silently=False
+    )

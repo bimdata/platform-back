@@ -13,7 +13,8 @@ logger = logging.getLogger("django")
 
 def subjects(template_name):
     subs = {
-        "notifications": _("Texte sur sujet des notifications"),
+        "notifications-bcf": _("Nouvelle notification BCF"),
+        "notifications-visa": _("Nouvelle notification Visa"),
         "mailing-welcome": _("Bienvenue sur la plateforme BIMData.io"),
     }
     return subs[template_name]
@@ -44,7 +45,6 @@ def send_mail(template_name, content, users, fail_silently=True):
         )
     else:
         connection = get_connection()
-
     email = EmailMessage(
         subject, html_content, from_email, to_emails, connection=connection
     )

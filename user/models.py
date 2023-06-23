@@ -79,20 +79,25 @@ class User(AbstractUser):
 
     def send_email_notifications(self):
         notifications = Notification.objects.filter(user=self, consumed=False).order_by(
-            "created_at"
+            "event_type", "event", "created_at"
         )
-        ordered_by_action_notifications = {}
+        ordered_by_event_type_notifications = {}
         for notification in notifications:
-            ordered_by_action_notifications.setdefault(notification.action, []).append(
-                notification
-            )
-        mails.send_notifications(self, ordered_by_action_notifications)
+            ordered_by_event_type_notifications.setdefault(
+                notification.event_type, []
+            ).append(notification)
+        for (
+            event_type,
+            notifications_type,
+        ) in ordered_by_event_type_notifications.items():
+            mails.send_notifications(self, event_type, notifications_type)
         notifications.update(consumed=True)
 
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    action = models.CharField(max_length=255)
+    event = models.CharField(max_length=255)
+    event_type = models.CharField(max_length=255)
     cloud_id = models.PositiveIntegerField()
     payload = models.JSONField()
     consumed = models.BooleanField(default=False)

@@ -25,6 +25,9 @@ class GuidedTourAdmin(admin.ModelAdmin):
 
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ("user", "cloud_id", "action", "consumed", "created_at")
-    list_filter = ("action",)
+    list_display = ("user", "cloud_id", "event", "event_type", "consumed", "created_at")
+    list_filter = (
+        "event_type",
+        "event",
+    )
     ordering = ("-created_at",)
