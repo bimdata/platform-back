@@ -31,7 +31,7 @@ class TestWebHooks(APITestCase):
     def test_good_signature(self):
         url = reverse("webhook-handler")
 
-        data = {"coucou": "haha"}
+        data = {"event_name": "haha"}
         data_encoded = json.dumps(data).encode()
         signature = hmac.new("123".encode(), data_encoded, hashlib.sha256).hexdigest()
 

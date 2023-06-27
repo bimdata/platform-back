@@ -33,33 +33,37 @@ class WebhookHandler:
     def __init__(self, data):
         self.event_name = data.get("event_name")
         self.cloud_id = (
-            data["cloud_id"] if "cloud_id" in data else data.get("cloud")["id"]
+            data["cloud_id"]
+            if "cloud_id" in data
+            else data.get("cloud", {}).get("id", None)
         )
-        self.payload = data.get("data")
+        self.payload = data.get("data", {})
         self.payload["cloud_id"] = self.cloud_id
 
-        self.payload["project_name"] = ApiClient(
-            get_access_token()
-        ).collaboration_api.get_project(
-            cloud_pk=self.cloud_id, id=self.payload["project_id"]
-        )[
-            "name"
-        ]
+        if self.cloud_id:
+            self.payload["project_name"] = ApiClient(
+                get_access_token()
+            ).collaboration_api.get_project(
+                cloud_pk=self.cloud_id, id=self.payload["project_id"]
+            )[
+                "name"
+            ]
 
     @classmethod
     def get_event(cls, event_name):
-        return cls.events.get(event_name)
+        return cls.events.get(event_name, "")
 
     @classmethod
     def get_event_type(cls, event_name):
         return event_name.split(".")[0]
 
     def get_handle_method(self):
-        return getattr(self, "handle_" + self.get_event(self.event_name))
+        return getattr(self, "handle_" + self.get_event(self.event_name), None)
 
     def handle(self):
         handler = self.get_handle_method()
-        handler()
+        if handler:
+            handler()
 
     def handle_add_validation(self):
         validator = get_user_from_sub(self.payload["validation"]["validator"]["sub"])
