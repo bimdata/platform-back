@@ -27,5 +27,3 @@ LOGGING = None
 FLUENTD_ENABLED = False
 
 APP_EMAIL_HOST = None
-
-WEBHOOK_SECRET = "secret"

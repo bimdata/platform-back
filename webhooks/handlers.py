@@ -98,15 +98,15 @@ class WebhookHandler:
     def handle_add_bcf(self):
         assigned_to = get_user_from_email(self.payload["topic"]["assigned_to"])
 
-        viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
-            self.payload["topic"]["project"],
-            self.payload["topic"]["guid"],
-            img_format="url",
-        )
-        self.payload["topic"]["snapshot_urls"] = [
-            viewpoint["snapshot"]["snapshot_data"] for viewpoint in viewpoints
-        ]
-        if assigned_to:
+        if assigned_to and self.payload["topic"]["format"] == "standard":
+            viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
+                self.payload["topic"]["project"],
+                self.payload["topic"]["guid"],
+                img_format="url",
+            )
+            self.payload["topic"]["snapshot_urls"] = [
+                viewpoint["snapshot"]["snapshot_data"] for viewpoint in viewpoints
+            ]
             Notification.objects.create(
                 user=assigned_to,
                 cloud_id=self.cloud_id,

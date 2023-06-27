@@ -14,7 +14,7 @@ API_URL = env("API_URL", default="")
 PLATFORM_URL = env("PLATFORM_URL", default="")
 PLATFORM_BACK_URL = env("PLATFORM_BACK_URL", default="")
 
-WEBHOOKS_SECRET = env("WEBHOOKS_SECRET")
+WEBHOOKS_SECRET = env("WEBHOOKS_SECRET", default="")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
