@@ -42,6 +42,6 @@ class Migration(migrations.Migration):
     dependencies = []
 
     operations = [
-        migrations.run_python(create_link_with_platform_front),
-        migrations.run_python(add_webhook_to_cloud_platform),
+        migrations.RunPython(create_link_with_platform_front),
+        migrations.RunPython(add_webhook_to_cloud_platform),
     ]
