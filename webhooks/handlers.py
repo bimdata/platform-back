@@ -57,13 +57,15 @@ class WebhookHandler:
     def get_event_type(cls, event_name):
         return event_name.split(".")[0]
 
+    def is_valid(self):
+        return self.get_event(self.event_name) != ""
+
     def get_handle_method(self):
-        return getattr(self, "handle_" + self.get_event(self.event_name), None)
+        return getattr(self, "handle_" + self.get_event(self.event_name))
 
     def handle(self):
         handler = self.get_handle_method()
-        if handler:
-            handler()
+        handler()
 
     def handle_add_validation(self):
         validator = get_user_from_sub(self.payload["validation"]["validator"]["sub"])

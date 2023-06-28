@@ -29,6 +29,8 @@ class WebHookView(APIView):
                 detail={"x-bimdata-signature": "Bad request signature"}
             )
 
-        WebhookHandler(request.data).handle()
+        handler = WebhookHandler(request.data)
+        if handler.is_valid():
+            handler.handle()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
