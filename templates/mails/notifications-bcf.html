@@ -10,7 +10,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- google WEBFONT : Roboto -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
 
     <title>{% trans "Notifications" %}</title>
 
@@ -157,9 +160,11 @@
                     line-height: 22px;
                   "
                 >
-                {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
-                  {{ email_author }} a créée un
-                  nouveau BCF dans le projet {{ project_name }}. {% endblocktrans %}
+                  {% blocktrans trimmed with
+                  email_author=bcf.payload.topic.creation_author
+                  project_name=bcf.payload.project_name %} {{ email_author }} a
+                  créée un nouveau BCF dans le projet {{ project_name }}. {%
+                  endblocktrans %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
@@ -228,7 +233,8 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Description:</strong>{{ bcf.payload.topic.description }}
+                  <strong>Description: </strong>{{ bcf.payload.topic.description
+                  }}
                 </span>
               </td>
             </tr>
@@ -242,7 +248,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Due date:</strong>{{ bcf.payload.topic.due_date }}
+                  <strong>Due date: </strong>{{ bcf.payload.topic.due_date }}
                 </span>
               </td>
             </tr>
@@ -256,7 +262,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Priorité:</strong>{{ bcf.payload.topic.priority }}
+                  <strong>Priorité: </strong>{{ bcf.payload.topic.priority }}
                 </span>
               </td>
             </tr>
@@ -270,12 +276,12 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Type:</strong>{{ bcf.payload.topic.topic_type }}
+                  <strong>Type: </strong>{{ bcf.payload.topic.topic_type }}
                 </span>
               </td>
             </tr>
             <tr>
-              <td height="10" class="" >&nbsp;</td>
+              <td height="10" class="">&nbsp;</td>
             </tr>
             <tr>
               <td>
@@ -344,9 +350,11 @@
                     line-height: 22px;
                   "
                 >
-                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
-                  {{ email_author }} a créée un
-                  nouveau BCF dans le projet {{ project_name }}. {% endblocktrans %}
+                  {% blocktrans trimmed with
+                  email_author=bcf.payload.topic.creation_author
+                  project_name=bcf.payload.project_name %} {{ email_author }} a
+                  créée un nouveau BCF dans le projet {{ project_name }}. {%
+                  endblocktrans %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
@@ -385,7 +393,8 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Description:</strong>{{ bcf.payload.topic.description }}
+                  <strong>Description: </strong>{{ bcf.payload.topic.description
+                  }}
                 </span>
               </td>
             </tr>
@@ -399,7 +408,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Due date:</strong>{{ bcf.payload.topic.due_date }}
+                  <strong>Due date: </strong>{{ bcf.payload.topic.due_date }}
                 </span>
               </td>
             </tr>
@@ -413,7 +422,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Priorité:</strong>{{ bcf.payload.topic.priority }}
+                  <strong>Priorité: </strong>{{ bcf.payload.topic.priority }}
                 </span>
               </td>
             </tr>
@@ -427,7 +436,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Type:</strong>{{ bcf.payload.topic.topic_type }}
+                  <strong>Type: </strong>{{ bcf.payload.topic.topic_type }}
                 </span>
               </td>
             </tr>

@@ -10,7 +10,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- google WEBFONT : Roboto -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
 
     <title>{% trans "Notifications" %}</title>
 
@@ -151,10 +154,15 @@
                     line-height: 22px;
                   "
                 >
-                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline%}
-                  {{ firstname }} {{ lastname }} a ajouté une nouvelle demande de
-                  validation dans le projet {{ project_name }}, sur le {{ document_name }}
-                  à valider avant le {{ deadline }}. {% endblocktrans %}
+                  {% blocktrans trimmed with
+                  firstname=visa.payload.visa.creator.firstname
+                  lastname=visa.payload.visa.creator.lastname
+                  project_name=visa.payload.project_name
+                  document_name=visa.payload.document_name
+                  deadline=visa.payload.visa.deadline%} {{ firstname }} {{
+                  lastname }} a ajouté une nouvelle demande de validation dans
+                  le projet {{ project_name }}, sur le {{ document_name }} à
+                  valider avant le {{ deadline }}. {% endblocktrans %}
                 </span>
               </td>
               <td width="60" class="td_hidden">&nbsp;</td>
