@@ -3,9 +3,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 import requests
-from django.contrib.auth.models import AbstractUser
-from django.db import transaction, models
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.db import transaction
 
 from externals.bimdata_api import ApiClient
 from utils import mails
@@ -100,7 +101,7 @@ class Notification(models.Model):
     event_type = models.CharField(max_length=255)
     cloud_id = models.PositiveIntegerField()
     payload = models.JSONField()
-    consumed = models.BooleanField(default=False)
+    consumed = models.BooleanField(default=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -134,4 +135,4 @@ class GuidedTour(models.Model):
         unique_together = (("user", "name"),)
 
 
-from user.signals import *
+from user.signals import *  # noqa

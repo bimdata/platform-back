@@ -7,3 +7,9 @@ class CloudSerializer(serializers.Serializer):
         required=False,
     )
     name = serializers.CharField(max_length=255)
+
+
+class RegisterCloudSerializer(serializers.Serializer):
+    id = serializers.IntegerField(
+        required=True,
+    )
