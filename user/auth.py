@@ -18,7 +18,7 @@ class Client:
     is_authenticated = True
 
     def __init__(self, *args, **kwargs):
-        self.is_self_client = kwargs.get("is_self_client", True)
+        self.is_self_client = kwargs.get("is_self_client", False)
 
 
 def get_jwt_value(request):
