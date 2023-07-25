@@ -4,17 +4,27 @@
 # file that was distributed with this source code.
 from django.conf import settings
 from django.urls import reverse
+
 from externals.bimdata_api import ApiClient
+from webhooks.models import WebHook
 
 
 def register_webhook(cloud_id, events, access_token=None):
+    if WebHook.objects.filter(cloud_id=cloud_id).exists():
+        return
     client = ApiClient(access_token)
-    webhook = client.webhook_api.create_web_hook(
+    secret = settings.WEBHOOKS_SECRET
+    api_webhook = client.webhook_api.create_web_hook(
         cloud_pk=cloud_id,
         web_hook_request={
             "events": events,
-            "url": settings.PLATFORM_BACK_URL + reverse("webhook-handler"),
-            "secret": settings.WEBHOOKS_SECRET,
+            "url": settings.PLATFORM_BACK_URL + reverse("webhook_handler"),
+            "secret": secret,
         },
+    )
+    webhook = WebHook.objects.create(
+        webhook_id=api_webhook["id"],
+        cloud_id=cloud_id,
+        secret=secret,
     )
     return webhook

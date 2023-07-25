@@ -1,4 +1,5 @@
 import logging
+
 from django.conf import settings
 from fluent import handler
 
@@ -19,7 +20,8 @@ if settings.FLUENTD_ENABLED:
 
 def log_user_connect(func):
     def wrapper(*args, **kwargs):
-        user = func(*args, **kwargs)
+        response = func(*args, **kwargs)
+        user = kwargs.get("request").user
         logger.info(
             {
                 "env": settings.ENV,
@@ -29,7 +31,7 @@ def log_user_connect(func):
                 "message": f"{user.email} has just logged on to the platform",
             }
         )
-        return user
+        return response
 
     return wrapper
 

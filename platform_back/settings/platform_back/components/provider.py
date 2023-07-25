@@ -13,7 +13,12 @@ OIDC_AUTH = {
     # at <endpoint>/.well-known/openid-configuration
     "OIDC_ENDPOINT": IAM_URL,
     # Accepted audiences the ID Tokens can be issued to
-    "OIDC_AUDIENCES": ("account"),
+    "OIDC_CLAIMS_OPTIONS": {
+        "aud": {
+            "values": ["account"],
+            "essential": True,
+        }
+    },
     # (Optional) Function that resolves id_token into user.
     # This function receives a request and an id_token dict and expects to
     # return a User object. The default implementation tries to find the user

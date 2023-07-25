@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ("event_type", models.CharField(max_length=255)),
                 ("cloud_id", models.PositiveIntegerField()),
                 ("payload", models.JSONField()),
-                ("consumed", models.BooleanField(db_index=True, default=False)),
+                ("consumed", models.BooleanField(default=False)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 (

@@ -49,16 +49,22 @@ urlpatterns = [
         name="register_cloud",
     ),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
-    path("webhook", webhook_views.WebHookView.as_view(), name="webhook-handler"),
+    path("webhook", webhook_views.WebHookView.as_view(), name="webhook_handler"),
     path("health/", include("health_check.urls")),
     path("", include(router.urls)),
 ]
 
 if settings.ADMIN_INTERFACE:
     from django.contrib import admin
+    from admin.views import register_webhooks
 
     urlpatterns += [
         path("grappelli/", include("grappelli.urls")),
+        path(
+            "admin/register-webhooks/",
+            register_webhooks,
+            name="webhooks_register_missing",
+        ),
         path("admin/", admin.site.urls, name="admin"),
         path("admin/doc/", include("django.contrib.admindocs.urls")),
     ]

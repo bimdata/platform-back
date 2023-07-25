@@ -6,6 +6,8 @@ from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 
 from externals.bimdata_api import ApiClient
+from externals.keycloak import get_access_token
+from organization.permissions import IsSelfClient
 from organization.serializers import CloudSerializer
 from organization.serializers import RegisterCloudSerializer
 from user.auth import get_jwt_value
@@ -28,18 +30,22 @@ def create_cloud(request):
             "visa.validation.add",
             "visa.validation.remove",
         ],
-        access_token=access_token,
+        access_token=get_access_token(),
     )
     return Response(status=status.HTTP_201_CREATED)
 
 
 @api_view(["POST"])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated, IsSelfClient])
 def register_cloud(request):
+    # This view is exclusively used by the API after a cloud
+    # has been created through the payment route.
+    # To simplify the process, the API utilizes the platform_back client
+    # to create the token.
+    # Therefore, we need to use the IsSelfClient permission.
     serializer = RegisterCloudSerializer(data=request.data)
-    breakpoint()
     serializer.is_valid(raise_exception=True)
-    access_token = get_jwt_value(request).decode("utf-8")
+    access_token = get_access_token()
     register_webhook(
         cloud_id=serializer.validated_data.get("id"),
         events=[
