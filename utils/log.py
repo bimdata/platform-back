@@ -21,7 +21,7 @@ if settings.FLUENTD_ENABLED:
 def log_user_connect(func):
     def wrapper(*args, **kwargs):
         response = func(*args, **kwargs)
-        user = kwargs.get("request").user
+        user = args[0].user
         logger.info(
             {
                 "env": settings.ENV,
