@@ -160,11 +160,9 @@
                     line-height: 22px;
                   "
                 >
-                  {% blocktrans trimmed with
-                  email_author=bcf.payload.topic.creation_author
-                  project_name=bcf.payload.project_name %} {{ email_author }} a
-                  créée un nouveau BCF dans le projet {{ project_name }}. {%
-                  endblocktrans %}
+                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
+                    {{ email_author }} a créée un nouveau BCF dans le projet {{ project_name }}.
+                  {% endblocktrans %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
@@ -178,9 +176,9 @@
       <tr>
         <!-- BLOC LEFT ============================== -->
         <td width="300" align="center">
-          {% if bcf.payload.topic.snapshot_urls|length > 0 %}
+          {% if bcf.payload.topic.snapshot_url %}
           <img
-            src="{{ bcf.payload.topic.snapshot_urls.0 }}"
+            src="{{ bcf.payload.topic.snapshot_url }}"
             width="300px"
             height="135px"
             style="display: block"
@@ -233,8 +231,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Description: </strong>{{ bcf.payload.topic.description
-                  }}
+                  <strong>Description: </strong>{{ bcf.payload.topic.description }}
                 </span>
               </td>
             </tr>
@@ -350,11 +347,9 @@
                     line-height: 22px;
                   "
                 >
-                  {% blocktrans trimmed with
-                  email_author=bcf.payload.topic.creation_author
-                  project_name=bcf.payload.project_name %} {{ email_author }} a
-                  créée un nouveau BCF dans le projet {{ project_name }}. {%
-                  endblocktrans %}
+                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
+                    {{ email_author }} a créée un nouveau BCF dans le projet {{ project_name }}.
+                  {% endblocktrans %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
@@ -393,8 +388,7 @@
                     line-height: 22px;
                   "
                 >
-                  <strong>Description: </strong>{{ bcf.payload.topic.description
-                  }}
+                  <strong>Description: </strong>{{ bcf.payload.topic.description }}
                 </span>
               </td>
             </tr>

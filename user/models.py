@@ -79,11 +79,14 @@ class User(AbstractUser):
         self.save()
 
     def send_email_notifications(self):
+        from webhooks.handlers import RefreshHandler  # noqa
+
         notifications = Notification.objects.filter(user=self, consumed=False).order_by(
             "event_type", "event", "created_at"
         )
         ordered_by_event_type_notifications = {}
         for notification in notifications:
+            RefreshHandler(notification).refresh()
             ordered_by_event_type_notifications.setdefault(
                 notification.event_type, []
             ).append(notification)

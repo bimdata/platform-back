@@ -22,6 +22,31 @@ def get_user_from_email(email):
     return None
 
 
+class RefreshHandler:
+    def __init__(self, notification: Notification):
+        self.notification = notification
+
+    def refresh(self, save: bool = False) -> None:
+        if self.notification.event_type == "bcf":
+            self._refresh_bcf(save)
+
+    def _refresh_bcf(self, save: bool) -> None:
+        project = self.notification.payload["topic"]["project"]
+        topic = self.notification.payload["topic"]["guid"]
+        try:
+            viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
+                project, topic, img_format="url"
+            )
+        except Exception:
+            viewpoints = []
+        if len(viewpoints) > 0:
+            self.notification.payload["topic"]["snapshot_url"] = viewpoints[0][
+                "snapshot"
+            ]["snapshot_data"]
+            if save:
+                self.notification.save()
+
+
 class WebhookHandler:
     events = {
         "visa.validation.add": "add_validation",
@@ -103,16 +128,7 @@ class WebhookHandler:
 
     def handle_add_bcf(self):
         assigned_to = get_user_from_email(self.payload["topic"].get("assigned_to"))
-
         if assigned_to and self.payload["topic"]["format"] == "standard":
-            viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
-                self.payload["topic"]["project"],
-                self.payload["topic"]["guid"],
-                img_format="url",
-            )
-            self.payload["topic"]["snapshot_urls"] = [
-                viewpoint["snapshot"]["snapshot_data"] for viewpoint in viewpoints
-            ]
             Notification.objects.create(
                 user=assigned_to,
                 cloud_id=self.cloud_id,
