@@ -1,0 +1,213 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- fix WINDOWS PHONE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- google WEBFONT : Roboto -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+
+    <title>{% trans "Notifications" %}</title>
+
+    <style type="text/css"></style>
+  </head>
+
+  <body
+    bgcolor="#F7F7F7"
+    leftmargin="0"
+    rightmargin="0"
+    topmargin="0"
+    bottommargin="0"
+    alink="#2F374A"
+    vlink="#2F374A"
+    link="#2F374A"
+  >
+    <!-- LINE ==================================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#F8C62C"
+      align="center"
+      width="640"
+      height="4"
+      style="border-collapse: collapse; display: block"
+      class="container_table"
+    >
+      <tr height="8">
+        <td height="8">&nbsp;</td>
+      </tr>
+    </table>
+
+    <!-- HEADER ==================================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#F7F7F7"
+      align="center"
+      width="640"
+      style="border-collapse: collapse"
+      class="container_table"
+    >
+      <tr>
+        <td height="38">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">
+          <img
+            src="https://statics.bimdata.io/mails/img/platform/bimdata_logo-platform.png"
+            width="166px"
+            height="57px"
+            style="display: block"
+            border="0"
+            alt="BIMData logo"
+            title="BIMData logo"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td height="38">&nbsp;</td>
+      </tr>
+    </table>
+
+    <!-- CONTENT ============================== -->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#FFFFFF"
+      align="center"
+      width="640"
+      style="border-collapse: collapse"
+      class="container_table"
+    >
+      <tr>
+        <td height="50">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="60" class="td_hidden">&nbsp;</td>
+        <td align="center">
+          <img
+            src="https://statics.bimdata.io/mails/img/platform/mailing-visa_icon.png"
+            width="140px"
+            height="135px"
+            style="display: block"
+            border="0"
+            alt="Mailing Visa - icon visa"
+            title="Mailing Visa - icon visa"
+          />
+        </td>
+        <td width="60" class="td_hidden">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="50">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="60" class="td_hidden">&nbsp;</td>
+        <td align="center" class="td_block-center" width="300">
+          <strong
+            style="
+              font-family: Arial, sans-serif;
+              color: #2f374a;
+              font-size: 24px;
+              line-height: 21px;
+            "
+          >
+            {% blocktrans trimmed %} Ajout de nouveau visa, {% endblocktrans %}
+          </strong>
+        </td>
+        <td width="60" class="td_hidden">&nbsp;</td>
+      </tr>
+      {% for visa in notifications %}
+      <tr>
+        <td height="35" colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            bgcolor="#FFFFFF"
+            align="center"
+            width="640"
+            style="border-collapse: collapse"
+            class="container_table"
+          >
+            <tr>
+              <td width="60" class="td_hidden">&nbsp;</td>
+              <td align="center" class="td_block-center" width="300">
+                <span
+                  style="
+                    font-family: Arial, sans-serif;
+                    color: #606060;
+                    font-size: 14px;
+                    line-height: 22px;
+                  "
+                >
+                  {% blocktrans trimmed with
+                  firstname=visa.payload.visa.creator.firstname
+                  lastname=visa.payload.visa.creator.lastname
+                  project_name=visa.payload.project_name
+                  document_name=visa.payload.document_name
+                  deadline=visa.payload.visa.deadline%} {{ firstname }} {{
+                  lastname }} a ajouté une nouvelle demande de validation dans
+                  le projet {{ project_name }}, sur le {{ document_name }} à
+                  valider avant le {{ deadline }}. {% endblocktrans %}
+                </span>
+              </td>
+              <td width="60" class="td_hidden">&nbsp;</td>
+            </tr>
+            <tr>
+              <td height="25" class="">&nbsp;</td>
+            </tr>
+            <!-- BLOC BTN ============================== -->
+            <tr>
+              <td colspan="3">
+                <table
+                  align="center"
+                  width="200"
+                  bgcolor="#2f374a"
+                  border="0"
+                  style="border-collapse: collapse"
+                >
+                  <tr>
+                    <td align="center" height="40" width="230">
+                      <strong>
+                        <a
+                          href="{{ platform_url }}/spaces/{{ visa.payload.cloud_id }}/projects/{{ visa.payload.project_id }}"
+                          style="
+                            font-family: Arial, sans-serif;
+                            color: #fff;
+                            font-size: 16px;
+                            line-height: 21px;
+                            text-decoration: none;
+                          "
+                        >
+                          {% trans "Voir le projet" %}
+                        </a>
+                      </strong>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td height="48" colspan="3">&nbsp;</td>
+      </tr>
+    </table>
+  </body>
+</html>

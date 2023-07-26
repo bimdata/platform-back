@@ -3,11 +3,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 import requests
-from django.contrib.auth.models import AbstractUser
-from django.db import transaction, models
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.db import transaction
 
 from externals.bimdata_api import ApiClient
+from utils import mails
 
 
 class User(AbstractUser):
@@ -60,7 +62,7 @@ class User(AbstractUser):
     def create_demo(self, access_token=None):
         client = ApiClient(access_token)
         cloud = client.collaboration_api.create_cloud(
-            data={"name": f"{self.first_name} {self.last_name}"}
+            {"name": f"{self.first_name} {self.last_name}"}
         )
         with open("demo_icon.png", "rb") as file:
             demo_icon = ("image", ("demo_icon.png", file))
@@ -76,10 +78,32 @@ class User(AbstractUser):
         self.demo_project = demo.id
         self.save()
 
+    def send_email_notifications(self):
+        notifications = Notification.objects.filter(user=self, consumed=False).order_by(
+            "event_type", "event", "created_at"
+        )
+        ordered_by_event_type_notifications = {}
+        for notification in notifications:
+            ordered_by_event_type_notifications.setdefault(
+                notification.event_type, []
+            ).append(notification)
+        for (
+            event_type,
+            notifications_type,
+        ) in ordered_by_event_type_notifications.items():
+            mails.send_notifications(self, event_type, notifications_type)
+        notifications.update(consumed=True)
+
 
 class Notification(models.Model):
-    recipient = models.ForeignKey("User", on_delete=models.CASCADE)
-    text = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.CharField(max_length=255)
+    event_type = models.CharField(max_length=255)
+    cloud_id = models.PositiveIntegerField()
+    payload = models.JSONField()
+    consumed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class IfcMail(models.Model):
@@ -97,11 +121,11 @@ class IfcMail(models.Model):
 
 
 class GuidedTour(models.Model):
-    PLATFORM_INTRO = 'PLATFORM_INTRO'
-    PLATFORM_VISA = 'PLATFORM_VISA'
+    PLATFORM_INTRO = "PLATFORM_INTRO"
+    PLATFORM_VISA = "PLATFORM_VISA"
     NAME_CHOICES = [
-        (PLATFORM_INTRO, 'PLATFORM_INTRO'),
-        (PLATFORM_VISA, 'PLATFORM_VISA'),
+        (PLATFORM_INTRO, "PLATFORM_INTRO"),
+        (PLATFORM_VISA, "PLATFORM_VISA"),
     ]
 
     user = models.ForeignKey("User", on_delete=models.CASCADE)
@@ -110,4 +134,5 @@ class GuidedTour(models.Model):
     class Meta:
         unique_together = (("user", "name"),)
 
-from user.signals import *
+
+from user.signals import *  # noqa

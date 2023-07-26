@@ -1,0 +1,17 @@
+{% extends "admin/change_list.html" %} {% load i18n %} {% block object-tools %}
+<ul class="grp-object-tools">
+  <li>
+    <form action="{% url 'webhooks_register_missing' %}" method="post">
+      <button
+        class="grp-button"
+        type="submit"
+        style="width: inherit; margin-right: 12em"
+        action="{% url 'webhooks_register_missing' %}"
+      >
+        Register missing webhooks
+      </button>
+      {% csrf_token %}
+    </form>
+  </li>
+</ul>
+{{ block.super }} {% endblock %}

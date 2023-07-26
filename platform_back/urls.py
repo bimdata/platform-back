@@ -18,40 +18,58 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.urls import path, include
-from user import views
-from webhooks.views import WebHookHandler
+from django.urls import include
+from django.urls import path
 from rest_framework.routers import DefaultRouter
+
+from organization import views as organization_views
+from user import views as user_views
+from webhooks import views as webhook_views
 
 app_name = "platform_back"
 
 router = DefaultRouter()
 
-router.register(r'guidedtour', views.GuidedTourViewSet, basename="tours")
+router.register(r"guidedtour", user_views.GuidedTourViewSet, basename="tours")
 
 urlpatterns = [
     path(
         "create_or_update_user/",
-        views.create_or_update_user,
+        user_views.create_or_update_user,
         name="create_or_update_user",
     ),
+    path(
+        "create-cloud/",
+        organization_views.create_cloud,
+        name="create_cloud",
+    ),
+    path(
+        "register-cloud/",
+        organization_views.register_cloud,
+        name="register_cloud",
+    ),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
-    path("webhook", WebHookHandler.as_view(), name="webhook-handler"),
+    path("webhook", webhook_views.WebHookView.as_view(), name="webhook_handler"),
     path("health/", include("health_check.urls")),
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]
 
 if settings.ADMIN_INTERFACE:
     from django.contrib import admin
+    from admin.views import register_webhooks
 
     urlpatterns += [
         path("grappelli/", include("grappelli.urls")),
+        path(
+            "admin/register-webhooks/",
+            register_webhooks,
+            name="webhooks_register_missing",
+        ),
         path("admin/", admin.site.urls, name="admin"),
         path("admin/doc/", include("django.contrib.admindocs.urls")),
     ]
 
 if "development" in settings.ENV:
     import debug_toolbar
-    from django.conf.urls.static import static
 
     urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]

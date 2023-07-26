@@ -2,18 +2,19 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
+import hashlib
 import hmac
 import json
-import hashlib
-from django.urls import reverse
+
 from django.test import override_settings
-from rest_framework.test import APITestCase
+from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 
 class TestWebHooks(APITestCase):
     def test_without_signature(self):
-        url = reverse("webhook-handler")
+        url = reverse("webhook_handler")
 
         response = self.client.post(url, data={})
 
@@ -21,7 +22,7 @@ class TestWebHooks(APITestCase):
 
     @override_settings(WEBHOOKS_SECRET="123")
     def test_bad_signature(self):
-        url = reverse("webhook-handler")
+        url = reverse("webhook_handler")
 
         response = self.client.post(url, data={}, HTTP_X_BIMDATA_SIGNATURE="456")
 
@@ -29,9 +30,9 @@ class TestWebHooks(APITestCase):
 
     @override_settings(WEBHOOKS_SECRET="123")
     def test_good_signature(self):
-        url = reverse("webhook-handler")
+        url = reverse("webhook_handler")
 
-        data = {"coucou": "haha"}
+        data = {"event_name": "haha"}
         data_encoded = json.dumps(data).encode()
         signature = hmac.new("123".encode(), data_encoded, hashlib.sha256).hexdigest()
 

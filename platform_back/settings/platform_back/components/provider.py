@@ -4,13 +4,21 @@ IAM_URL = env("IAM_URL") + "/auth/realms/bimdata"
 
 IAM_OP_TOKEN_ENDPOINT = f"{IAM_URL}/protocol/openid-connect/token"
 
+OIDC_CLIENT_ID = env("IAM_CLIENT_ID")
+OIDC_CLIENT_SECRET = env("IAM_CLIENT_SECRET")
+
 OIDC_AUTH = {
     # Specify OpenID Connect endpoint. Configuration will be
     # automatically done based on the discovery document found
     # at <endpoint>/.well-known/openid-configuration
     "OIDC_ENDPOINT": IAM_URL,
     # Accepted audiences the ID Tokens can be issued to
-    "OIDC_AUDIENCES": ("account"),
+    "OIDC_CLAIMS_OPTIONS": {
+        "aud": {
+            "values": ["account"],
+            "essential": True,
+        }
+    },
     # (Optional) Function that resolves id_token into user.
     # This function receives a request and an id_token dict and expects to
     # return a User object. The default implementation tries to find the user

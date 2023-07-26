@@ -4,8 +4,9 @@
 # file that was distributed with this source code.
 from rest_framework.response import Response
 from rest_framework import permissions, viewsets, mixins, status
-from user.v1.serializers import GuidedTourSerializer, NotificationSerializer, UserSerializer
-from user.models import Notification, GuidedTour
+from user.v1.serializers import UserSerializer
+from user.v1.serializers import NotificationSerializer
+from user.models import Notification
 from drf_yasg.utils import swagger_auto_schema
 
 

@@ -5,7 +5,9 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from user.models import User, Notification, GuidedTour
+from user.models import User
+from user.models import Notification
+from user.models import GuidedTour
 
 
 class NotificationSerializer(serializers.ModelSerializer):

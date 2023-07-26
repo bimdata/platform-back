@@ -3,17 +3,28 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 from django.conf import settings
+from django.urls import reverse
+
 from externals.bimdata_api import ApiClient
+from webhooks.models import WebHook
 
 
-def register_webhook(cloud_id, access_token=None):
+def register_webhook(cloud_id, events, access_token=None):
+    if WebHook.objects.filter(cloud_id=cloud_id).exists():
+        return
     client = ApiClient(access_token)
-    webhook = client.webhook_api.create_web_hook(
+    secret = settings.WEBHOOKS_SECRET
+    api_webhook = client.webhook_api.create_web_hook(
         cloud_pk=cloud_id,
-        data={
-            "events": ["org.members", "ifc.process_update"],
-            "url": f"{settings.PLATFORM_BACK_URL}/webhook",
-            "secret": settings.WEBHOOKS_SECRET,
+        web_hook_request={
+            "events": events,
+            "url": settings.PLATFORM_BACK_URL + reverse("webhook_handler"),
+            "secret": secret,
         },
+    )
+    webhook = WebHook.objects.create(
+        webhook_id=api_webhook["id"],
+        cloud_id=cloud_id,
+        secret=secret,
     )
     return webhook
