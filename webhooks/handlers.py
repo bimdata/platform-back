@@ -102,7 +102,7 @@ class WebhookHandler:
                 return
 
     def handle_add_bcf(self):
-        assigned_to = get_user_from_email(self.payload["topic"]["assigned_to"])
+        assigned_to = get_user_from_email(self.payload["topic"].get("assigned_to"))
 
         if assigned_to and self.payload["topic"]["format"] == "standard":
             viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
