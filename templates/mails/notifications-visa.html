@@ -122,7 +122,7 @@
               line-height: 21px;
             "
           >
-            {% blocktrans trimmed %} Ajout de nouveau visa, {% endblocktrans %}
+            {% blocktrans trimmed %} Ajout de nouveau visa {% endblocktrans %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -154,15 +154,10 @@
                     line-height: 22px;
                   "
                 >
-                  {% blocktrans trimmed with
-                  firstname=visa.payload.visa.creator.firstname
-                  lastname=visa.payload.visa.creator.lastname
-                  project_name=visa.payload.project_name
-                  document_name=visa.payload.document_name
-                  deadline=visa.payload.visa.deadline%} {{ firstname }} {{
-                  lastname }} a ajouté une nouvelle demande de validation dans
-                  le projet {{ project_name }}, sur le {{ document_name }} à
-                  valider avant le {{ deadline }}. {% endblocktrans %}
+                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline %}
+                    {{ firstname }} {{ lastname }} a ajouté une nouvelle demande de validation dans
+                    le projet {{ project_name }}, sur le document {{ document_name }} à valider avant le {{ deadline }}.
+                  {% endblocktrans %}
                 </span>
               </td>
               <td width="60" class="td_hidden">&nbsp;</td>

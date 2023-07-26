@@ -2,11 +2,10 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
-from utils import mails
-from user.models import IfcMail, User
-from user.models import Notification
 from externals.bimdata_api import ApiClient
 from externals.keycloak import get_access_token
+from user.models import Notification
+from user.models import User
 
 
 def get_user_from_sub(sub):
@@ -17,10 +16,10 @@ def get_user_from_sub(sub):
 
 
 def get_user_from_email(email):
-    try:
-        return User.objects.get(email=email)
-    except User.DoesNotExist:
-        return None
+    users = User.objects.filter(email=email)
+    if len(users) > 0:
+        return users.first()
+    return None
 
 
 class WebhookHandler:

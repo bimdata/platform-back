@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 08:47+0000\n"
+"POT-Creation-Date: 2023-07-26 12:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,9 @@ msgid "Notifications"
 msgstr "Notifications"
 
 #: templates/mails/notifications-bcf.html:125
-msgid "Ajout d’un nouveau BCF,"
+#, fuzzy
+#| msgid "Ajout d’un nouveau BCF,"
+msgid "Ajout d’un nouveau BCF"
 msgstr "Ajout d’un nouveau BCF,"
 
 #: templates/mails/notifications-bcf.html:309
@@ -110,10 +112,23 @@ msgid "Voir le BCF"
 msgstr "Voir le BCF"
 
 #: templates/mails/notifications-visa.html:125
-msgid "Ajout de nouveau visa,"
+#, fuzzy
+#| msgid "Ajout de nouveau visa,"
+msgid "Ajout de nouveau visa"
 msgstr "Ajout de nouveau visa,"
 
-#: templates/mails/notifications-visa.html:196
+#: templates/mails/notifications-visa.html:157
+#, python-format
+msgid ""
+"%(firstname)s %(lastname)s a ajouté une nouvelle demande de validation dans "
+"le projet %(project_name)s, sur le document %(document_name)s à valider "
+"avant le %(deadline)s."
+msgstr ""
+"%(firstname)s %(lastname)s a ajouté une nouvelle demande de validation dans "
+"le projet %(project_name)s, sur le document %(document_name)s à valider "
+"avant le %(deadline)s."
+
+#: templates/mails/notifications-visa.html:191
 msgid "Voir le projet"
 msgstr "Voir le projet"
 
@@ -128,3 +143,9 @@ msgstr "Nouvelle notification Visa"
 #: utils/mailer.py:18
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Bienvenue sur la plateforme BIMData.io"
+
+#, python-format
+#~ msgid ""
+#~ "%(email_author)s a créée un nouveau BCF dans le projet %(project_name)s."
+#~ msgstr ""
+#~ "%(email_author)s a créée un nouveau BCF dans le projet %(project_name)s."
