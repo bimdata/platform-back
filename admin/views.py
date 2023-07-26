@@ -37,8 +37,8 @@ def register_webhooks(request):
         messages.success(
             request,
             ngettext(
-                "%d new webhook was successfully registered.",
-                "%d new webhooks were successfully registered.",
+                "%d nouveau webhook a été enregistré avec succès.",
+                "%d nouveaux webhooks ont été enregistrés avec succès.",
                 added,
             )
             % added,

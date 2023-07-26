@@ -1,50 +1,127 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Platform Back\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-26 08:47+0000\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: Platform Back\n"
-"Language: de\n"
+
+#: admin/views.py:40
+#, python-format
+msgid "%d nouveau webhook a été enregistré avec succès."
+msgid_plural "%d nouveaux webhooks ont été enregistrés avec succès."
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/mails/mailing-welcome.html:15
 msgid "Bienvenue chez BIMData !"
 msgstr "Willkommen bei BIMData!"
 
 #: templates/mails/mailing-welcome.html:129
+#, python-format
 msgid "Nous sommes heureux de vous accueillir sur BIMData.io, %(user_name)s"
-msgstr "Wir freuen uns, Sie bei BIMData.io willkommen heißen zu dürfen, %(user_name)s!"
+msgstr ""
+"Wir freuen uns, Sie bei BIMData.io willkommen heißen zu dürfen, "
+"%(user_name)s!"
 
 #: templates/mails/mailing-welcome.html:150
-msgid "Bienvenue sur la plateforme BIMData.io.<br /> Collaborez, gérez et priorisez votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
-msgstr "Willkommen auf der BIMData.io-Plattform.<br />Arbeiten Sie überall und jederzeit mit anderen zusammen, verwalten und priorisieren Sie Ihre Arbeit.<br />Fertig? Los geht's!"
+msgid ""
+"Bienvenue sur la plateforme BIMData.io.<br /> Collaborez, gérez et priorisez "
+"votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
+msgstr ""
+"Willkommen auf der BIMData.io-Plattform.<br />Arbeiten Sie überall und "
+"jederzeit mit anderen zusammen, verwalten und priorisieren Sie Ihre Arbeit."
+"<br />Fertig? Los geht's!"
 
 #: templates/mails/mailing-welcome.html:185
-#: templates/mails/mailing-welcome.html:399
+#: templates/mails/mailing-welcome.html:401
 msgid "Accéder à votre compte"
 msgstr "Auf Ihr Konto zugreifen"
 
-#: templates/mails/mailing-welcome.html:225
+#: templates/mails/mailing-welcome.html:227
 msgid "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
-msgstr "Bravo! Sie werden Teil einer Community von <br /> über 100.000 Nutzern!"
+msgstr ""
+"Bravo! Sie werden Teil einer Community von <br /> über 100.000 Nutzern!"
 
-#: templates/mails/mailing-welcome.html:247
-msgid "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder leurs collaborateurs synchronisés."
-msgstr "Teams jeder Größe verwenden BIMData.io, um miteinander zu kommunizieren und alle Mitwirkenden über alles auf dem Laufenden zu halten."
+#: templates/mails/mailing-welcome.html:249
+msgid ""
+"Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
+"leurs collaborateurs synchronisés."
+msgstr ""
+"Teams jeder Größe verwenden BIMData.io, um miteinander zu kommunizieren und "
+"alle Mitwirkenden über alles auf dem Laufenden zu halten."
 
-#: templates/mails/mailing-welcome.html:282
-msgid "<strong>La collaboration au cœur de vos projets</strong><br /> Créez, gérez et faites évoluer facilement votre travail sur une seule plateforme. Collaborez sur un seul espace de travail virtuel partagé."
-msgstr "<strong>Die Zusammenarbeit mit anderen im Mittelpunkt Ihrer Projekte</strong><br /> Erstellen, verwalten und entwickeln Sie Ihre Arbeit ganz einfach auf einer einzigen Plattform. Arbeiten Sie zusammen mit anderen an einem einzigen, gemeinsam genutzten virtuellen Arbeitsbereich."
+#: templates/mails/mailing-welcome.html:284
+msgid ""
+"<strong>La collaboration au cœur de vos projets</strong><br /> Créez, gérez "
+"et faites évoluer facilement votre travail sur une seule plateforme. "
+"Collaborez sur un seul espace de travail virtuel partagé."
+msgstr ""
+"<strong>Die Zusammenarbeit mit anderen im Mittelpunkt Ihrer Projekte</"
+"strong><br /> Erstellen, verwalten und entwickeln Sie Ihre Arbeit ganz "
+"einfach auf einer einzigen Plattform. Arbeiten Sie zusammen mit anderen an "
+"einem einzigen, gemeinsam genutzten virtuellen Arbeitsbereich."
 
-#: templates/mails/mailing-welcome.html:321
-msgid "<strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br /> BIMData Viewer, et ses outils de mesures et coupes, est automatiquement intégré à la plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click seulement."
-msgstr "<strong>Sehen Sie sich Ihre 2D- und 3D-Modelle mit einem Klick an</strong><br /> BIMData Viewer und seine Mess- und Schnittwerkzeuge sind automatisch in die Plattform integriert, sodass Sie Ihre IFC-Modelle mit nur einem Klick anzeigen können."
+#: templates/mails/mailing-welcome.html:323
+msgid ""
+"<strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br /> BIMData "
+"Viewer, et ses outils de mesures et coupes, est automatiquement intégré à la "
+"plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click "
+"seulement."
+msgstr ""
+"<strong>Sehen Sie sich Ihre 2D- und 3D-Modelle mit einem Klick an</"
+"strong><br /> BIMData Viewer und seine Mess- und Schnittwerkzeuge sind "
+"automatisch in die Plattform integriert, sodass Sie Ihre IFC-Modelle mit nur "
+"einem Klick anzeigen können."
 
-#: templates/mails/mailing-welcome.html:360
-msgid "<strong>Priorisez et caractérisez vos données</strong><br /> La Gestion Electronique des Documents (GED) vous permet de suivre, gérer et caractériser les informations de vos projets en cours. Véritable outil de collaboration et gestion de projet, la GED vous permet de prioriser et caractériser les données afin de mieux les interpréter."
-msgstr "<strong>Priorisieren und kennzeichnen Sie Ihre Daten</strong><br /> Mit dem Electronic Document Management (EDM) können Sie Informationen aus Ihren laufenden Projekten nachverfolgen, verwalten und kennzeichnen. EDM ist essentiell ein Werkzeug für Projektmanagement und die Zusammenarbeit mit anderen. Es ermöglicht Nutzern, Daten zu priorisieren und zu kennzeichnen, um sie besser zu interpretieren."
+#: templates/mails/mailing-welcome.html:362
+msgid ""
+"<strong>Priorisez et caractérisez vos données</strong><br /> La Gestion "
+"Electronique des Documents (GED) vous permet de suivre, gérer et "
+"caractériser les informations de vos projets en cours. Véritable outil de "
+"collaboration et gestion de projet, la GED vous permet de prioriser et "
+"caractériser les données afin de mieux les interpréter."
+msgstr ""
+"<strong>Priorisieren und kennzeichnen Sie Ihre Daten</strong><br /> Mit dem "
+"Electronic Document Management (EDM) können Sie Informationen aus Ihren "
+"laufenden Projekten nachverfolgen, verwalten und kennzeichnen. EDM ist "
+"essentiell ein Werkzeug für Projektmanagement und die Zusammenarbeit mit "
+"anderen. Es ermöglicht Nutzern, Daten zu priorisieren und zu kennzeichnen, "
+"um sie besser zu interpretieren."
 
-#: utils/mailer.py:13
+#: templates/mails/notifications-bcf.html:18
+#: templates/mails/notifications-visa.html:18
+msgid "Notifications"
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:125
+msgid "Ajout d’un nouveau BCF,"
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:309
+#: templates/mails/notifications-bcf.html:478
+msgid "Voir le BCF"
+msgstr ""
+
+#: templates/mails/notifications-visa.html:125
+msgid "Ajout de nouveau visa,"
+msgstr ""
+
+#: templates/mails/notifications-visa.html:196
+msgid "Voir le projet"
+msgstr ""
+
+#: utils/mailer.py:16
+msgid "Nouvelle notification BCF"
+msgstr ""
+
+#: utils/mailer.py:17
+msgid "Nouvelle notification Visa"
+msgstr ""
+
+#: utils/mailer.py:18
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Willkommen auf der Plattform BIMData.io"
-

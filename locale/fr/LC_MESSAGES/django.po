@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 10:23+0100\n"
+"POT-Creation-Date: 2023-07-26 08:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: admin/views.py:40
+#, python-format
+msgid "%d nouveau webhook a été enregistré avec succès."
+msgid_plural "%d nouveaux webhooks ont été enregistrés avec succès."
+msgstr[0] "%d nouveau webhook a été enregistré avec succès."
+msgstr[1] "%d nouveaux webhooks ont été enregistrés avec succès."
 
 #: templates/mails/mailing-welcome.html:15
 msgid "Bienvenue chez BIMData !"
@@ -36,15 +43,15 @@ msgstr ""
 "votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
 
 #: templates/mails/mailing-welcome.html:185
-#: templates/mails/mailing-welcome.html:399
+#: templates/mails/mailing-welcome.html:401
 msgid "Accéder à votre compte"
 msgstr "Accéder à votre compte"
 
-#: templates/mails/mailing-welcome.html:225
+#: templates/mails/mailing-welcome.html:227
 msgid "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
 msgstr "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
 
-#: templates/mails/mailing-welcome.html:247
+#: templates/mails/mailing-welcome.html:249
 msgid ""
 "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
 "leurs collaborateurs synchronisés."
@@ -52,7 +59,7 @@ msgstr ""
 "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
 "leurs collaborateurs synchronisés."
 
-#: templates/mails/mailing-welcome.html:282
+#: templates/mails/mailing-welcome.html:284
 msgid ""
 "<strong>La collaboration au cœur de vos projets</strong><br /> Créez, gérez "
 "et faites évoluer facilement votre travail sur une seule plateforme. "
@@ -62,7 +69,7 @@ msgstr ""
 "et faites évoluer facilement votre travail sur une seule plateforme. "
 "Collaborez sur un seul espace de travail virtuel partagé."
 
-#: templates/mails/mailing-welcome.html:321
+#: templates/mails/mailing-welcome.html:323
 msgid ""
 "<strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br /> BIMData "
 "Viewer, et ses outils de mesures et coupes, est automatiquement intégré à la "
@@ -74,7 +81,7 @@ msgstr ""
 "plateforme, vous pouvez donc visualiser vos maquettes IFC en 1 click "
 "seulement."
 
-#: templates/mails/mailing-welcome.html:360
+#: templates/mails/mailing-welcome.html:362
 msgid ""
 "<strong>Priorisez et caractérisez vos données</strong><br /> La Gestion "
 "Electronique des Documents (GED) vous permet de suivre, gérer et "
@@ -88,6 +95,36 @@ msgstr ""
 "collaboration et gestion de projet, la GED vous permet de prioriser et "
 "caractériser les données afin de mieux les interpréter."
 
-#: utils/mailer.py:13
+#: templates/mails/notifications-bcf.html:18
+#: templates/mails/notifications-visa.html:18
+msgid "Notifications"
+msgstr "Notifications"
+
+#: templates/mails/notifications-bcf.html:125
+msgid "Ajout d’un nouveau BCF,"
+msgstr "Ajout d’un nouveau BCF,"
+
+#: templates/mails/notifications-bcf.html:309
+#: templates/mails/notifications-bcf.html:478
+msgid "Voir le BCF"
+msgstr "Voir le BCF"
+
+#: templates/mails/notifications-visa.html:125
+msgid "Ajout de nouveau visa,"
+msgstr "Ajout de nouveau visa,"
+
+#: templates/mails/notifications-visa.html:196
+msgid "Voir le projet"
+msgstr "Voir le projet"
+
+#: utils/mailer.py:16
+msgid "Nouvelle notification BCF"
+msgstr "Nouvelle notification BCF"
+
+#: utils/mailer.py:17
+msgid "Nouvelle notification Visa"
+msgstr "Nouvelle notification Visa"
+
+#: utils/mailer.py:18
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Bienvenue sur la plateforme BIMData.io"
