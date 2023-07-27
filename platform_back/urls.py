@@ -56,13 +56,13 @@ urlpatterns = [
 
 if settings.ADMIN_INTERFACE:
     from django.contrib import admin
-    from admin.views import register_webhooks
+    from admin.views import register_webhooks_view
 
     urlpatterns += [
         path("grappelli/", include("grappelli.urls")),
         path(
             "admin/register-webhooks/",
-            register_webhooks,
+            register_webhooks_view,
             name="webhooks_register_missing",
         ),
         path("admin/", admin.site.urls, name="admin"),

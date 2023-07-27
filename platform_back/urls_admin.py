@@ -3,14 +3,14 @@ from django.contrib import admin
 from django.urls import include
 from django.urls import path
 
-from admin.views import register_webhooks
+from admin.views import register_webhooks_view
 
 urlpatterns = [
     path("grappelli/", include("grappelli.urls")),
     path("", admin.site.urls, name="admin"),
     path(
         "admin/register-webhooks/",
-        register_webhooks,
+        register_webhooks_view,
         name="webhooks_register_missing",
     ),
     path("doc/", include("django.contrib.admindocs.urls")),

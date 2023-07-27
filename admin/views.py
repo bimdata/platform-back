@@ -8,9 +8,10 @@ from webhooks.models import WebHook
 from webhooks.utils import register_webhook
 
 
-def register_webhooks(request):
+def register_webhooks() -> int:
     """
     Register missing webhooks
+    Used by on-premise installations
     """
     access_token = get_access_token()
     client = ApiClient(access_token)
@@ -32,16 +33,19 @@ def register_webhooks(request):
             ],
             access_token=access_token,
         )
-    added = len(cloud_ids)
-    if added:
+    return len(cloud_ids)
+
+
+def register_webhooks_view(request):
+    if count := register_webhooks():
         messages.success(
             request,
             ngettext(
                 "%d nouveau webhook a été enregistré avec succès.",
                 "%d nouveaux webhooks ont été enregistrés avec succès.",
-                added,
+                count,
             )
-            % added,
+            % count,
         )
     else:
         messages.info(request, "No new webhook to register.")
