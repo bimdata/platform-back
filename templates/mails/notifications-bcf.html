@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load convert_str_date %}
 
 <!DOCTYPE html>
 <html>
@@ -156,9 +157,7 @@
               line-height: 21px;
             "
           >
-            {% blocktrans trimmed %}
-              Ajout d’un nouveau BCF
-            {% endblocktrans %}
+            {% trans "Ajout d’un nouveau BCF" %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -257,12 +256,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Description: </strong><br />
-                  {% if bcf.payload.topic.description %}
-                  {{ bcf.payload.topic.description }}
-                  {% else %}
-                  {% trans "Pas de description renseignée" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Description: {% endblocktrans %}</strong><br />{{ bcf.payload.topic.description|default:_("Pas de description renseignée") }}
                 </span>
               </td>
             </tr>
@@ -280,12 +274,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Due date: </strong><br />
-                  {% if bcf.payload.topic.due_date %}
-                  {{ bcf.payload.topic.due_date }}
-                  {% else %}
-                  {% trans "Pas de date d'échéance" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Échéance: {% endblocktrans %}</strong>{{ bcf.payload.topic.due_date|convert_str_date|date:"DATE_FORMAT"|default:_("Pas de date d'échéance") }}
                 </span>
               </td>
               <td width="5" class="td_hidden">&nbsp;</td>
@@ -297,14 +286,9 @@
                     color: #606060;
                     font-size: 12px;
                     line-height: 20px;
-                  "
-                >
-                  <strong>Priorité: </strong><br />
-                  {% if bcf.payload.topic.priority %}
-                  {{ bcf.payload.topic.priority }}
-                  {% else %}
-                  {% trans "Non défini" %}
-                  {% endif %}
+                    "
+                    >
+                  <strong>{% blocktrans %}Priorité: {% endblocktrans %}</strong><br />{{ bcf.payload.topic.priority|default:_("Non défini") }}
                 </span>
               </td>
               <td width="5" class="td_hidden">&nbsp;</td>
@@ -318,12 +302,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Type: </strong><br />
-                  {% if bcf.payload.topic.topic_type %}
-                  {{ bcf.payload.topic.topic_type }}
-                  {% else %}
-                  {% trans "Pas de type spécifié" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Type: {% endblocktrans %}</strong><br />{{ bcf.payload.topic.topic_type|default:_("Pas de type spécifié") }}
                 </span>
               </td>
             </tr>
@@ -344,7 +323,7 @@
                     <td align="center" height="30" width="170">
                       <strong>
                         <a
-                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}#bcf"
+                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}/viewer{% if bcf.payload.topic.models|length > 0 %}/{{ bcf.payload.topic.models|first }}{% endif %}?window=3d&topicGuid={{ bcf.payload.topic.guid }}"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;
@@ -445,12 +424,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Description: </strong>
-                  {% if bcf.payload.topic.description %}
-                  {{ bcf.payload.topic.description }}
-                  {% else %}
-                  {% trans "Pas de description renseignée" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Description: {% endblocktrans %}</strong>{{ bcf.payload.topic.description|default:_("Pas de description renseignée") }}
                 </span>
               </td>
             </tr>
@@ -464,12 +438,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Due date: </strong>
-                  {% if bcf.payload.topic.due_date %}
-                  {{ bcf.payload.topic.due_date }}
-                  {% else %}
-                  {% trans "Pas de date d'échéance" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Échéance: {% endblocktrans %}</strong>{{ bcf.payload.topic.due_date|convert_str_date|date:"DATE_FORMAT"|default:_("Pas de date d'échéance") }}
                 </span>
               </td>
             </tr>
@@ -483,12 +452,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Priorité: </strong>
-                  {% if bcf.payload.topic.priority %}
-                  {{ bcf.payload.topic.priority }}
-                  {% else %}
-                  {% trans "Non défini" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Priorité: {% endblocktrans %}</strong>{{ bcf.payload.topic.priority|default:_("Non défini") }}
                 </span>
               </td>
             </tr>
@@ -502,12 +466,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>Type: </strong>
-                  {% if bcf.payload.topic.topic_type %}
-                  {{ bcf.payload.topic.topic_type }}
-                  {% else %}
-                  {% trans "Pas de type spécifié" %}
-                  {% endif %}
+                  <strong>{% blocktrans %}Type: {% endblocktrans %}</strong>{{ bcf.payload.topic.topic_type|default:_("Pas de type spécifié") }}
                 </span>
               </td>
             </tr>
@@ -537,7 +496,7 @@
                     <td align="center" height="30" width="230">
                       <strong>
                         <a
-                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}#bcf"
+                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}/viewer{% if bcf.payload.topic.models|length > 0 %}/{{ bcf.payload.topic.models|first }}{% endif %}?window=3d&topicGuid={{ bcf.payload.topic.guid }}"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;

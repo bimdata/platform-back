@@ -4,14 +4,19 @@
 # file that was distributed with this source code.
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from user.models import User, GuidedTour
+
+from user.models import GuidedTour
 from user.models import Notification
+from user.models import User
 
 
 @admin.register(User)
 class UsersAdmin(UserAdmin):
     fieldsets = (
-        ("platform_info", {"fields": ("demo_cloud", "demo_project", "sub")}),
+        (
+            "platform_info",
+            {"fields": ("demo_cloud", "demo_project", "sub", "language")},
+        ),
     ) + UserAdmin.fieldsets
     list_display = ("username", "email", "first_name", "last_name", "date_joined")
     list_filter = ("is_superuser",)

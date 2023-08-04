@@ -4,7 +4,9 @@ from platform_back.settings.environ import env
 
 logger = logging.getLogger("django")
 
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="no-reply@bimdata.io")
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL", default="BIMData Platform <no-reply@bimdata.io>"
+)
 
 SERVER_EMAIL = env("SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 

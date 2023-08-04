@@ -159,14 +159,14 @@ msgstr ""
 msgid "Voir le projet"
 msgstr ""
 
-#: utils/mailer.py:16
+#: utils/mailer.py:17
 msgid "Nouvelle notification BCF"
 msgstr ""
 
-#: utils/mailer.py:17
+#: utils/mailer.py:18
 msgid "Nouvelle notification Visa"
 msgstr ""
 
-#: utils/mailer.py:18
+#: utils/mailer.py:19
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Willkommen auf der Plattform BIMData.io"
