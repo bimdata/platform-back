@@ -201,8 +201,7 @@
                     line-height: 21px;
                   "
                 >
-                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname
-                  lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline %}
+                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline %}
                   <strong>{{ firstname }} {{ lastname }}</strong> a ajouté une nouvelle demande de
                   validation dans le projet : {{ project_name }} sur le document
                   <strong style="color: #2f374a; font-size: 14px">{{ document_name }}</strong> à
