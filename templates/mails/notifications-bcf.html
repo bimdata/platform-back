@@ -10,14 +10,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- google WEBFONT : Roboto -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
 
-    <title>{% trans "Notifications" %}</title>
+    <title>{% trans "Notifications BFC" %}</title>
 
-    <style type="text/css"></style>
+    <style type="text/css">
+      @media only screen and (max-width: 480px) {
+        /* style TABLE */
+        table[class="container_table"] {
+          width: 320px;
+        }
+        table[class="container_table-inner"] {
+          width: 300px;
+        }
+
+        /* style TD */
+        td[class="td_hidden"] {
+          display: none;
+        }
+        td[class="td_block"] {
+          width: 300px;
+          display: block;
+        }
+        td[class="td_block-center"] {
+          width: 300px;
+          margin: auto;
+          display: block;
+        }
+        td[class="td_img"] {
+          margin: auto;
+          width: 300px;
+          display: block;
+        }
+
+        /* Mobile & Desktop */
+        td[class="mobile-visible"] {
+          display: block !important;
+        }
+        .mobile-visible {
+          display: block !important;
+        }
+      }
+    </style>
   </head>
 
   <body
@@ -97,7 +131,7 @@
         <td width="60" class="td_hidden">&nbsp;</td>
         <td align="center">
           <img
-            src="https://statics.bimdata.io/mails/img/platform/mailing-bcf_icon.png"
+            src="https://statics.bimdata.io/mails/img/platform/mailing-bcf_illustration.png"
             width="140px"
             height="135px"
             style="display: block"
@@ -122,7 +156,7 @@
               line-height: 21px;
             "
           >
-            {% blocktrans trimmed %} Ajout d’un nouveau BCF {% endblocktrans %}
+            {% blocktranslate trimmed %} Ajout d’un nouveau BCF {% endblocktranslate %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -145,75 +179,61 @@
       <tr>
         <td height="35" colspan="5">&nbsp;</td>
       </tr>
-
       <tr>
-        <td align="center" class="td_block-center" width="520" colspan="5">
-          <table>
+        <!-- BLOC LEFT ============================== -->
+        <td width="90" align="center" valign="top" class="td_img">
+          <img
+            src="https://statics.bimdata.io/mails/img/platform/mailing-bcf_icon.png"
+            width="50px"
+            height="50px"
+            style="display: block"
+            border="0"
+            alt="Mailing BCF - icon bcf"
+            title="Mailing BCF - icon bcf"
+          />
+        </td>
+
+        <!-- BLOC RIGHT ============================== -->
+        <td width="510" class="td_block-center">
+          <table
+            align="center"
+            width="510"
+            bgcolor="#fff"
+            border="0"
+            style="border-collapse: collapse"
+            class="container_table-inner"
+          >
             <tr>
-              <td width="20" class="td_hidden">&nbsp;</td>
-              <td align="center">
+              <td class="mobile-visible" style="display: none">&nbsp;</td>
+            </tr>
+            <tr>
+              <!-- BLOC TEXT --------------------- -->
+              <td colspan="5">
                 <span
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 13px;
+                    line-height: 20px;
                   "
                 >
-                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
-                    {{ email_author }} a créée un nouveau BCF dans le projet {{ project_name }}.
-                  {% endblocktrans %}
+                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author
+                  project_name=bcf.payload.project_name %} <strong>{{ email_author }}</strong> a
+                  créé un nouveau BCF dans le projet <strong>{{ project_name }}</strong>. {%
+                  endblocktranslate %}
                 </span>
               </td>
-              <td width="20" class="td_hidden">&nbsp;</td>
             </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td height="25" class="" colspan="5">&nbsp;</td>
-      </tr>
-      <tr>
-        <!-- BLOC LEFT ============================== -->
-        <td width="300" align="center">
-          {% if bcf.payload.topic.snapshot_url %}
-          <img
-            src="{{ bcf.payload.topic.snapshot_url }}"
-            width="300px"
-            height="135px"
-            style="display: block"
-            border="0"
-            alt="Mailing BCF - icon bcf"
-            title="Mailing BCF - icon bcf"
-          />
-          {% else %}
-          <img
-            src="https://statics.bimdata.io/mails/img/platform/mailing-bcf_icon.png"
-            width="300px"
-            height="135px"
-            style="display: block"
-            border="0"
-            alt="Mailing BCF - icon bcf"
-            title="Mailing BCF - icon bcf"
-          />
-          {% endif %}
-        </td>
-        <td width="40" class="td_hidden">&nbsp;</td>
-        <!-- BLOC RIGHT ============================== -->
-        <td width="300">
-          <table
-            align="center"
-            width="300"
-            bgcolor="#fff"
-            border="0"
-            style="border-collapse: collapse"
-          >
             <tr>
-              <td>
+              <td height="5">&nbsp;</td>
+            </tr>
+            <tr>
+              <!-- BLOC BCF TITLE --------------------- -->
+              <td colspan="5">
                 <strong
                   style="
                     font-family: Arial, sans-serif;
-                    color: #606060;
+                    color: #2f374a;
                     font-size: 14px;
                     line-height: 22px;
                   "
@@ -222,58 +242,74 @@
               </td>
             </tr>
             <tr>
-              <td>
+              <td height="5">&nbsp;</td>
+            </tr>
+            <tr>
+              <!-- bloc BCF DESCRIPTION --------------------- -->
+              <td colspan="5">
                 <span
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Description: </strong>{{ bcf.payload.topic.description }}
+                  <strong>Description: </strong><br />
+                  {% if bcf.payload.topic.description %} {{ bcf.payload.topic.description }} {% else
+                  %} {% trans "Pas de description renseignée" %} {% endif %}
                 </span>
               </td>
             </tr>
             <tr>
-              <td>
-                <span
-                  style="
-                    font-family: Arial, sans-serif;
-                    color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
-                  "
-                >
-                  <strong>Due date: </strong>{{ bcf.payload.topic.due_date }}
-                </span>
-              </td>
+              <td height="5">&nbsp;</td>
             </tr>
             <tr>
-              <td>
+              <!-- bloc BCF DUE DATE --------------------- -->
+              <td width="170" class="td_block" valign="top">
                 <span
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Priorité: </strong>{{ bcf.payload.topic.priority }}
+                  <strong>Due date: </strong><br />
+                  {% if bcf.payload.topic.due_date %} {{ bcf.payload.topic.due_date }} {% else %} {%
+                  trans "Pas de date d'échéance" %} {% endif %}
                 </span>
               </td>
-            </tr>
-            <tr>
-              <td>
+              <td width="5" class="td_hidden">&nbsp;</td>
+              <!-- bloc BCF PRIORITY --------------------- -->
+              <td width="170" class="td_block" valign="top">
                 <span
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Type: </strong>{{ bcf.payload.topic.topic_type }}
+                  <strong>Priorité: </strong><br />
+                  {% if bcf.payload.topic.priority %} {{ bcf.payload.topic.priority }} {% else %} {%
+                  trans "Non défini" %} {% endif %}
+                </span>
+              </td>
+              <td width="5" class="td_hidden">&nbsp;</td>
+              <!-- bloc BCF TYPE --------------------- -->
+              <td width="170" class="td_block" valign="top">
+                <span
+                  style="
+                    font-family: Arial, sans-serif;
+                    color: #606060;
+                    font-size: 12px;
+                    line-height: 20px;
+                  "
+                >
+                  <strong>Type: </strong><br />
+                  {% if bcf.payload.topic.topic_type %} {{ bcf.payload.topic.topic_type }} {% else
+                  %} {% trans "Pas de type spécifié" %} {% endif %}
                 </span>
               </td>
             </tr>
@@ -285,20 +321,20 @@
                 <!-- BLOC BTN ============================== -->
                 <table
                   align="center"
-                  width="200"
+                  width="170"
                   bgcolor="#2f374a"
                   border="0"
                   style="border-collapse: collapse"
                 >
                   <tr>
-                    <td align="center" height="40" width="230">
+                    <td align="center" height="30" width="170">
                       <strong>
                         <a
                           href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}#bcf"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;
-                            font-size: 16px;
+                            font-size: 13px;
                             line-height: 21px;
                             text-decoration: none;
                           "
@@ -317,8 +353,13 @@
       <tr>
         <td height="25" class="" colspan="5">&nbsp;</td>
       </tr>
+      <tr>
+        <td height="1" colspan="5">
+          <hr style="height: 1px; background-color: #f7f7f7; border: none" />
+        </td>
+      </tr>
     </table>
-    {% endfor %} {% else %}
+    {% endfor %} {% else %} {% for bcf in notifications %}
     <table
       cellpadding="0"
       cellspacing="0"
@@ -343,13 +384,13 @@
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
-                    {{ email_author }} a créée un nouveau BCF dans le projet {{ project_name }}.
-                  {% endblocktrans %}
+                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author
+                  project_name=bcf.payload.project_name %} {{ email_author }} a créé un nouveau BCF
+                  dans le projet {{ project_name }}. {% endblocktranslate %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
@@ -361,16 +402,16 @@
         <td height="25" class="" colspan="5">&nbsp;</td>
       </tr>
       <tr>
-        <td width="20">&nbsp;</td>
+        <td width="20" class="td_hidden">&nbsp;</td>
         <!-- BLOC LEFT ============================== -->
-        <td width="200" align="center">
+        <td width="200" align="center" class="td_block-center">
           <table>
             <tr>
               <td>
                 <strong
                   style="
                     font-family: Arial, sans-serif;
-                    color: #606060;
+                    color: #2f374a;
                     font-size: 14px;
                     line-height: 22px;
                   "
@@ -384,11 +425,13 @@
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Description: </strong>{{ bcf.payload.topic.description }}
+                  <strong>Description: </strong>
+                  {% if bcf.payload.topic.description %} {{ bcf.payload.topic.description }} {% else
+                  %} {% trans "Pas de description renseignée" %} {% endif %}
                 </span>
               </td>
             </tr>
@@ -398,11 +441,13 @@
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Due date: </strong>{{ bcf.payload.topic.due_date }}
+                  <strong>Due date: </strong>
+                  {% if bcf.payload.topic.due_date %} {{ bcf.payload.topic.due_date }} {% else %} {%
+                  trans "Pas de date d'échéance" %} {% endif %}
                 </span>
               </td>
             </tr>
@@ -412,11 +457,13 @@
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Priorité: </strong>{{ bcf.payload.topic.priority }}
+                  <strong>Priorité: </strong>
+                  {% if bcf.payload.topic.priority %} {{ bcf.payload.topic.priority }} {% else %} {%
+                  trans "Non défini" %} {% endif %}
                 </span>
               </td>
             </tr>
@@ -426,11 +473,13 @@
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 12px;
+                    line-height: 20px;
                   "
                 >
-                  <strong>Type: </strong>{{ bcf.payload.topic.topic_type }}
+                  <strong>Type: </strong>
+                  {% if bcf.payload.topic.topic_type %} {{ bcf.payload.topic.topic_type }} {% else
+                  %} {% trans "Pas de type spécifié" %} {% endif %}
                 </span>
               </td>
             </tr>
@@ -438,7 +487,7 @@
         </td>
         <td width="40" class="td_hidden">&nbsp;</td>
         <!-- BLOC RIGHT ============================== -->
-        <td width="200">
+        <td width="200" class="td_block">
           <table
             align="center"
             width="200"
@@ -457,7 +506,7 @@
                   style="border-collapse: collapse"
                 >
                   <tr>
-                    <td align="center" height="40" width="230">
+                    <td align="center" height="30" width="230">
                       <strong>
                         <a
                           href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}#bcf"
@@ -484,7 +533,12 @@
       <tr>
         <td height="25" class="" colspan="5">&nbsp;</td>
       </tr>
+      <tr>
+        <td height="1" colspan="5">
+          <hr style="height: 1px; background-color: #f7f7f7; border: none" />
+        </td>
+      </tr>
     </table>
-    {% endif %}
+    {% endfor %} {% endif %}
   </body>
 </html>
