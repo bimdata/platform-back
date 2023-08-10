@@ -156,9 +156,9 @@
               line-height: 21px;
             "
           >
-            {% blocktranslate trimmed %}
+            {% blocktrans trimmed %}
               Ajout d’un nouveau BCF
-            {% endblocktranslate %}
+            {% endblocktrans %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -219,10 +219,10 @@
                     line-height: 20px;
                   "
                 >
-                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
+                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
                   <strong>{{ email_author }}</strong> a
                   créé un nouveau BCF dans le projet <strong>{{ project_name }}</strong>.
-                  {% endblocktranslate %}
+                  {% endblocktrans %}
                 </span>
               </td>
             </tr>
@@ -403,10 +403,10 @@
                     line-height: 20px;
                   "
                 >
-                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
+                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
                   {{ email_author }} a créé un nouveau BCF
                   dans le projet {{ project_name }}.
-                  {% endblocktranslate %}
+                  {% endblocktrans %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
