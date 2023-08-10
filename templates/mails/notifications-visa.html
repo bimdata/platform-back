@@ -10,10 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- google WEBFONT : Roboto -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
 
     <title>{% trans "Notifications Visa" %}</title>
 
@@ -159,7 +156,9 @@
               line-height: 21px;
             "
           >
-            {% blocktrans trimmed %} Ajout de nouveau visa {% endblocktrans %}
+            {% blocktrans trimmed %}
+            Ajout de nouveau visa
+            {% endblocktrans %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -202,10 +201,14 @@
                     line-height: 21px;
                   "
                 >
-                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline %}
-                    <strong>{{ firstname }} {{ lastname }}</strong> a ajouté une nouvelle demande de validation 
-                    dans le projet : {{ project_name }}
-                    sur le document <strong style="color: #2f374a; font-size: 14px;">{{ document_name }}</strong> à valider avant le <strong style="color: #2f374a; font-size: 14px;">{{ deadline }}</strong>.
+                  {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname
+                  lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name
+                  document_name=visa.payload.document_name deadline=visa.payload.visa.deadline %}
+                  <strong>{{ firstname }} {{ lastname }}</strong> a ajouté une nouvelle demande de
+                  validation dans le projet : {{ project_name }} sur le document
+                  <strong style="color: #2f374a; font-size: 14px">{{ document_name }}</strong> à
+                  valider avant le
+                  <strong style="color: #2f374a; font-size: 14px">{{ deadline }}</strong>.
                   {% endblocktrans %}
                 </span>
               </td>
@@ -243,7 +246,6 @@
             <tr>
               <td height="25" class="">&nbsp;</td>
             </tr>
-            
           </table>
         </td>
       </tr>
