@@ -10,14 +10,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- google WEBFONT : Roboto -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
 
-    <title>{% trans "Notifications" %}</title>
+    <title>{% trans "Notifications Visa" %}</title>
 
-    <style type="text/css"></style>
+    <style type="text/css">
+      @media only screen and (max-width: 480px) {
+        /* style TABLE */
+        table[class="container_table"] {
+          width: 320px;
+        }
+        table[class="container_table-inner"] {
+          width: 300px;
+        }
+
+        /* style TD */
+        td[class="td_hidden"] {
+          display: none;
+        }
+        td[class="td_block"] {
+          width: 300px;
+          display: block;
+        }
+        td[class="td_block-center"] {
+          width: 300px;
+          margin: auto;
+          display: block;
+        }
+        td[class="td_img"] {
+          margin: auto;
+          width: 300px;
+          display: block;
+        }
+
+        /* Mobile & Desktop */
+        td[class="mobile-visible"] {
+          display: block !important;
+        }
+        .mobile-visible {
+          display: block !important;
+        }
+      }
+    </style>
   </head>
 
   <body
@@ -97,7 +131,7 @@
         <td width="60" class="td_hidden">&nbsp;</td>
         <td align="center">
           <img
-            src="https://statics.bimdata.io/mails/img/platform/mailing-visa_icon.png"
+            src="https://statics.bimdata.io/mails/img/platform/mailing-visa_illustration.png"
             width="140px"
             height="135px"
             style="display: block"
@@ -122,7 +156,9 @@
               line-height: 21px;
             "
           >
-            {% blocktrans trimmed %} Ajout de nouveau visa {% endblocktrans %}
+            {% blocktrans trimmed %}
+            Ajout de nouveau visa
+            {% endblocktrans %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -144,46 +180,55 @@
             class="container_table"
           >
             <tr>
-              <td width="60" class="td_hidden">&nbsp;</td>
-              <td align="center" class="td_block-center" width="300">
+              <td width="90" align="center" valign="top" class="td_img">
+                <img
+                  src="https://statics.bimdata.io/mails/img/platform/mailing-visa_icon.png"
+                  width="50px"
+                  height="50px"
+                  style="display: block"
+                  border="0"
+                  alt="Mailing VISA - icon visa"
+                  title="Mailing VISA - icon visa"
+                />
+              </td>
+              <td class="mobile-visible" style="display: none">&nbsp;</td>
+              <td class="td_block-center" width="345">
                 <span
                   style="
                     font-family: Arial, sans-serif;
                     color: #606060;
-                    font-size: 14px;
-                    line-height: 22px;
+                    font-size: 13px;
+                    line-height: 21px;
                   "
                 >
                   {% blocktrans trimmed with firstname=visa.payload.visa.creator.firstname lastname=visa.payload.visa.creator.lastname project_name=visa.payload.project_name document_name=visa.payload.document_name deadline=visa.payload.visa.deadline %}
-                    {{ firstname }} {{ lastname }} a ajouté une nouvelle demande de validation dans
-                    le projet {{ project_name }}, sur le document {{ document_name }} à valider avant le {{ deadline }}.
+                  <strong>{{ firstname }} {{ lastname }}</strong> a ajouté une nouvelle demande de
+                  validation dans le projet : {{ project_name }} sur le document
+                  <strong style="color: #2f374a; font-size: 14px">{{ document_name }}</strong> à
+                  valider avant le
+                  <strong style="color: #2f374a; font-size: 14px">{{ deadline }}</strong>.
                   {% endblocktrans %}
                 </span>
               </td>
-              <td width="60" class="td_hidden">&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="25" class="">&nbsp;</td>
-            </tr>
-            <!-- BLOC BTN ============================== -->
-            <tr>
-              <td colspan="3">
+              <td class="mobile-visible" style="display: none">&nbsp;</td>
+              <!-- BLOC BTN ============================== -->
+              <td width="160" class="td_block">
                 <table
                   align="center"
-                  width="200"
+                  width="120"
                   bgcolor="#2f374a"
                   border="0"
                   style="border-collapse: collapse"
                 >
                   <tr>
-                    <td align="center" height="40" width="230">
+                    <td align="center" height="30" width="120">
                       <strong>
                         <a
                           href="{{ platform_url }}/spaces/{{ visa.payload.cloud_id }}/projects/{{ visa.payload.project_id }}"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;
-                            font-size: 16px;
+                            font-size: 13px;
                             line-height: 21px;
                             text-decoration: none;
                           "
@@ -196,13 +241,18 @@
                 </table>
               </td>
             </tr>
+            <tr>
+              <td height="25" class="">&nbsp;</td>
+            </tr>
           </table>
         </td>
       </tr>
-      {% endfor %}
       <tr>
-        <td height="48" colspan="3">&nbsp;</td>
+        <td height="1" colspan="5">
+          <hr style="height: 1px; background-color: #f7f7f7; border: none" />
+        </td>
       </tr>
+      {% endfor %}
     </table>
   </body>
 </html>
