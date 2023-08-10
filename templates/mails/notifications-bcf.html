@@ -156,7 +156,9 @@
               line-height: 21px;
             "
           >
-            {% blocktranslate trimmed %} Ajout d’un nouveau BCF {% endblocktranslate %}
+            {% blocktranslate trimmed %}
+              Ajout d’un nouveau BCF
+            {% endblocktranslate %}
           </strong>
         </td>
         <td width="60" class="td_hidden">&nbsp;</td>
@@ -218,9 +220,10 @@
                   "
                 >
                   {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author
-                  project_name=bcf.payload.project_name %} <strong>{{ email_author }}</strong> a
-                  créé un nouveau BCF dans le projet <strong>{{ project_name }}</strong>. {%
-                  endblocktranslate %}
+                  project_name=bcf.payload.project_name %}
+                  <strong>{{ email_author }}</strong> a
+                  créé un nouveau BCF dans le projet <strong>{{ project_name }}</strong>.
+                  {% endblocktranslate %}
                 </span>
               </td>
             </tr>
@@ -256,8 +259,11 @@
                   "
                 >
                   <strong>Description: </strong><br />
-                  {% if bcf.payload.topic.description %} {{ bcf.payload.topic.description }} {% else
-                  %} {% trans "Pas de description renseignée" %} {% endif %}
+                  {% if bcf.payload.topic.description %}
+                  {{ bcf.payload.topic.description }}
+                  {% else %}
+                  {% trans "Pas de description renseignée" %}
+                  {% endif %}
                 </span>
               </td>
             </tr>
@@ -276,8 +282,11 @@
                   "
                 >
                   <strong>Due date: </strong><br />
-                  {% if bcf.payload.topic.due_date %} {{ bcf.payload.topic.due_date }} {% else %} {%
-                  trans "Pas de date d'échéance" %} {% endif %}
+                  {% if bcf.payload.topic.due_date %}
+                  {{ bcf.payload.topic.due_date }}
+                  {% else %}
+                  {% trans "Pas de date d'échéance" %}
+                  {% endif %}
                 </span>
               </td>
               <td width="5" class="td_hidden">&nbsp;</td>
@@ -292,8 +301,11 @@
                   "
                 >
                   <strong>Priorité: </strong><br />
-                  {% if bcf.payload.topic.priority %} {{ bcf.payload.topic.priority }} {% else %} {%
-                  trans "Non défini" %} {% endif %}
+                  {% if bcf.payload.topic.priority %}
+                  {{ bcf.payload.topic.priority }}
+                  {% else %}
+                  {% trans "Non défini" %}
+                  {% endif %}
                 </span>
               </td>
               <td width="5" class="td_hidden">&nbsp;</td>
@@ -308,8 +320,11 @@
                   "
                 >
                   <strong>Type: </strong><br />
-                  {% if bcf.payload.topic.topic_type %} {{ bcf.payload.topic.topic_type }} {% else
-                  %} {% trans "Pas de type spécifié" %} {% endif %}
+                  {% if bcf.payload.topic.topic_type %}
+                  {{ bcf.payload.topic.topic_type }}
+                  {% else %}
+                  {% trans "Pas de type spécifié" %}
+                  {% endif %}
                 </span>
               </td>
             </tr>
@@ -359,7 +374,8 @@
         </td>
       </tr>
     </table>
-    {% endfor %} {% else %} {% for bcf in notifications %}
+    {% endfor %} {% else %}
+    {% for bcf in notifications %}
     <table
       cellpadding="0"
       cellspacing="0"
@@ -389,8 +405,10 @@
                   "
                 >
                   {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author
-                  project_name=bcf.payload.project_name %} {{ email_author }} a créé un nouveau BCF
-                  dans le projet {{ project_name }}. {% endblocktranslate %}
+                  project_name=bcf.payload.project_name %}
+                  {{ email_author }} a créé un nouveau BCF
+                  dans le projet {{ project_name }}.
+                  {% endblocktranslate %}
                 </span>
               </td>
               <td width="20" class="td_hidden">&nbsp;</td>
@@ -430,8 +448,11 @@
                   "
                 >
                   <strong>Description: </strong>
-                  {% if bcf.payload.topic.description %} {{ bcf.payload.topic.description }} {% else
-                  %} {% trans "Pas de description renseignée" %} {% endif %}
+                  {% if bcf.payload.topic.description %}
+                  {{ bcf.payload.topic.description }}
+                  {% else %}
+                  {% trans "Pas de description renseignée" %}
+                  {% endif %}
                 </span>
               </td>
             </tr>
@@ -446,8 +467,11 @@
                   "
                 >
                   <strong>Due date: </strong>
-                  {% if bcf.payload.topic.due_date %} {{ bcf.payload.topic.due_date }} {% else %} {%
-                  trans "Pas de date d'échéance" %} {% endif %}
+                  {% if bcf.payload.topic.due_date %}
+                  {{ bcf.payload.topic.due_date }}
+                  {% else %}
+                  {% trans "Pas de date d'échéance" %}
+                  {% endif %}
                 </span>
               </td>
             </tr>
@@ -462,8 +486,11 @@
                   "
                 >
                   <strong>Priorité: </strong>
-                  {% if bcf.payload.topic.priority %} {{ bcf.payload.topic.priority }} {% else %} {%
-                  trans "Non défini" %} {% endif %}
+                  {% if bcf.payload.topic.priority %}
+                  {{ bcf.payload.topic.priority }}
+                  {% else %}
+                  {% trans "Non défini" %}
+                  {% endif %}
                 </span>
               </td>
             </tr>
@@ -478,8 +505,11 @@
                   "
                 >
                   <strong>Type: </strong>
-                  {% if bcf.payload.topic.topic_type %} {{ bcf.payload.topic.topic_type }} {% else
-                  %} {% trans "Pas de type spécifié" %} {% endif %}
+                  {% if bcf.payload.topic.topic_type %}
+                  {{ bcf.payload.topic.topic_type }}
+                  {% else %}
+                  {% trans "Pas de type spécifié" %}
+                  {% endif %}
                 </span>
               </td>
             </tr>
