@@ -219,8 +219,7 @@
                     line-height: 20px;
                   "
                 >
-                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author
-                  project_name=bcf.payload.project_name %}
+                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
                   <strong>{{ email_author }}</strong> a
                   créé un nouveau BCF dans le projet <strong>{{ project_name }}</strong>.
                   {% endblocktranslate %}
@@ -404,8 +403,7 @@
                     line-height: 20px;
                   "
                 >
-                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author
-                  project_name=bcf.payload.project_name %}
+                  {% blocktranslate trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
                   {{ email_author }} a créé un nouveau BCF
                   dans le projet {{ project_name }}.
                   {% endblocktranslate %}
