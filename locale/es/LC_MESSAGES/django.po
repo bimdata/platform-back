@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Platform Back\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 12:57+0000\n"
+"POT-Creation-Date: 2023-08-10 16:04+0200\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
 
-#: admin/views.py:40
+#: admin/views.py:44
 #, python-format
 msgid "%d nouveau webhook a été enregistré avec succès."
 msgid_plural "%d nouveaux webhooks ont été enregistrés avec succès."
@@ -88,33 +88,70 @@ msgstr ""
 "verdadera herramienta de colaboración y gestión de proyectos que permite "
 "ordenar y caracterizar los datos para interpretarlos mejor."
 
-#: templates/mails/notifications-bcf.html:18
-#: templates/mails/notifications-visa.html:18
-msgid "Notifications"
+#: templates/mails/notifications-bcf.html:15
+msgid "Notifications BFC"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:125
+#: templates/mails/notifications-bcf.html:159
 msgid "Ajout d’un nouveau BCF"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:309
-#: templates/mails/notifications-bcf.html:478
+#: templates/mails/notifications-bcf.html:222
+#, python-format
+msgid ""
+"<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
+"<strong>%(project_name)s</strong>."
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:264
+#: templates/mails/notifications-bcf.html:452
+msgid "Pas de description renseignée"
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:287
+#: templates/mails/notifications-bcf.html:471
+msgid "Pas de date d'échéance"
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:306
+#: templates/mails/notifications-bcf.html:490
+msgid "Non défini"
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:325
+#: templates/mails/notifications-bcf.html:509
+msgid "Pas de type spécifié"
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:356
+#: templates/mails/notifications-bcf.html:549
 msgid "Voir le BCF"
 msgstr ""
 
-#: templates/mails/notifications-visa.html:125
+#: templates/mails/notifications-bcf.html:406
+#, python-format
+msgid "%(email_author)s a créé un nouveau BCF dans le projet %(project_name)s."
+msgstr ""
+
+#: templates/mails/notifications-visa.html:15
+msgid "Notifications Visa"
+msgstr ""
+
+#: templates/mails/notifications-visa.html:159
 msgid "Ajout de nouveau visa"
 msgstr ""
 
-#: templates/mails/notifications-visa.html:157
+#: templates/mails/notifications-visa.html:204
 #, python-format
 msgid ""
-"%(firstname)s %(lastname)s a ajouté une nouvelle demande de validation dans "
-"le projet %(project_name)s, sur le document %(document_name)s à valider "
-"avant le %(deadline)s."
+"<strong>%(firstname)s %(lastname)s</strong> a ajouté une nouvelle demande de "
+"validation dans le projet : %(project_name)s sur le document <strong "
+"style=\"color: #2f374a; font-size: 14px\">%(document_name)s</strong> à "
+"valider avant le <strong style=\"color: #2f374a; font-size: "
+"14px\">%(deadline)s</strong>."
 msgstr ""
 
-#: templates/mails/notifications-visa.html:191
+#: templates/mails/notifications-visa.html:236
 msgid "Voir le projet"
 msgstr ""
 
