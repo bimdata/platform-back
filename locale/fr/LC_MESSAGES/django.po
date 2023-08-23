@@ -135,7 +135,7 @@ msgstr "Échéance: "
 #, fuzzy
 #| msgid "Pas d'échéance"
 msgid "Pas de date d'échéance"
-msgstr "Pas d'échéance"
+msgstr "Pas de date d'échéance"
 
 #: templates/mails/notifications-bcf.html:291
 #: templates/mails/notifications-bcf.html:455
@@ -174,11 +174,11 @@ msgstr ""
 #, fuzzy
 #| msgid "Notifications"
 msgid "Notifications Visa"
-msgstr "Notifications"
+msgstr "Notifications Visa"
 
 #: templates/mails/notifications-visa.html:160
 msgid "Ajout de nouveau visa"
-msgstr "Ajout de nouveau visa,"
+msgstr "Ajout de nouveau visa"
 
 #: templates/mails/notifications-visa.html:203
 #, python-format
