@@ -9,6 +9,8 @@ from user.models import User
 
 
 def get_user_from_sub(sub):
+    if sub is None:
+        return None
     try:
         return User.objects.get(sub=sub)
     except User.DoesNotExist:
@@ -94,6 +96,8 @@ class WebhookHandler:
 
     def handle_add_validation(self):
         validator = get_user_from_sub(self.payload["validation"]["validator"]["sub"])
+        if validator is None:
+            return
         self.payload["document_name"] = ApiClient(
             get_access_token()
         ).collaboration_api.get_document(
@@ -114,7 +118,8 @@ class WebhookHandler:
 
     def handle_remove_validation(self):
         validator = get_user_from_sub(self.payload["validation"]["validator"]["sub"])
-
+        if validator is None:
+            return
         notifications = Notification.objects.filter(
             user=validator,
             payload__validation__id=self.payload["validation"]["id"],
