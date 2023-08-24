@@ -323,7 +323,7 @@
                     <td align="center" height="30" width="170">
                       <strong>
                         <a
-                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}/viewer{% if bcf.payload.topic.models|length > 0 %}/{{ bcf.payload.topic.models|first }}{% endif %}?window=3d&topicGuid={{ bcf.payload.topic.guid }}"
+                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}?topicGuid={{ bcf.payload.topic.guid }}#bcf"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;
@@ -496,7 +496,7 @@
                     <td align="center" height="30" width="230">
                       <strong>
                         <a
-                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}/viewer{% if bcf.payload.topic.models|length > 0 %}/{{ bcf.payload.topic.models|first }}{% endif %}?window=3d&topicGuid={{ bcf.payload.topic.guid }}"
+                          href="{{ platform_url }}/spaces/{{ bcf.payload.cloud_id }}/projects/{{ bcf.payload.project_id }}?topicGuid={{ bcf.payload.topic.guid }}#bcf"
                           style="
                             font-family: Arial, sans-serif;
                             color: #fff;
