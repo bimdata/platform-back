@@ -35,14 +35,10 @@ def send_mail(
 
     content["bimdata_url"] = settings.PLATFORM_URL
 
-    cur_language = translation.get_language()
-    try:
-        translation.activate(language)
+    with translation.override(language):
         template_subject = engines["django"].from_string(subjects(template_name))
         subject = template_subject.render()
         html_content = render_to_string(f"mails/{template_name}.html", content)
-    finally:
-        translation.activate(cur_language)
     if settings.APP_EMAIL_HOST:
         connection = get_connection(
             host=settings.APP_EMAIL_HOST,
