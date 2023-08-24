@@ -1,22 +1,22 @@
 repos:
--   repo: https://github.com/psf/black
-    rev: 22.3.0
-    hooks:
-    - id: black
--   repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.3.5
-    hooks:
-    -   id: reorder-python-imports
--   repo: https://gitlab.com/pycqa/flake8
-    rev: '4.0.1'
-    hooks:
-    - id: flake8
-      args: ["--config=setup.cfg"]
--   repo: local
-    hooks:
-    - id: migrations-check
-      language: system
-      name: Check for uncreated migrations.
-      entry: bash -c "./manage.py makemigrations --check --dry-run"
-      types: ["python"]
-      pass_filenames: false
+    - repo: https://github.com/psf/black
+      rev: 22.3.0
+      hooks:
+          - id: black
+    - repo: https://github.com/asottile/reorder_python_imports
+      rev: v2.3.5
+      hooks:
+          - id: reorder-python-imports
+    - repo: https://github.com/PyCQA/flake8
+      rev: "4.0.1"
+      hooks:
+          - id: flake8
+            args: ["--config=setup.cfg"]
+    - repo: local
+      hooks:
+          - id: migrations-check
+            language: system
+            name: Check for uncreated migrations.
+            entry: bash -c "./manage.py makemigrations --check --dry-run"
+            types: ["python"]
+            pass_filenames: false

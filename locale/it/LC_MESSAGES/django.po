@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Platform Back\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-10 16:04+0200\n"
+"POT-Creation-Date: 2023-08-23 08:08+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,60 +89,80 @@ msgstr ""
 "collaborazione e di gestione, l'EDM ti permette di stabilire le priorità e "
 "definire i dati per poterli analizzare al meglio."
 
-#: templates/mails/notifications-bcf.html:15
+#: templates/mails/notifications-bcf.html:16
 msgid "Notifications BFC"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:159
+#: templates/mails/notifications-bcf.html:160
 msgid "Ajout d’un nouveau BCF"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:222
+#: templates/mails/notifications-bcf.html:221
 #, python-format
 msgid ""
 "<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
 "<strong>%(project_name)s</strong>."
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:264
-#: templates/mails/notifications-bcf.html:452
+#: templates/mails/notifications-bcf.html:259
+#: templates/mails/notifications-bcf.html:427
+msgid "Description: "
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:259
+#: templates/mails/notifications-bcf.html:427
 msgid "Pas de description renseignée"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:287
-#: templates/mails/notifications-bcf.html:471
+#: templates/mails/notifications-bcf.html:277
+#: templates/mails/notifications-bcf.html:441
+msgid "Échéance: "
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:277
+#: templates/mails/notifications-bcf.html:441
 msgid "Pas de date d'échéance"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:306
-#: templates/mails/notifications-bcf.html:490
+#: templates/mails/notifications-bcf.html:291
+#: templates/mails/notifications-bcf.html:455
+msgid "Priorité: "
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:291
+#: templates/mails/notifications-bcf.html:455
 msgid "Non défini"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:325
-#: templates/mails/notifications-bcf.html:509
+#: templates/mails/notifications-bcf.html:305
+#: templates/mails/notifications-bcf.html:469
+msgid "Type: "
+msgstr ""
+
+#: templates/mails/notifications-bcf.html:305
+#: templates/mails/notifications-bcf.html:469
 msgid "Pas de type spécifié"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:356
-#: templates/mails/notifications-bcf.html:549
+#: templates/mails/notifications-bcf.html:335
+#: templates/mails/notifications-bcf.html:508
 msgid "Voir le BCF"
 msgstr ""
 
-#: templates/mails/notifications-bcf.html:406
+#: templates/mails/notifications-bcf.html:385
 #, python-format
 msgid "%(email_author)s a créé un nouveau BCF dans le projet %(project_name)s."
 msgstr ""
 
-#: templates/mails/notifications-visa.html:15
+#: templates/mails/notifications-visa.html:16
 msgid "Notifications Visa"
 msgstr ""
 
-#: templates/mails/notifications-visa.html:159
+#: templates/mails/notifications-visa.html:160
 msgid "Ajout de nouveau visa"
 msgstr ""
 
-#: templates/mails/notifications-visa.html:204
+#: templates/mails/notifications-visa.html:203
 #, python-format
 msgid ""
 "<strong>%(firstname)s %(lastname)s</strong> a ajouté une nouvelle demande de "
@@ -152,7 +172,7 @@ msgid ""
 "14px\">%(deadline)s</strong>."
 msgstr ""
 
-#: templates/mails/notifications-visa.html:236
+#: templates/mails/notifications-visa.html:235
 msgid "Voir le projet"
 msgstr ""
 

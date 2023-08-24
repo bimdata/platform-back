@@ -2,7 +2,7 @@ from django.core import mail
 from django.test import TestCase
 from utils import mailer
 from parameterized import parameterized
-from user.auth import activateLocale
+from django.utils.translation import activate
 
 
 class EmailTest(TestCase):
@@ -15,9 +15,11 @@ class EmailTest(TestCase):
         self, template_name, context, subject_expected
     ):
         # Send message.
-        activateLocale("FR")
+        activate("FR")
         mailer.send_mail(
-            template_name, context, [{"email": "test@bimdata.io"}],
+            template_name,
+            context,
+            [{"email": "test@bimdata.io"}],
         )
 
         self.assertEqual(len(mail.outbox), 1)

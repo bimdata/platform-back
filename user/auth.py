@@ -4,7 +4,6 @@
 # file that was distributed with this source code.
 from django.conf import settings
 from django.utils.encoding import smart_str
-from django.utils.translation import activate as activateLocale
 from rest_framework.authentication import get_authorization_header
 from rest_framework.exceptions import AuthenticationFailed
 
@@ -45,6 +44,7 @@ def create_user(id_token):
         first_name=id_token.get("given_name"),
         last_name=id_token.get("family_name"),
         sub=id_token.get("sub"),
+        language=id_token.get("locale"),
     )
 
 
@@ -53,9 +53,12 @@ def get_user_by_id(request, id_token):
         is_self_client = client_id == settings.OIDC_CLIENT_ID
         return Client(is_self_client=is_self_client)
 
-    activateLocale(id_token.get("locale"))
     try:
-        return User.objects.get(sub=id_token.get("sub"))
+        user = User.objects.get(sub=id_token.get("sub"))
+        if user.language != id_token.get("locale"):
+            user.language = id_token.get("locale")
+            user.save()
+        return user
     except User.DoesNotExist:
         user = create_user(id_token)
         setattr(request, "user_created", True)

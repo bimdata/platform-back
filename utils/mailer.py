@@ -2,11 +2,11 @@ import logging
 
 from django.conf import settings
 from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
 from django.core.mail import get_connection
 from django.template import engines
+from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.translation import gettext as _
-from django.core.mail.backends.smtp import EmailBackend
 
 logger = logging.getLogger("django")
 
@@ -20,21 +20,25 @@ def subjects(template_name):
     return subs[template_name]
 
 
-# @params user_ids: a list {email, first_name, last_name}
-def send_mail(template_name, content, users, fail_silently=True):
+# @params user_ids: a list {email, firstname, lastname, language}
+def send_mail(
+    template_name, content, users, language=settings.LANGUAGE_CODE, fail_silently=True
+):
+    language = language or settings.LANGUAGE_CODE
     from_email = settings.DEFAULT_FROM_EMAIL
     to_emails = [
-        f"{user.get('first_name')} {user.get('last_name')}"
-        if user.get("first_name")
+        f"{user.get('firstname')} {user.get('lastname')} <{user.get('email')}>"
+        if user.get("firstname")
         else user.get("email")
         for user in users
     ]
 
-    template_subject = engines["django"].from_string(subjects(template_name))
-    subject = template_subject.render(content)
-
     content["bimdata_url"] = settings.PLATFORM_URL
-    html_content = render_to_string(f"mails/{template_name}.html", content)
+
+    with translation.override(language):
+        template_subject = engines["django"].from_string(subjects(template_name))
+        subject = template_subject.render()
+        html_content = render_to_string(f"mails/{template_name}.html", content)
     if settings.APP_EMAIL_HOST:
         connection = get_connection(
             host=settings.APP_EMAIL_HOST,

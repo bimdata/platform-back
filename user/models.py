@@ -35,6 +35,7 @@ class User(AbstractUser):
         db_index=True,
         help_text="sub from Keycloak",
     )
+    language = models.CharField(max_length=64, null=True, blank=True)
 
     demo_cloud = models.IntegerField(null=True, blank=True)
     demo_project = models.IntegerField(null=True, blank=True)
