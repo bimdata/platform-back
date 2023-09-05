@@ -10,11 +10,13 @@ register = template.Library()
 @register.filter
 @stringfilter
 def convert_str_date(value: str) -> datetime.datetime:
-    return parse(value)
+    if value:
+        return parse(value)
 
 
 @register.filter
 @stringfilter
 def convert_isostr_date(value: str) -> datetime.datetime:
-    date = datetime.date.fromisoformat(value)
-    return datetime.datetime.combine(date, datetime.datetime.min.time())
+    if value:
+        date = datetime.date.fromisoformat(value)
+        return datetime.datetime.combine(date, datetime.datetime.min.time())
