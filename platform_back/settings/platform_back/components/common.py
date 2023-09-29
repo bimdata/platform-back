@@ -49,7 +49,7 @@ MIDDLEWARE = [
 
 CRON_CLASSES = ["user.cron.SendEmailNotifJob"]
 
-NOTIFS_DELAY = 1  # minutes
+NOTIFS_DELAY = env.int("NOTIFS_DELAY", default=5)  # minutes
 
 CORS_ORIGIN_ALLOW_ALL = True
 
