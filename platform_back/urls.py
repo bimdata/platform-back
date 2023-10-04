@@ -31,6 +31,8 @@ app_name = "platform_back"
 router = DefaultRouter()
 
 router.register(r"guidedtour", user_views.GuidedTourViewSet, basename="tours")
+router.register(r"fav/clouds", user_views.FavoriteCloudViewSet, basename="fav-clouds")
+router.register(r"fav/projects", user_views.FavoriteProjectViewSet, basename="fav-projects")
 
 urlpatterns = [
     path(
@@ -48,6 +50,7 @@ urlpatterns = [
         organization_views.register_cloud,
         name="register_cloud",
     ),
+    path("fav/", user_views.get_user_favorites, name="fav"),
     path("v1/", include("platform_back.v1.urls", namespace="v1")),
     path("webhook", webhook_views.WebHookView.as_view(), name="webhook_handler"),
     path("health/", include("health_check.urls")),

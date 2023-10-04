@@ -139,4 +139,30 @@ class GuidedTour(models.Model):
         unique_together = (("user", "name"),)
 
 
+class FavoriteCloud(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    cloud_id = models.PositiveIntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("user", "cloud_id"),
+                name="unique cloud_id",
+            ),
+        ]
+
+
+class FavoriteProject(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    project_id = models.PositiveIntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("user", "project_id"),
+                name="unique project_id",
+            ),
+        ]
+
+
 from user.signals import *  # noqa

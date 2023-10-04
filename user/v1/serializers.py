@@ -8,6 +8,7 @@ from rest_framework.validators import UniqueTogetherValidator
 from user.models import User
 from user.models import Notification
 from user.models import GuidedTour
+from user.models import FavoriteCloud, FavoriteProject
 
 
 class NotificationSerializer(serializers.ModelSerializer):
@@ -41,3 +42,15 @@ class GuidedTourSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {"name": instance.name}
+
+
+class FavoriteCloudSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteCloud
+        fields = ("cloud_id",)
+
+
+class FavoriteProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteProject
+        fields = ("project_id",)
