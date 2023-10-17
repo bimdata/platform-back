@@ -41,10 +41,16 @@ class RefreshHandler:
             )
         except Exception:
             viewpoints = []
-        if len(viewpoints) > 0:
-            self.notification.payload["topic"]["snapshot_url"] = viewpoints[0][
-                "snapshot"
-            ]["snapshot_data"]
+        snapshot_data = next(
+            (
+                viewpoint["snapshot"]["snapshot_data"]
+                for viewpoint in viewpoints
+                if viewpoint["snapshot"]
+            ),
+            None,
+        )
+        if snapshot_data:
+            self.notification.payload["topic"]["snapshot_url"] = snapshot_data
             if save:
                 self.notification.save()
 
