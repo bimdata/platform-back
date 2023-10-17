@@ -10,6 +10,7 @@ from django.db import transaction
 
 from externals.bimdata_api import ApiClient
 from utils import mails
+from webhooks.utils import register_webhook
 
 
 class User(AbstractUser):
@@ -64,6 +65,15 @@ class User(AbstractUser):
         client = ApiClient(access_token)
         cloud = client.collaboration_api.create_cloud(
             {"name": f"{self.first_name} {self.last_name}"}
+        )
+        register_webhook(
+            cloud_id=cloud["id"],
+            events=[
+                "bcf.topic.creation",
+                "visa.validation.add",
+                "visa.validation.remove",
+            ],
+            access_token=access_token,
         )
         with open("demo_icon.png", "rb") as file:
             demo_icon = ("image", ("demo_icon.png", file))
