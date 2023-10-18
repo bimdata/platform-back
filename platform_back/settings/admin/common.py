@@ -28,6 +28,7 @@ INSTALLED_APPS += [
     "django.contrib.admin",
     "django.contrib.messages",
     "django.contrib.admindocs",
+    "django_json_widget",
 ]
 
 MIDDLEWARE += [

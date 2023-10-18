@@ -4,6 +4,8 @@
 # file that was distributed with this source code.
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.db import models
+from django_json_widget.widgets import JSONEditorWidget
 
 from user.models import GuidedTour
 from user.models import Notification
@@ -30,6 +32,9 @@ class GuidedTourAdmin(admin.ModelAdmin):
 
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.JSONField: {"widget": JSONEditorWidget},
+    }
     list_display = ("user", "cloud_id", "event", "event_type", "consumed", "created_at")
     list_filter = (
         "event_type",
