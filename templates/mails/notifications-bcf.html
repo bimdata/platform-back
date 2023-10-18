@@ -274,7 +274,7 @@
                     line-height: 20px;
                   "
                 >
-                  <strong>{% blocktrans %}Échéance: {% endblocktrans %}</strong>{{ bcf.payload.topic.due_date|convert_str_date|date:"DATE_FORMAT"|default:_("Pas de date d'échéance") }}
+                  <strong>{% blocktrans %}Échéance: {% endblocktrans %}</strong><br />{{ bcf.payload.topic.due_date|convert_str_date|date:"DATE_FORMAT"|default:_("Pas de date d'échéance") }}
                 </span>
               </td>
               <td width="5" class="td_hidden">&nbsp;</td>
