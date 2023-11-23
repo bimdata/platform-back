@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-23 08:08+0000\n"
+"POT-Creation-Date: 2023-11-23 13:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,7 +113,8 @@ msgid ""
 "<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
 "<strong>%(project_name)s</strong>."
 msgstr ""
-"<strong>%(email_author)s</strong> a créée un nouveau BCF dans le projet <strong>%(project_name)s</strong>."
+"<strong>%(email_author)s</strong> a créée un nouveau BCF dans le projet "
+"<strong>%(project_name)s</strong>."
 
 #: templates/mails/notifications-bcf.html:259
 #: templates/mails/notifications-bcf.html:427
@@ -208,5 +209,7 @@ msgid "Nouvelle notification Visa"
 msgstr "Nouvelle notification Visa"
 
 #: utils/mailer.py:18
-msgid "Bienvenue sur la plateforme BIMData.io"
+#, fuzzy, python-format
+#| msgid "Bienvenue sur la plateforme BIMData.io"
+msgid "Bienvenue sur la plateforme BIMData.io %(user_name)s"
 msgstr "Bienvenue sur la plateforme BIMData.io"
