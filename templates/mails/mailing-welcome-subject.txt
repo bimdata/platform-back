@@ -1,0 +1,2 @@
+{% load i18n %}
+{% trans "Bienvenue sur la plateforme BIMData.io" %}

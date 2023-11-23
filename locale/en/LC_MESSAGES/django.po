@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Platform Back\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-23 13:41+0000\n"
+"POT-Creation-Date: 2023-11-23 16:17+0000\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,16 +16,18 @@ msgid_plural "%d nouveaux webhooks ont été enregistrés avec succès."
 msgstr[0] "%d new webhook has been successfully registered."
 msgstr[1] "%d new webhooks have been successfully registered."
 
-#: templates/mails/mailing-welcome.html:15
-msgid "Bienvenue chez BIMData !"
-msgstr "Welcome to BIMData!"
+#: templates/mails/mailing-welcome-subject.txt:2
+#, fuzzy
+#| msgid "Bienvenue sur la plateforme BIMData.io"
+msgid "Bienvenue sur la plateforme BIMData.io"
+msgstr "Welcome to BIMData.io Platform!"
 
-#: templates/mails/mailing-welcome.html:129
+#: templates/mails/mailing-welcome.html:127
 #, python-format
 msgid "Nous sommes heureux de vous accueillir sur BIMData.io, %(user_name)s"
 msgstr "We are happy to welcome you on BIMData.io, %(user_name)s"
 
-#: templates/mails/mailing-welcome.html:150
+#: templates/mails/mailing-welcome.html:148
 msgid ""
 "Bienvenue sur la plateforme BIMData.io.<br /> Collaborez, gérez et priorisez "
 "votre travail, partout et à tout moment.<br /> Vous êtes prêt ? Allons-y !"
@@ -33,16 +35,16 @@ msgstr ""
 "Welcome on BIMData Platform.<br /> Collaborate, manage and prioritize your "
 "work, anytime, anywhere.<br /> Are you ready? Let's go!"
 
-#: templates/mails/mailing-welcome.html:185
-#: templates/mails/mailing-welcome.html:401
+#: templates/mails/mailing-welcome.html:183
+#: templates/mails/mailing-welcome.html:399
 msgid "Accéder à votre compte"
 msgstr "Login to your account"
 
-#: templates/mails/mailing-welcome.html:227
+#: templates/mails/mailing-welcome.html:225
 msgid "Bravo ! Vous rejoignez <br /> plus de 100 000 utilisateurs !"
 msgstr "Congrats! You've just joined <br /> over 100,000 teams like yours!"
 
-#: templates/mails/mailing-welcome.html:249
+#: templates/mails/mailing-welcome.html:247
 msgid ""
 "Des équipes de toutes tailles utilisent BIMData.io pour échanger et garder "
 "leurs collaborateurs synchronisés."
@@ -50,7 +52,7 @@ msgstr ""
 "Teams of all sizes are using BIMData.io to collaborate and keep their teams "
 "in sync."
 
-#: templates/mails/mailing-welcome.html:284
+#: templates/mails/mailing-welcome.html:282
 msgid ""
 "<strong>La collaboration au cœur de vos projets</strong><br /> Créez, gérez "
 "et faites évoluer facilement votre travail sur une seule plateforme. "
@@ -60,7 +62,7 @@ msgstr ""
 "create, manage and enhance your workflow in one place. Collaborate in one "
 "shared virtual space. "
 
-#: templates/mails/mailing-welcome.html:323
+#: templates/mails/mailing-welcome.html:321
 msgid ""
 "<strong>Visionnez en 1 click vos maquettes 2D et 3D</strong><br /> BIMData "
 "Viewer, et ses outils de mesures et coupes, est automatiquement intégré à la "
@@ -71,7 +73,7 @@ msgstr ""
 "Viewer, along with its measure and section tools, is fully integrated in the "
 "platform, so you can visualize your IFC models in just one click."
 
-#: templates/mails/mailing-welcome.html:362
+#: templates/mails/mailing-welcome.html:360
 msgid ""
 "<strong>Priorisez et caractérisez vos données</strong><br /> La Gestion "
 "Electronique des Documents (GED) vous permet de suivre, gérer et "
@@ -84,15 +86,15 @@ msgstr ""
 "project data. A true collaboration and project management tool, the EDM "
 "allows you to prioritize and characterize data in order to better analyze it."
 
-#: templates/mails/notifications-bcf.html:16
-msgid "Notifications BFC"
-msgstr "BFC Notifications"
+#: templates/mails/notifications-bcf-subject.txt:2
+msgid "Nouvelle notification BCF"
+msgstr "New BCF notification"
 
-#: templates/mails/notifications-bcf.html:160
+#: templates/mails/notifications-bcf.html:158
 msgid "Ajout d’un nouveau BCF"
 msgstr "New BCF added"
 
-#: templates/mails/notifications-bcf.html:221
+#: templates/mails/notifications-bcf.html:219
 #, python-format
 msgid ""
 "<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
@@ -101,66 +103,66 @@ msgstr ""
 "<strong>%(email_author)s</strong> has created a new BCF in the project "
 "<strong>%(project_name)s</strong>."
 
-#: templates/mails/notifications-bcf.html:259
-#: templates/mails/notifications-bcf.html:427
+#: templates/mails/notifications-bcf.html:257
+#: templates/mails/notifications-bcf.html:425
 msgid "Description: "
 msgstr "Description: "
 
-#: templates/mails/notifications-bcf.html:259
-#: templates/mails/notifications-bcf.html:427
+#: templates/mails/notifications-bcf.html:257
+#: templates/mails/notifications-bcf.html:425
 msgid "Pas de description renseignée"
 msgstr "No description provided"
 
-#: templates/mails/notifications-bcf.html:277
-#: templates/mails/notifications-bcf.html:441
+#: templates/mails/notifications-bcf.html:275
+#: templates/mails/notifications-bcf.html:439
 msgid "Échéance: "
 msgstr "Due date: "
 
-#: templates/mails/notifications-bcf.html:277
-#: templates/mails/notifications-bcf.html:441
+#: templates/mails/notifications-bcf.html:275
+#: templates/mails/notifications-bcf.html:439
 msgid "Pas de date d'échéance"
 msgstr "No due date"
 
-#: templates/mails/notifications-bcf.html:291
-#: templates/mails/notifications-bcf.html:455
+#: templates/mails/notifications-bcf.html:289
+#: templates/mails/notifications-bcf.html:453
 msgid "Priorité: "
 msgstr "Priority: "
 
-#: templates/mails/notifications-bcf.html:291
-#: templates/mails/notifications-bcf.html:455
+#: templates/mails/notifications-bcf.html:289
+#: templates/mails/notifications-bcf.html:453
 msgid "Non défini"
 msgstr "Not defined"
 
-#: templates/mails/notifications-bcf.html:305
-#: templates/mails/notifications-bcf.html:469
+#: templates/mails/notifications-bcf.html:303
+#: templates/mails/notifications-bcf.html:467
 msgid "Type: "
 msgstr "Type: "
 
-#: templates/mails/notifications-bcf.html:305
-#: templates/mails/notifications-bcf.html:469
+#: templates/mails/notifications-bcf.html:303
+#: templates/mails/notifications-bcf.html:467
 msgid "Pas de type spécifié"
 msgstr "No type specified"
 
-#: templates/mails/notifications-bcf.html:335
-#: templates/mails/notifications-bcf.html:508
+#: templates/mails/notifications-bcf.html:333
+#: templates/mails/notifications-bcf.html:506
 msgid "Voir le BCF"
 msgstr "View BCF"
 
-#: templates/mails/notifications-bcf.html:385
+#: templates/mails/notifications-bcf.html:383
 #, python-format
 msgid "%(email_author)s a créé un nouveau BCF dans le projet %(project_name)s."
 msgstr ""
 "%(email_author)s has created a new BCF in the project %(project_name)s."
 
-#: templates/mails/notifications-visa.html:16
-msgid "Notifications Visa"
-msgstr "Validation Notifications"
+#: templates/mails/notifications-visa-subject.txt:2
+msgid "Nouvelle notification Visa"
+msgstr "New validation notification"
 
-#: templates/mails/notifications-visa.html:160
+#: templates/mails/notifications-visa.html:158
 msgid "Ajout de nouveau visa"
 msgstr "New validation added"
 
-#: templates/mails/notifications-visa.html:203
+#: templates/mails/notifications-visa.html:201
 #, python-format
 msgid ""
 "<strong>%(firstname)s %(lastname)s</strong> a ajouté une nouvelle demande de "
@@ -174,20 +176,7 @@ msgstr ""
 "#2f374a; font-size: 14px\">%(document_name)s</strong> to be validated before "
 "<strong style=\"color: #2f374a; font-size: 14px\">%(deadline)s</strong>."
 
-#: templates/mails/notifications-visa.html:235
+#: templates/mails/notifications-visa.html:233
 msgid "Voir le projet"
 msgstr "View project"
 
-#: utils/mailer.py:16
-msgid "Nouvelle notification BCF"
-msgstr "New BCF notification"
-
-#: utils/mailer.py:17
-msgid "Nouvelle notification Visa"
-msgstr "New validation notification"
-
-#: utils/mailer.py:18
-#, fuzzy, python-format
-#| msgid "Bienvenue sur la plateforme BIMData.io"
-msgid "Bienvenue sur la plateforme BIMData.io %(user_name)s"
-msgstr "Welcome to BIMData.io Platform  %(user_name)s!"

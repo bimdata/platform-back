@@ -5,18 +5,8 @@ from django.core.mail import EmailMessage
 from django.core.mail import get_connection
 from django.template.loader import render_to_string
 from django.utils import translation
-from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger("django")
-
-
-def subjects(template_name):
-    subs = {
-        "notifications-bcf": _("Nouvelle notification BCF"),
-        "notifications-visa": _("Nouvelle notification Visa"),
-        "mailing-welcome": _("Bienvenue sur la plateforme BIMData.io %(user_name)s"),
-    }
-    return subs[template_name]
 
 
 # @params user_ids: a list {email, firstname, lastname, language}
@@ -35,7 +25,7 @@ def send_mail(
     content["bimdata_url"] = settings.PLATFORM_URL
 
     with translation.override(language):
-        subject = subjects(template_name) % content
+        subject = render_to_string(f"mails/{template_name}-subject.txt", content)
         html_content = render_to_string(f"mails/{template_name}.html", content)
     if settings.APP_EMAIL_HOST:
         connection = get_connection(
