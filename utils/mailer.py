@@ -25,7 +25,9 @@ def send_mail(
     content["bimdata_url"] = settings.PLATFORM_URL
 
     with translation.override(language):
-        subject = render_to_string(f"mails/{template_name}-subject.txt", content)
+        subject = render_to_string(
+            f"mails/{template_name}-subject.txt", content
+        ).strip()
         html_content = render_to_string(f"mails/{template_name}.html", content)
     if settings.APP_EMAIL_HOST:
         connection = get_connection(
