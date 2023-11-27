@@ -1,9 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -26,8 +20,6 @@ msgstr[0] "%d nouveau webhook a été enregistré avec succès."
 msgstr[1] "%d nouveaux webhooks ont été enregistrés avec succès."
 
 #: templates/mails/mailing-welcome-subject.txt:2
-#, fuzzy
-#| msgid "Bienvenue sur la plateforme BIMData.io"
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Bienvenue sur la plateforme BIMData.io"
 
@@ -106,9 +98,7 @@ msgid "Ajout d’un nouveau BCF"
 msgstr "Ajout d’un nouveau BCF"
 
 #: templates/mails/notifications-bcf.html:219
-#, fuzzy, python-format
-#| msgid ""
-#| "%(email_author)s a créée un nouveau BCF dans le projet %(project_name)s."
+#, python-format
 msgid ""
 "<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
 "<strong>%(project_name)s</strong>."
@@ -133,8 +123,6 @@ msgstr "Échéance: "
 
 #: templates/mails/notifications-bcf.html:275
 #: templates/mails/notifications-bcf.html:439
-#, fuzzy
-#| msgid "Pas d'échéance"
 msgid "Pas de date d'échéance"
 msgstr "Pas de date d'échéance"
 
@@ -164,9 +152,7 @@ msgid "Voir le BCF"
 msgstr "Voir le BCF"
 
 #: templates/mails/notifications-bcf.html:383
-#, fuzzy, python-format
-#| msgid ""
-#| "%(email_author)s a créée un nouveau BCF dans le projet %(project_name)s."
+#, python-format
 msgid "%(email_author)s a créé un nouveau BCF dans le projet %(project_name)s."
 msgstr ""
 "%(email_author)s a créée un nouveau BCF dans le projet %(project_name)s."

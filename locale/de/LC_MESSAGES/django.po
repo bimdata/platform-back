@@ -17,8 +17,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/mails/mailing-welcome-subject.txt:2
-#, fuzzy
-#| msgid "Bienvenue sur la plateforme BIMData.io"
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Willkommen auf der Plattform BIMData.io"
 

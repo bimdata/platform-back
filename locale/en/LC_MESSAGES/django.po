@@ -17,8 +17,6 @@ msgstr[0] "%d new webhook has been successfully registered."
 msgstr[1] "%d new webhooks have been successfully registered."
 
 #: templates/mails/mailing-welcome-subject.txt:2
-#, fuzzy
-#| msgid "Bienvenue sur la plateforme BIMData.io"
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Welcome to BIMData.io Platform!"
 

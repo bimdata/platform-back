@@ -17,14 +17,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/mails/mailing-welcome-subject.txt:2
-#, fuzzy
-#| msgid "Bienvenue sur la plateforme BIMData.io"
 msgid "Bienvenue sur la plateforme BIMData.io"
 msgstr "Te damos la bienvenida a la plataforma BIMData.io"
 
 #: templates/mails/mailing-welcome.html:127
-#, fuzzy, python-format
-#| msgid "Nous sommes heureux de vous accueillir sur BIMData.io, %(user_name)s"
+#, python-format
 msgid "Nous sommes heureux de vous accueillir sur BIMData.io, %(user_name)s"
 msgstr "Nos complace recibirte en BIMData.io, % (user_name)s"
 
@@ -177,5 +174,3 @@ msgstr ""
 msgid "Voir le projet"
 msgstr ""
 
-#~ msgid "Bienvenue chez BIMData !"
-#~ msgstr "¡Te damos la bienvenida a BIMData!"
