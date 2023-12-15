@@ -18,10 +18,7 @@ def get_user_from_sub(sub):
 
 
 def get_user_from_email(email):
-    users = User.objects.filter(email=email)
-    if len(users) > 0:
-        return users.first()
-    return None
+    return User.objects.filter(email=email).first()
 
 
 class RefreshHandler:
@@ -138,12 +135,13 @@ class WebhookHandler:
                 return
 
     def handle_add_bcf(self):
-        assigned_to = get_user_from_email(self.payload["topic"].get("assigned_to"))
-        if assigned_to and self.payload["topic"]["format"] == "standard":
-            Notification.objects.create(
-                user=assigned_to,
-                cloud_id=self.cloud_id,
-                event=self.get_event(self.event_name),
-                event_type=self.get_event_type(self.event_name),
-                payload=self.payload,
-            )
+        if self.payload["topic"]["format"] == "standard":
+            assigned_to = get_user_from_email(self.payload["topic"].get("assigned_to"))
+            if assigned_to:
+                Notification.objects.create(
+                    user=assigned_to,
+                    cloud_id=self.cloud_id,
+                    event=self.get_event(self.event_name),
+                    event_type=self.get_event_type(self.event_name),
+                    payload=self.payload,
+                )
