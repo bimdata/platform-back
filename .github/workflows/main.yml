@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: [self-hosted, common]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -43,7 +43,7 @@ jobs:
           refs/heads/main'
         , github.ref)
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Login to BIMData Docker Registry
         uses: docker/login-action@v2
         with:
