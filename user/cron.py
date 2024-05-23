@@ -1,6 +1,6 @@
 from django_cron import CronJobBase, Schedule
-from datetime import datetime
 from datetime import timedelta
+from django.utils import timezone
 from django.db.models import Max
 from django.db.models import Q
 from django.conf import settings
@@ -22,7 +22,7 @@ class SendEmailNotifJob(CronJobBase):
                 "notification__created_at", filter=Q(notification__consumed=False)
             )
         ).filter(
-            last_notif__lt=datetime.now() - timedelta(minutes=settings.NOTIFS_DELAY)
+            last_notif__lt=timezone.now() - timedelta(minutes=settings.NOTIFS_DELAY)
         )
 
         for user in users:
