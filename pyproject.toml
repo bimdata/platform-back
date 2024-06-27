@@ -16,7 +16,7 @@ django-grappelli = "^3.0.4"
 django-postgres-extra = "^2.0.2"
 django-replicated = {git = "https://github.com/bimdata/django_replicated.git"}
 django-split-settings = "^1.0.1"
-djangorestframework = "^3.12.4"
+djangorestframework = "^3.15.2"
 drf-oidc-auth = "^3.0.0"
 drf-yasg = "^1.20.0"
 fluent-logger = "^0.10.0"
