@@ -3,11 +3,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 import bimdata_api_client
-from bimdata_api_client.api import collaboration_api, ifc_api, webhook_api, bcf_api
+import requests
+from bimdata_api_client.api import bcf_api
+from bimdata_api_client.api import collaboration_api
+from bimdata_api_client.api import model_api
+from bimdata_api_client.api import webhook_api
 from django.conf import settings
 from rest_framework.exceptions import AuthenticationFailed
-import requests
-from django.conf import settings
 
 
 class ApiClient:
@@ -30,7 +32,7 @@ class ApiClient:
 
         self.bcf_api = bcf_api.BcfApi(self.client)
         self.collaboration_api = collaboration_api.CollaborationApi(self.client)
-        self.ifc_api = ifc_api.IfcApi(self.client)
+        self.model_api = model_api.ModelApi(self.client)
         self.webhook_api = webhook_api.WebhookApi(self.client)
 
 
