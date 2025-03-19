@@ -38,6 +38,8 @@ class User(AbstractUser):
     )
     language = models.CharField(max_length=64, null=True, blank=True)
 
+    initial_referer = models.URLField(max_length=255, null=True, blank=True, default=settings.PLATFORM_URL)
+
     demo_cloud = models.IntegerField(null=True, blank=True)
     demo_project = models.IntegerField(null=True, blank=True)
 
@@ -50,14 +52,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.sub or self.legacy_sub}: {self.email}"
-
-    def to_json(self):
-        return {
-            "email": self.email,
-            "firstname": self.first_name,
-            "lastname": self.last_name,
-            "company": self.company,
-        }
 
     @classmethod
     @transaction.atomic
