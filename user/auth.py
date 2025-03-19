@@ -38,13 +38,14 @@ def get_jwt_value(request):
 
 
 @log_user_first_connection
-def create_user(id_token):
+def create_user(request, id_token):
     return User.create(
         email=id_token.get("email").lower(),
         first_name=id_token.get("given_name"),
         last_name=id_token.get("family_name"),
         sub=id_token.get("sub"),
         language=id_token.get("locale"),
+        initial_referer=request.META.get("HTTP_REFERER").rstrip("/"),
     )
 
 
@@ -60,6 +61,6 @@ def get_user_by_id(request, id_token):
             user.save()
         return user
     except User.DoesNotExist:
-        user = create_user(id_token)
+        user = create_user(request, id_token)
         setattr(request, "user_created", True)
         return user

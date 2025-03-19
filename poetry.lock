@@ -1147,21 +1147,6 @@ files = [
 ]
 
 [[package]]
-name = "parameterized"
-version = "0.8.1"
-description = "Parameterized testing with any Python test framework"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "parameterized-0.8.1-py2.py3-none-any.whl", hash = "sha256:9cbb0b69a03e8695d68b3399a8a5825200976536fe1cb79db60ed6a4c8c9efe9"},
-    {file = "parameterized-0.8.1.tar.gz", hash = "sha256:41bbff37d6186430f77f900d777e5bb6a24928a1c46fb1de692f8b52b8833b5c"},
-]
-
-[package.extras]
-dev = ["jinja2"]
-
-[[package]]
 name = "pathspec"
 version = "0.12.1"
 description = "Utility library for gitignore style pattern matching of file paths."
@@ -1641,4 +1626,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "bbeb1f0b27ec5e1ab7e21e61e6a69e180f22a9d1131a1bedf1033ce72a1a9733"
+content-hash = "934f69401ceb184903520eec852629ab078c9a6995c6588b80ffaba5c3f334bf"

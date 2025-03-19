@@ -11,8 +11,12 @@ from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 
 from user.auth import get_jwt_value
-from user.models import GuidedTour, FavoriteCloud, FavoriteProject
-from user.v1.serializers import GuidedTourSerializer, FavoriteCloudSerializer, FavoriteProjectSerializer
+from user.models import FavoriteCloud
+from user.models import FavoriteProject
+from user.models import GuidedTour
+from user.v1.serializers import FavoriteCloudSerializer
+from user.v1.serializers import FavoriteProjectSerializer
+from user.v1.serializers import GuidedTourSerializer
 from utils.log import log_user_connect
 
 
@@ -43,13 +47,20 @@ class GuidedTourViewSet(
 @api_view(["GET"])
 @permission_classes([permissions.IsAuthenticated])
 def get_user_favorites(request):
-    cloud_ids = FavoriteCloud.objects.filter(user=request.user).values_list("cloud_id", flat=True)
-    project_ids = FavoriteProject.objects.filter(user=request.user).values_list("project_id", flat=True)
+    cloud_ids = FavoriteCloud.objects.filter(user=request.user).values_list(
+        "cloud_id", flat=True
+    )
+    project_ids = FavoriteProject.objects.filter(user=request.user).values_list(
+        "project_id", flat=True
+    )
     return Response({"cloud_ids": cloud_ids, "project_ids": project_ids})
 
 
 class FavoriteCloudViewSet(
-    viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
 ):
     serializer_class = FavoriteCloudSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -73,7 +84,10 @@ class FavoriteCloudViewSet(
 
 
 class FavoriteProjectViewSet(
-    viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
 ):
     serializer_class = FavoriteProjectSerializer
     permission_classes = [permissions.IsAuthenticated]

@@ -2,13 +2,14 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
-import hmac
 import hashlib
+import hmac
+
 from django.conf import settings
 from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from webhooks.handlers import WebhookHandler
 
@@ -25,9 +26,7 @@ class WebHookView(APIView):
             settings.WEBHOOKS_SECRET.encode(), request.body, hashlib.sha256
         ).hexdigest()
         if not hmac.compare_digest(req_signature, body_signature):
-            raise ValidationError(
-                detail={"x-bimdata-signature": "Bad request signature"}
-            )
+            raise ValidationError(detail={"x-bimdata-signature": "Bad request signature"})
 
         handler = WebhookHandler(request.data)
         if handler.is_valid():

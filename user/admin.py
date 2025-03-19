@@ -20,7 +20,14 @@ class UsersAdmin(UserAdmin):
             {"fields": ("demo_cloud", "demo_project", "sub", "language")},
         ),
     ) + UserAdmin.fieldsets
-    list_display = ("username", "email", "first_name", "last_name", "date_joined")
+    list_display = (
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "date_joined",
+        "initial_referer",
+    )
     list_filter = ("is_superuser",)
     ordering = ("-date_joined",)
 

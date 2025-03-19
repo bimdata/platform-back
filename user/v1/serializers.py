@@ -5,10 +5,11 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from user.models import User
-from user.models import Notification
+from user.models import FavoriteCloud
+from user.models import FavoriteProject
 from user.models import GuidedTour
-from user.models import FavoriteCloud, FavoriteProject
+from user.models import Notification
+from user.models import User
 
 
 class NotificationSerializer(serializers.ModelSerializer):
@@ -26,18 +27,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class GuidedTourSerializer(serializers.ModelSerializer):
-    user = UserSerializer(
-        read_only=True,
-        default=serializers.CurrentUserDefault()
-    )
+    user = UserSerializer(read_only=True, default=serializers.CurrentUserDefault())
 
     class Meta:
         model = GuidedTour
         fields = ("user", "name")
         validators = [
-            UniqueTogetherValidator(
-                queryset=GuidedTour.objects.all(), fields=("user", "name")
-            )
+            UniqueTogetherValidator(queryset=GuidedTour.objects.all(), fields=("user", "name"))
         ]
 
     def to_representation(self, instance):

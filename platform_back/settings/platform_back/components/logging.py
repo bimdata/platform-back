@@ -13,9 +13,7 @@ LOGGING = {
         "skip_health_check": {"()": "utils.filters.HealthCheckFilter"},
     },
     "formatters": {
-        "verbose": {
-            "format": "[django] %(levelname)s %(asctime)s %(module)s %(message)s"
-        }
+        "verbose": {"format": "[django] %(levelname)s %(asctime)s %(module)s %(message)s"}
     },
     "handlers": {
         "null": {"level": "DEBUG", "class": "logging.NullHandler"},
