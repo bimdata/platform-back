@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_yasg.inspectors import CoreAPICompatInspector, NotHandled
+from drf_yasg.inspectors import CoreAPICompatInspector
+from drf_yasg.inspectors import NotHandled
 
 
 class DjangoFilterDescriptionInspector(CoreAPICompatInspector):

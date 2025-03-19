@@ -10,6 +10,4 @@ class EmailTest(TestCase):
         User.objects.create(email="test@bimdata.io", language="fr")
 
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(
-            mail.outbox[0].subject, "Bienvenue sur la plateforme BIMData.io"
-        )
+        self.assertEqual(mail.outbox[0].subject, "Bienvenue sur la plateforme BIMData.io")

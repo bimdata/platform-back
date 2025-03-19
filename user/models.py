@@ -38,7 +38,9 @@ class User(AbstractUser):
     )
     language = models.CharField(max_length=64, null=True, blank=True)
 
-    initial_referer = models.URLField(max_length=255, null=True, blank=True, default=settings.PLATFORM_URL)
+    initial_referer = models.URLField(
+        max_length=255, null=True, blank=True, default=settings.PLATFORM_URL
+    )
 
     demo_cloud = models.IntegerField(null=True, blank=True)
     demo_project = models.IntegerField(null=True, blank=True)
@@ -47,7 +49,7 @@ class User(AbstractUser):
 
     class Meta:
         indexes = [
-            models.Index(fields=['email']),
+            models.Index(fields=["email"]),
         ]
 
     def __str__(self):
@@ -97,9 +99,9 @@ class User(AbstractUser):
         ordered_by_event_type_notifications = {}
         for notification in notifications:
             RefreshHandler(notification).refresh()
-            ordered_by_event_type_notifications.setdefault(
-                notification.event_type, []
-            ).append(notification)
+            ordered_by_event_type_notifications.setdefault(notification.event_type, []).append(
+                notification
+            )
         for (
             event_type,
             notifications_type,

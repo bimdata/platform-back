@@ -3,9 +3,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 from django.urls import reverse
-from rest_framework.test import APITestCase
 from rest_framework import status
-from user.models import User, GuidedTour, FavoriteCloud, FavoriteProject
+from rest_framework.test import APITestCase
+
+from user.models import FavoriteCloud
+from user.models import FavoriteProject
+from user.models import GuidedTour
+from user.models import User
 
 
 class TestGuidedTour(APITestCase):
@@ -56,9 +60,7 @@ class TestGuidedTour(APITestCase):
 
 class TestUserFavorites(APITestCase):
     def test_get_user_favorites(self):
-        user1 = User.objects.create(
-            username="John Doe", first_name="John", last_name="Doe"
-        )
+        user1 = User.objects.create(username="John Doe", first_name="John", last_name="Doe")
         user2 = User.objects.create(
             username="Louise Michel", first_name="Louise", last_name="Michel"
         )
@@ -109,7 +111,7 @@ class TestFavoriteCloud(APITestCase):
 
     def test_create(self):
         url = reverse("fav-clouds-list")
-        body = { "cloud_id": 123 }
+        body = {"cloud_id": 123}
         response = self.client.post(url, data=body)
         json = response.json()
 
@@ -166,7 +168,7 @@ class TestFavoriteProject(APITestCase):
 
     def test_create(self):
         url = reverse("fav-projects-list")
-        body = { "project_id": 123 }
+        body = {"project_id": 123}
         response = self.client.post(url, data=body)
         json = response.json()
 

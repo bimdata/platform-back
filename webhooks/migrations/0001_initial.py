@@ -23,9 +23,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "webhook_id",
-                    models.PositiveIntegerField(
-                        help_text="Webhook id from API", unique=True
-                    ),
+                    models.PositiveIntegerField(help_text="Webhook id from API", unique=True),
                 ),
                 ("cloud_id", models.PositiveIntegerField()),
                 ("secret", models.CharField(max_length=256)),

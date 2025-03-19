@@ -45,7 +45,7 @@ def create_user(request, id_token):
         last_name=id_token.get("family_name"),
         sub=id_token.get("sub"),
         language=id_token.get("locale"),
-        initial_referer=request.META.get("HTTP_REFERER").rstrip('/'),
+        initial_referer=request.META.get("HTTP_REFERER").rstrip("/"),
     )
 
 

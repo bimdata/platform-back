@@ -49,6 +49,8 @@ pycodestyle = "^2.9.1"
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.2"
 
+[tool.black]
+line-length = 95
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"

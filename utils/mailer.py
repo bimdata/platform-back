@@ -15,17 +15,17 @@ def send_mail(
     language = language or settings.LANGUAGE_CODE
     from_email = settings.DEFAULT_FROM_EMAIL
     to_emails = [
-        f"{user.first_name} {user.last_name} <{user.email}>"
-        if user.first_name
-        else user.email
+        (
+            f"{user.first_name} {user.last_name} <{user.email}>"
+            if user.first_name
+            else user.email
+        )
     ]
 
     content["bimdata_url"] = user.initial_referer
 
     with translation.override(language):
-        subject = render_to_string(
-            f"mails/{template_name}-subject.txt", content
-        ).strip()
+        subject = render_to_string(f"mails/{template_name}-subject.txt", content).strip()
         html_content = render_to_string(f"mails/{template_name}.html", content)
     if settings.APP_EMAIL_HOST:
         connection = get_connection(
@@ -37,9 +37,7 @@ def send_mail(
         )
     else:
         connection = get_connection()
-    email = EmailMessage(
-        subject, html_content, from_email, to_emails, connection=connection
-    )
+    email = EmailMessage(subject, html_content, from_email, to_emails, connection=connection)
     email.content_subtype = "html"
     try:
         email.send()

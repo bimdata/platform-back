@@ -62,9 +62,7 @@ class WebhookHandler:
     def __init__(self, data):
         self.event_name = data.get("event_name")
         self.cloud_id = (
-            data["cloud_id"]
-            if "cloud_id" in data
-            else data.get("cloud", {}).get("id", None)
+            data["cloud_id"] if "cloud_id" in data else data.get("cloud", {}).get("id", None)
         )
         self.payload = data.get("data", {})
         self.payload["cloud_id"] = self.cloud_id

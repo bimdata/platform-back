@@ -2,7 +2,9 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
-from django.urls import path, re_path
+from django.urls import path
+from django.urls import re_path
+
 from user.v1.views import UserViewSet
 from utils.doc import schema_view
 
@@ -16,7 +18,5 @@ urlpatterns = [
         schema_view.without_ui(cache_timeout=0),
         name="schema-json",
     ),
-    path(
-        "doc", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"
-    ),
+    path("doc", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
 ]
