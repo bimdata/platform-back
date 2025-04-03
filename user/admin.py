@@ -17,7 +17,7 @@ class UsersAdmin(UserAdmin):
     fieldsets = (
         (
             "platform_info",
-            {"fields": ("demo_cloud", "demo_project", "sub", "language")},
+            {"fields": ("demo_cloud", "demo_project", "sub", "language", "initial_referer")},
         ),
     ) + UserAdmin.fieldsets
     list_display = (
