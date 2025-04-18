@@ -22,6 +22,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 INSTALLED_APPS = [
     "user",
     "webhooks",
+    "notification",
     "rest_framework",
     "drf_yasg",
     "corsheaders",
@@ -35,6 +36,8 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "psqlextra",
     "django_cron",
+    "celery",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [

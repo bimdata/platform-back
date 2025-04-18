@@ -57,10 +57,10 @@ def get_user_favorites(request):
 
 
 class FavoriteCloudViewSet(
-    viewsets.GenericViewSet,
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
 ):
     serializer_class = FavoriteCloudSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -84,10 +84,10 @@ class FavoriteCloudViewSet(
 
 
 class FavoriteProjectViewSet(
-    viewsets.GenericViewSet,
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
 ):
     serializer_class = FavoriteProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
