@@ -687,14 +687,18 @@ name = "django-cron"
 version = "0.6.0"
 description = "Running python crons in a Django project"
 optional = false
-python-versions = "*"
-files = [
-    {file = "django-cron-0.6.0.tar.gz", hash = "sha256:dc3c0d3433a2e4e7012f77f6d8415ad90367ba068649db2674325bc36f935841"},
-    {file = "django_cron-0.6.0-py3-none-any.whl", hash = "sha256:016203554748512b7f19d7363b4fde8741c6ff63fe8a15051f3031f4a0506a41"},
-]
+python-versions = "^3.8"
+files = []
+develop = false
 
 [package.dependencies]
-Django = ">=3.2"
+django = ">=4.2,<6.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/jorenham/django-cron.git"
+reference = "HEAD"
+resolved_reference = "cec74656a6cada4c40fec43f46594bf332268ab1"
 
 [[package]]
 name = "django-debug-toolbar"
@@ -1861,4 +1865,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "9d9a88bf7fe7d684087def5ea508e47c1c2bcf473a7c29570fc5a8dd0af9d314"
+content-hash = "d1763212e1ae460c580e9d30b76c6f5300f1e806cbc2d5be1dac92d3744a0de6"
