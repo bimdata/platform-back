@@ -6,7 +6,7 @@ authors = ["BIMData Team <infra@bimdata.io>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-bimdata-api-client = "10.9.1"
+bimdata-api-client = "10.14.1"
 django = {extras = ["argon2"], version = "^4.2"}
 django-cors-headers = "^3.7.0"
 django-environ = "^0.10.0"

@@ -68,6 +68,9 @@ class WebhookHandler:
         self.payload["cloud_id"] = self.cloud_id
 
         if self.cloud_id:
+            print("Cloud ID:", self.cloud_id)
+            print("Project ID:", self.payload["project_id"])
+            print("access token:", get_access_token())
             self.payload["project_name"] = ApiClient(
                 get_access_token()
             ).collaboration_api.get_project(

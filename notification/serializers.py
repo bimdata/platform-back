@@ -54,7 +54,6 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             "schedule",
             "file_creation",
             "file_deletion",
-            "file_new_version",
             "folder_creation",
             "folder_deletion",
             "visa_creation",
@@ -64,8 +63,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             "bcf_topic_creation",
             "bcf_topic_deletion",
             "invitation_accepted",
-            "meta_building_creation",
-            "meta_building_deletion",
+            "model_creation",
             "model_deletion",
         )
         read_only_fields = ("id",)
@@ -145,3 +143,11 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         crontab.save()
         instance = super().update(instance, validated_data)
         return instance
+
+
+class ProjectWebhookSerializer(serializers.Serializer):
+    event_name = serializers.CharField(required=True)
+    cloud_id = serializers.IntegerField(required=True)
+    project_id = serializers.IntegerField(required=True)
+    webhook_id = serializers.IntegerField(required=True)
+    data = serializers.JSONField(required=True)

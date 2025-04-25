@@ -2,15 +2,19 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
+import hashlib
+import hmac
 import json
 from unittest import mock
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse
 from django_celery_beat.models import CrontabSchedule
 from django_celery_beat.models import PeriodicTask
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from notification.models import NotificationWebhook
 from notification.models import Project
 from notification.models import Subscription
 from notification.permissions import IsProjectAdmin
@@ -25,16 +29,20 @@ class NotificationViewTest(APITestCase):
         )
         self.client.force_authenticate(user=self.user, token="don't care for now")
 
-    @mock.patch.object(IsProjectAdmin, "has_permission")
-    def test_update_with_new(self, permission_mock):
-        permission_mock.return_value = True
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
+    def test_update_with_new(self, permission_mock, token_mock, api_mock):
         url = reverse("update-notifications", kwargs={"cloud_id": 99, "project_id": 99})
 
         body = {
             "file_creation": True,
             "file_deletion": True,
-            "file_new_version": True,
-            "file_new_version": True,
+            "folder_creation": True,
+            "folder_deletion": False,
             "schedule": {
                 "time": "09:30",
                 "timezone": "Europe/Paris",
@@ -56,8 +64,8 @@ class NotificationViewTest(APITestCase):
 
         assert subscription.file_creation is True
         assert subscription.file_deletion is True
-        assert subscription.file_new_version is True
-        assert subscription.folder_creation is False
+        assert subscription.folder_creation is True
+        assert subscription.folder_deletion is False
         assert subscription.periodic_task.name == "Notification schedule for project 99"
         assert (
             subscription.periodic_task.task
@@ -69,8 +77,13 @@ class NotificationViewTest(APITestCase):
         assert str(subscription.periodic_task.crontab.timezone) == "Europe/Paris"
         assert subscription.periodic_task.crontab.day_of_week == "1,4"
 
-    @mock.patch.object(IsProjectAdmin, "has_permission")
-    def test_update_with_existing(self, permission_mock):
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
+    def test_update_with_existing(self, permission_mock, token_mock, api_mock):
         permission_mock.return_value = True
         url = reverse("update-notifications", kwargs={"cloud_id": 100, "project_id": 100})
 
@@ -94,14 +107,14 @@ class NotificationViewTest(APITestCase):
         subscription = Subscription.objects.create(
             project=project,
             file_creation=True,
-            file_new_version=True,
+            folder_creation=True,
             periodic_task=periodic_task,
         )
 
         body = {
             "file_creation": False,
             "file_deletion": True,
-            "file_new_version": True,
+            "folder_creation": True,
             "schedule": {
                 "time": "19:45",
                 "timezone": "Europe/London",
@@ -122,8 +135,8 @@ class NotificationViewTest(APITestCase):
         subscription.refresh_from_db()
         assert subscription.file_creation is False
         assert subscription.file_deletion is True
-        assert subscription.file_new_version is True
-        assert subscription.folder_creation is False
+        assert subscription.folder_creation is True
+        assert subscription.folder_deletion is False
         assert subscription.periodic_task.name == "Notification schedule for project 100"
         assert (
             subscription.periodic_task.task
@@ -134,3 +147,158 @@ class NotificationViewTest(APITestCase):
         assert subscription.periodic_task.crontab.minute == "45"
         assert str(subscription.periodic_task.crontab.timezone) == "Europe/London"
         assert subscription.periodic_task.crontab.day_of_week == "1,3,6,7"
+
+
+class NotificationWebhookViewTest(APITestCase):
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    def setUp(self, token_mock, api_mock):
+        super().setUp()
+        self.cloud_id = 100
+        self.project = Project.objects.create(api_id=100, cloud_id=self.cloud_id)
+        self.crontab = CrontabSchedule.objects.create(
+            minute="00",
+            hour="19",
+            timezone="Europe/Paris",
+            day_of_week="1,2,5",
+        )
+        self.periodic_task = PeriodicTask.objects.create(
+            crontab=self.crontab,
+            name="Notification schedule for project 100",
+            task="platform_back.tasks.notifications.send_project_notifications_email",
+            kwargs=json.dumps(
+                {
+                    "project_id": 100,
+                }
+            ),
+        )
+        self.subscription = Subscription.objects.create(
+            project=self.project,
+            file_creation=True,
+            folder_creation=True,
+            periodic_task=self.periodic_task,
+        )
+
+        self.subscription.update_webhooks()
+        self.event = "document.creation"
+        self.webhook = NotificationWebhook.objects.get(event=self.event)
+
+    def test_send_with_no_signature(self):
+        url = reverse("notifications-webhook")
+
+        body = {"some": "data"}
+
+        response = self.client.post(url, data=body)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data == {"x-bimdata-signature": "Header required"}
+
+    def test_send_with_invalid_signature(self):
+        url = reverse("notifications-webhook")
+
+        body = {
+            "event_name": self.event,
+            "webhook_id": self.webhook.webhook_id,
+            "cloud_id": self.cloud_id,
+            "project_id": self.project.id,
+            "data": {"some": "data"},
+        }
+        str_payload = json.dumps(body, cls=DjangoJSONEncoder).encode()
+        signature = hmac.new(
+            "super invalid secret".encode(), str_payload, hashlib.sha256
+        ).hexdigest()
+
+        response = self.client.post(
+            url,
+            data=body,
+            headers={"Content-Type": "application/json", "x-bimdata-signature": signature},
+        )
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data == {"x-bimdata-signature": "Bad request signature"}
+
+    def test_send_with_valid_signature(self):
+        url = reverse("notifications-webhook")
+        event = "document.creation"
+
+        body = {
+            "event_name": event,
+            "webhook_id": self.webhook.webhook_id,
+            "cloud_id": self.cloud_id,
+            "project_id": self.project.id,
+            "data": {"some": "data"},
+        }
+        str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
+        signature = hmac.new(
+            self.webhook.secret.encode(), str_payload, hashlib.sha256
+        ).hexdigest()
+
+        response = self.client.post(
+            url, data=body, format="json", headers={"x-bimdata-signature": signature}
+        )
+
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+
+    def test_send_with_valid_signature_and_incomplete_data(self):
+        url = reverse("notifications-webhook")
+        event = "document.creation"
+
+        body = {
+            "event_name": event,
+            "cloud_id": self.cloud_id,
+            "project_id": self.project.id,
+            "data": {"some": "data"},
+        }
+        str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
+        signature = hmac.new(
+            self.webhook.secret.encode(), str_payload, hashlib.sha256
+        ).hexdigest()
+
+        response = self.client.post(
+            url, data=body, format="json", headers={"x-bimdata-signature": signature}
+        )
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_send_with_valid_signature_and_unknown_webhook(self):
+        url = reverse("notifications-webhook")
+        event = "document.creation"
+
+        body = {
+            "event_name": event,
+            "webhook_id": 999,
+            "cloud_id": self.cloud_id,
+            "project_id": self.project.id,
+            "data": {"some": "data"},
+        }
+        str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
+        signature = hmac.new(
+            self.webhook.secret.encode(), str_payload, hashlib.sha256
+        ).hexdigest()
+
+        response = self.client.post(
+            url, data=body, format="json", headers={"x-bimdata-signature": signature}
+        )
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+    def test_send_with_invalid_signature_and_unknown_webhook(self):
+        url = reverse("notifications-webhook")
+        event = "document.creation"
+
+        body = {
+            "event_name": event,
+            "webhook_id": 999,
+            "cloud_id": self.cloud_id,
+            "project_id": self.project.id,
+            "data": {"some": "data"},
+        }
+
+        response = self.client.post(
+            url, data=body, format="json", headers={"x-bimdata-signature": "123"}
+        )
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND

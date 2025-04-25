@@ -65,6 +65,11 @@ urlpatterns = [
         notification_views.get_notifications,
         name="get-notifications",
     ),
+    path(
+        "notification/webhook",
+        notification_views.webhook,
+        name="notifications-webhook",
+    ),
     path("", include(router.urls)),
 ]
 
