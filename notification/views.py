@@ -38,8 +38,11 @@ def update_notifications(request, cloud_id, project_id):
         serializer = SubscriptionSerializer(data=request.data, context={"project": project})
 
     serializer.is_valid(raise_exception=True)
-    referer = (request.META.get("HTTP_REFERER").rstrip("/"),)
-    subscription = serializer.save(project=project, referer=referer)
+    if request.META.get("HTTP_REFERER"):
+        referer = request.META.get("HTTP_REFERER").rstrip("/")
+        subscription = serializer.save(project=project, referer=referer)
+    else:
+        subscription = serializer.save(project=project)
     subscription.update_webhooks()
     return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -5,29 +5,29 @@ description = ""
 authors = ["BIMData Team <infra@bimdata.io>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-bimdata-api-client = "10.14.1"
-django = {extras = ["argon2"], version = "^4.2"}
-django-cors-headers = "^3.7.0"
-django-environ = "^0.10.0"
+python = "^3.13"
+bimdata-api-client = "10.14.2"
+django = {extras = ["argon2"], version = "^5.2"}
+django-cors-headers = "^4.7.0"
+django-environ = "^0.12.0"
 django-health-check = "^3.16.3"
-django-filter = "^2.4.0"
-django-grappelli = "^3.0.4"
-django-postgres-extra = "^2.0.2"
+django-filter = "^25.1"
+django-grappelli = "^4.0.1"
+django-postgres-extra = "^2.0.8"
 django-replicated = {git = "https://github.com/bimdata/django_replicated.git"}
 django-split-settings = "^1.0.1"
 djangorestframework = "^3.15.2"
 drf-oidc-auth = "^3.0.0"
 drf-yasg = "^1.20.0"
-fluent-logger = "^0.10.0"
+fluent-logger = "^0.11.1"
 gunicorn = "^23.0.0"
 inflection = "^0.5.1"
-psycopg2 = "^2.9.3"
-python-dotenv = "^0.17.0"
+psycopg = {extras = ["binary", "pool"], version = "^3.2.4"}
+python-dotenv = "^1.1.0"
 requests = "^2.32.0"
-whitenoise = "^5.3.0"
+whitenoise = "^6.9.0"
 django-cron = "^0.6.0"
-django-json-widget = {git = "https://github.com/jmrivas86/django-json-widget.git"}
+django-json-widget = "^2.0.1"
 coreapi = "^2.3.3"
 celery = "^5.5.1"
 django-celery-beat = "^2.8.0"
@@ -42,12 +42,12 @@ uvicorn = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
-django-debug-toolbar = "^4.2.0"
-flake8 = "^6.1.0"
-pre-commit = "^3.7.1"
-pyflakes = "^3.1.0"
+django-debug-toolbar = "^5.1.0"
+flake8 = "^7.2.0"
+pre-commit = "^4.2.0"
+pyflakes = "^3.3.2"
 reorder-python-imports = "^3.11.0"
-pycodestyle = "2.11.0"
+pycodestyle = "2.13.0"
 
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.2"
