@@ -22,8 +22,6 @@ jobs:
         uses: snok/install-poetry@v1
       - name: Install library
         run: poetry install --no-interaction
-        env:
-          C_INCLUDE_PATH: "/usr/include/python3.10"
       - name: Run tests
         run: >
           poetry run pytest
