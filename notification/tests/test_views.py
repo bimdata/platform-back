@@ -84,7 +84,6 @@ class NotificationViewTest(APITestCase):
     @mock.patch("externals.keycloak.get_access_token")
     @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
     def test_update_with_existing(self, permission_mock, token_mock, api_mock):
-        permission_mock.return_value = True
         url = reverse("update-notifications", kwargs={"cloud_id": 100, "project_id": 100})
 
         project = Project.objects.create(api_id=100, cloud_id=100)

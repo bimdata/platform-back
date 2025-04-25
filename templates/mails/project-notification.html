@@ -1,0 +1,81 @@
+{% load i18n %}
+{% load convert_str_date %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- fix WINDOWS PHONE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- google WEBFONT : Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+
+    <style type="text/css">
+      @media only screen and (max-width: 480px) {
+        /* style TABLE */
+        table[class="container_table"] {
+          width: 320px;
+        }
+        table[class="container_table-inner"] {
+          width: 300px;
+        }
+
+        /* style TD */
+        td[class="td_hidden"] {
+          display: none;
+        }
+        td[class="td_block"] {
+          width: 300px;
+          display: block;
+        }
+        td[class="td_block-center"] {
+          width: 300px;
+          margin: auto;
+          display: block;
+        }
+        td[class="td_img"] {
+          margin: auto;
+          width: 300px;
+          display: block;
+        }
+
+        /* Mobile & Desktop */
+        td[class="mobile-visible"] {
+          display: block !important;
+        }
+        .mobile-visible {
+          display: block !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    bgcolor="#F7F7F7"
+    leftmargin="0"
+    rightmargin="0"
+    topmargin="0"
+    bottommargin="0"
+    alink="#2F374A"
+    vlink="#2F374A"
+    link="#2F374A"
+  >
+    {% if file_creation %}
+      {% trans "Nouveaux fichiers" %}
+      {% for file in file_creation %}
+        <pre>{{file}}</pre>
+      {% endfor %}
+    {% endif %}
+
+    {% if file_vew_version %}
+      {% trans "Nouvelles versions de fichier" %}
+      {% for file in file_vew_version %}
+        <pre>{{file}}</pre>
+      {% endfor %}
+    {% endif %}
+
+  </body>
+</html>

@@ -52,6 +52,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "schedule",
+            "locale",
             "file_creation",
             "file_deletion",
             "folder_creation",

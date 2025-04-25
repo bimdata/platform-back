@@ -28,6 +28,10 @@ assert len(subcription_to_webhook_event.values()) == len(
     set(subcription_to_webhook_event.values())
 ), "Webhook events can't be duplicated"
 
+webhook_event_to_subcription = {
+    event: subscription for subscription, event in subcription_to_webhook_event.items()
+}
+
 
 # TODO: we can move a project in another cloud. Make sur le cloud_id is updated (when we recieve a webhook?)
 # TODO: check if the webhook is correctly updated when a project is moved
@@ -43,6 +47,16 @@ class Subscription(models.Model):
     periodic_task = models.ForeignKey(
         "django_celery_beat.PeriodicTask", on_delete=models.CASCADE
     )  # on_delete=models.SET_NULL ?
+
+    LOCALE_FR = "fr"
+    LOCALE_EN = "en"
+    LOCAL_CHOICES = ((LOCALE_FR, "Français"), (LOCALE_EN, "English"))
+
+    locale = models.CharField(max_length=2, choices=LOCAL_CHOICES, default=LOCALE_EN)
+
+    referer = models.URLField(
+        max_length=255, null=True, blank=True, default=settings.PLATFORM_URL
+    )
 
     file_creation = models.BooleanField(default=False)
     file_deletion = models.BooleanField(default=False)
