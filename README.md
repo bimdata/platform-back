@@ -83,7 +83,7 @@ We use Celery to handle notifications emails
 Celery need at least two runners: one beater and at least one worker.
 
 ```bash
-# Run the beatter
+# Run the beater
 celery -A platform_back beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
 ```
 

@@ -7,7 +7,7 @@ from externals import keycloak
 from externals.bimdata_api import ApiClient
 
 
-subcription_to_webhook_event = {
+subscription_to_webhook_event = {
     "file_creation": "document.creation",
     "file_deletion": "document.deletion",
     "folder_creation": "folder.creation",
@@ -24,12 +24,12 @@ subcription_to_webhook_event = {
 }
 
 # assert no duplication. If two subscription have the same event, remove one subcription will disable the webhook for other events too
-assert len(subcription_to_webhook_event.values()) == len(
-    set(subcription_to_webhook_event.values())
+assert len(subscription_to_webhook_event.values()) == len(
+    set(subscription_to_webhook_event.values())
 ), "Webhook events can't be duplicated"
 
 webhook_event_to_subcription = {
-    event: subscription for subscription, event in subcription_to_webhook_event.items()
+    event: subscription for subscription, event in subscription_to_webhook_event.items()
 }
 
 
@@ -80,7 +80,7 @@ class Subscription(models.Model):
         for webhook in current_webhooks:
             current_webhooks_by_event[webhook.event] = webhook
 
-        for subscription, event in subcription_to_webhook_event.items():
+        for subscription, event in subscription_to_webhook_event.items():
             if getattr(self, subscription) is True and event not in current_webhooks_by_event:
                 # Create all missing webhook
                 NotificationWebhook.objects.create(project=self.project, event=event)

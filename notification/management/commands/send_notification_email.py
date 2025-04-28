@@ -26,7 +26,7 @@ class Command(BaseCommand):
     @no_translations
     def handle(self, *args, **options):
         project_id = options["project_id"]
-        print(f"Sendind mail for project {project_id}")
+        print(f"Sending mail for project {project_id}")
         project = (
             Project.objects.select_related("subscription").filter(api_id=project_id).first()
         )
