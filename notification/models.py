@@ -50,9 +50,9 @@ class Subscription(models.Model):
 
     LOCALE_FR = "fr"
     LOCALE_EN = "en"
-    LOCAL_CHOICES = ((LOCALE_FR, "Français"), (LOCALE_EN, "English"))
+    LOCALE_CHOICES = ((LOCALE_FR, "Français"), (LOCALE_EN, "English"))
 
-    locale = models.CharField(max_length=2, choices=LOCAL_CHOICES, default=LOCALE_EN)
+    locale = models.CharField(max_length=2, choices=LOCALE_CHOICES, default=LOCALE_EN)
 
     referer = models.URLField(
         max_length=255, null=True, blank=True, default=settings.PLATFORM_URL

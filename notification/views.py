@@ -5,6 +5,7 @@
 import hashlib
 import hmac
 
+from drf_spectacular.utils import extend_schema
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -22,6 +23,12 @@ from notification.serializers import SubscriptionSerializer
 from utils.views import get_or_404
 
 
+@extend_schema(
+    tags=["project-notifications"],
+    operation_id="updateProjectNotifications",
+    request=SubscriptionSerializer,
+    responses=SubscriptionSerializer,
+)
 @api_view(["PUT"])
 @permission_classes([permissions.IsAuthenticated, IsProjectAdmin])
 def update_notifications(request, cloud_id, project_id):
@@ -47,6 +54,11 @@ def update_notifications(request, cloud_id, project_id):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@extend_schema(
+    tags=["project-notifications"],
+    operation_id="getProjectNotifications",
+    responses=SubscriptionSerializer,
+)
 @api_view(["GET"])
 @permission_classes([permissions.IsAuthenticated, IsProjectAdmin])
 def get_notifications(request, cloud_id, project_id):
@@ -56,6 +68,12 @@ def get_notifications(request, cloud_id, project_id):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@extend_schema(
+    tags=["project-notifications"],
+    operation_id="postProjectWebHook",
+    request=ProjectWebhookSerializer,
+    responses={status.HTTP_204_NO_CONTENT: None},
+)
 @api_view(["POST"])
 def webhook(request):
     req_signature = request.META.get("HTTP_X_BIMDATA_SIGNATURE")
