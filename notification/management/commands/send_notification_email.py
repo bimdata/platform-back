@@ -60,34 +60,7 @@ class Command(BaseCommand):
         )
         recipients = [user for user in project_users if user.role == 100]
 
-        content = {
-            "project": project,
-            "file_creation": [],
-            "file_deletion": [],
-            "folder_creation": [],
-            "folder_deletion": [],
-            "visa_creation": [],
-            "visa_deletion": [],
-            "visa_validation": [],
-            "visa_denied": [],
-            "bcf_topic_creation": [],
-            "bcf_topic_deletion": [],
-            "invitation_accepted": [],
-            "model_creation": [],
-            "model_deletion": [],
-            # Events items we want to show differently in mail but have the same event
-            "file_new_version": [],
-        }
-
-        for notification in notifications:
-            event_category = webhook_event_to_subcription[notification.event]
-            if event_category == "file_creation":
-                if notification.payload["history_count"] == 0:
-                    content["file_creation"].append(notification.payload)
-                else:
-                    content["file_new_version"].append(notification.payload)
-            else:
-                content[event_category].append(notification.payload)
+        content = self.dispatch_notifications_to_content(notifications)
 
         from_email = settings.DEFAULT_FROM_EMAIL
         to_emails = [
@@ -99,6 +72,7 @@ class Command(BaseCommand):
             for user in recipients
         ]
 
+        content["project"] = project
         content["platform_url"] = subscription.referer
 
         with translation.override(subscription.locale):
@@ -127,3 +101,37 @@ class Command(BaseCommand):
                 )
                 email.content_subtype = "html"
                 email.send()
+
+        # Mark all notifications as consumed
+        notifications.update(consumed=True)
+
+    def dispatch_notifications_to_content(self, notifications):
+        content = {
+            "file_creation": [],
+            "file_deletion": [],
+            "folder_creation": [],
+            "folder_deletion": [],
+            "visa_creation": [],
+            "visa_deletion": [],
+            "visa_validation": [],
+            "visa_denied": [],
+            "bcf_topic_creation": [],
+            "bcf_topic_deletion": [],
+            "invitation_accepted": [],
+            "model_creation": [],
+            "model_deletion": [],
+            # Events items we want to show differently in mail but have the same event
+            "file_new_version": [],
+        }
+
+        for notification in notifications:
+            event_category = webhook_event_to_subcription[notification.event]
+            if event_category == "file_creation":
+                if notification.payload["document"]["history_count"] == 0:
+                    content["file_creation"].append(notification.payload)
+                else:
+                    content["file_new_version"].append(notification.payload)
+            else:
+                content[event_category].append(notification.payload)
+
+        return content

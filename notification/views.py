@@ -87,7 +87,10 @@ def webhook(request):
 
     project_id = serializer.validated_data["project_id"]
     webhook_id = serializer.validated_data["webhook_id"]
-    webhook = get_or_404(NotificationWebhook, project_id=project_id, webhook_id=webhook_id)
+
+    webhook = get_or_404(
+        NotificationWebhook, project_id__api_id=project_id, webhook_id=webhook_id
+    )
 
     body_signature = hmac.new(webhook.secret.encode(), raw_body, hashlib.sha256).hexdigest()
     if not hmac.compare_digest(req_signature, body_signature):
@@ -99,4 +102,5 @@ def webhook(request):
     NotificationHistory.objects.create(
         project_id=webhook.project_id, event=event, payload=payload
     )
+
     return Response(status=status.HTTP_204_NO_CONTENT)

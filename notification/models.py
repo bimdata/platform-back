@@ -13,7 +13,7 @@ subscription_to_webhook_event = {
     "folder_creation": "folder.creation",
     "folder_deletion": "folder.deletion",
     "visa_creation": "visa.creation",
-    "visa_deletion": "visa.deletion",
+    # "visa_deletion": "visa.deletion",
     "visa_validation": "visa.validation.add",
     "visa_denied": "visa.validation.denied",
     "bcf_topic_creation": "bcf.topic.creation",
@@ -36,10 +36,14 @@ webhook_event_to_subcription = {
 # TODO: we can move a project in another cloud. Make sur le cloud_id is updated (when we recieve a webhook?)
 # TODO: check if the webhook is correctly updated when a project is moved
 # TODO: update project name. Before sending notification?
+# TODO: visa.deletion does not exist
 class Project(models.Model):
     api_id = models.PositiveIntegerField(unique=True)
     cloud_id = models.PositiveIntegerField()
     name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return f"{self.name} ({self.api_id})"
 
 
 class Subscription(models.Model):
@@ -72,6 +76,9 @@ class Subscription(models.Model):
     model_creation = models.BooleanField(default=False)
     model_deletion = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"Subscription for {self.project}"
+
     def update_webhooks(self):
         current_webhooks = NotificationWebhook.objects.filter(project=self.project)
 
@@ -96,6 +103,9 @@ class NotificationHistory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     consumed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"Notification for {self.project} with event {self.event}"
+
 
 class NotificationWebhook(models.Model):
     project = models.ForeignKey("Project", on_delete=models.CASCADE)
@@ -106,9 +116,19 @@ class NotificationWebhook(models.Model):
     class Meta:
         unique_together = (("project", "event"),)
 
+    def __str__(self):
+        return f"Webhook for {self.project} with event {self.event}"
+
     def save(self, *args, **kwargs):
         client = ApiClient(keycloak.get_access_token())
         secret = get_random_string(64)
+        print(
+            {
+                "events": [self.event],
+                "url": settings.PLATFORM_BACK_URL + reverse("v1:notifications-webhook"),
+                "secret": secret,
+            }
+        )
         api_webhook = client.webhook_api.create_project_web_hook(
             cloud_pk=self.project.cloud_id,
             project_pk=self.project.api_id,
