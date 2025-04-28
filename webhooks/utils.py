@@ -18,7 +18,7 @@ def register_webhook(cloud_id, events, access_token=None):
         cloud_pk=cloud_id,
         web_hook_request={
             "events": events,
-            "url": settings.PLATFORM_BACK_URL + reverse("webhook_handler"),
+            "url": settings.PLATFORM_BACK_URL + reverse("v1:webhook_handler"),
             "secret": secret,
         },
     )

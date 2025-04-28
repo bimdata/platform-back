@@ -114,7 +114,7 @@ class NotificationWebhook(models.Model):
             project_pk=self.project.api_id,
             web_hook_request={
                 "events": [self.event],
-                "url": settings.PLATFORM_BACK_URL + reverse("webhook_handler"),
+                "url": settings.PLATFORM_BACK_URL + reverse("v1:notifications-webhook"),
                 "secret": secret,
             },
         )

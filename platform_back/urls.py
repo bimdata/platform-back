@@ -30,7 +30,7 @@ from drf_spectacular.views import SpectacularYAMLAPIView
 app_name = "platform_back"
 
 urlpatterns = [
-    path("doc/schema", SpectacularAPIView.as_view(api_version="api_urls"), name="schema"),
+    path("doc/schema", SpectacularAPIView.as_view(api_version="v1"), name="schema"),
     path(
         "doc.json",
         SpectacularJSONAPIView.as_view(),
@@ -44,7 +44,7 @@ urlpatterns = [
     path("doc", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     path("doc/redoc", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("health/", include("health_check.urls")),
-    path("", include("platform_back.api_urls", namespace="api_urls")),
+    path("", include("platform_back.api_urls", namespace="v1")),
 ]
 
 if settings.ADMIN_INTERFACE:

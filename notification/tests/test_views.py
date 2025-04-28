@@ -36,7 +36,7 @@ class NotificationViewTest(APITestCase):
     @mock.patch("externals.keycloak.get_access_token")
     @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
     def test_update_with_new(self, permission_mock, token_mock, api_mock):
-        url = reverse("update-notifications", kwargs={"cloud_id": 99, "project_id": 99})
+        url = reverse("v1:update-notifications", kwargs={"cloud_id": 99, "project_id": 99})
 
         body = {
             "file_creation": True,
@@ -84,7 +84,7 @@ class NotificationViewTest(APITestCase):
     @mock.patch("externals.keycloak.get_access_token")
     @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
     def test_update_with_existing(self, permission_mock, token_mock, api_mock):
-        url = reverse("update-notifications", kwargs={"cloud_id": 100, "project_id": 100})
+        url = reverse("v1:update-notifications", kwargs={"cloud_id": 100, "project_id": 100})
 
         project = Project.objects.create(api_id=100, cloud_id=100)
         crontab = CrontabSchedule.objects.create(
@@ -186,7 +186,7 @@ class NotificationWebhookViewTest(APITestCase):
         self.webhook = NotificationWebhook.objects.get(event=self.event)
 
     def test_send_with_no_signature(self):
-        url = reverse("notifications-webhook")
+        url = reverse("v1:notifications-webhook")
 
         body = {"some": "data"}
 
@@ -196,7 +196,7 @@ class NotificationWebhookViewTest(APITestCase):
         assert response.data == {"x-bimdata-signature": "Header required"}
 
     def test_send_with_invalid_signature(self):
-        url = reverse("notifications-webhook")
+        url = reverse("v1:notifications-webhook")
 
         body = {
             "event_name": self.event,
@@ -220,7 +220,7 @@ class NotificationWebhookViewTest(APITestCase):
         assert response.data == {"x-bimdata-signature": "Bad request signature"}
 
     def test_send_with_valid_signature(self):
-        url = reverse("notifications-webhook")
+        url = reverse("v1:notifications-webhook")
         event = "document.creation"
 
         body = {
@@ -242,7 +242,7 @@ class NotificationWebhookViewTest(APITestCase):
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
     def test_send_with_valid_signature_and_incomplete_data(self):
-        url = reverse("notifications-webhook")
+        url = reverse("v1:notifications-webhook")
         event = "document.creation"
 
         body = {
@@ -263,7 +263,7 @@ class NotificationWebhookViewTest(APITestCase):
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_send_with_valid_signature_and_unknown_webhook(self):
-        url = reverse("notifications-webhook")
+        url = reverse("v1:notifications-webhook")
         event = "document.creation"
 
         body = {
@@ -285,7 +285,7 @@ class NotificationWebhookViewTest(APITestCase):
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
     def test_send_with_invalid_signature_and_unknown_webhook(self):
-        url = reverse("notifications-webhook")
+        url = reverse("v1:notifications-webhook")
         event = "document.creation"
 
         body = {
