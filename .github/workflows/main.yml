@@ -5,25 +5,38 @@ name: Test, build and deploy
 on:
   push:
 
+env:
+  PYTHON_VERSION: "3.12"
+
 jobs:
   test:
     runs-on: [self-hosted, common]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
+        id: setup-python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
-      - name: psycopg2 prerequisites
-        run: |
-          sudo apt-get update
-          sudo apt-get install libpq-dev -y
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Install poetry
         uses: snok/install-poetry@v1
-      - name: Install library
-        run: poetry install --no-interaction
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          virtualenvs-path: .venv
         env:
-          C_INCLUDE_PATH: "/usr/include/python3.10"
+          POETRY_HOME: ${{ github.workspace }}/.${{ env.PYTHON_VERSION }}-poetry
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install dependencies if no cache
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      - name: Install api
+        run: poetry install --no-interaction
       - name: Run tests
         run: >
           poetry run pytest
@@ -37,11 +50,11 @@ jobs:
     runs-on: [self-hosted, common]
     needs: [test]
     if: contains('
-          refs/heads/develop
-          refs/heads/release
-          refs/heads/master
-          refs/heads/main'
-        , github.ref)
+      refs/heads/develop
+      refs/heads/release
+      refs/heads/master
+      refs/heads/main'
+      , github.ref)
     steps:
       - uses: actions/checkout@v4
       - name: Login to BIMData Docker Registry
