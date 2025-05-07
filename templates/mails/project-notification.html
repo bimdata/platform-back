@@ -63,9 +63,9 @@
     vlink="#2F374A"
     link="#2F374A"
   >
-    {% if file_creation %}
+    {% if document_creation %}
       {% trans "Nouveaux fichiers" %}
-      {% for file in file_creation %}
+      {% for file in document_creation %}
         <pre>{{file}}</pre>
       {% endfor %}
     {% endif %}

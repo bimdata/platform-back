@@ -14,6 +14,7 @@ from django_celery_beat.models import PeriodicTask
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from notification.models import NotificationHistory
 from notification.models import NotificationWebhook
 from notification.models import Project
 from notification.models import Subscription
@@ -36,11 +37,12 @@ class NotificationViewTest(APITestCase):
     @mock.patch("externals.keycloak.get_access_token")
     @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
     def test_update_with_new(self, permission_mock, token_mock, api_mock):
-        url = reverse("v1:update-notifications", kwargs={"cloud_id": 99, "project_id": 99})
+        url = reverse("v1:notifications", kwargs={"cloud_id": 99, "project_id": 99})
 
         body = {
-            "file_creation": True,
-            "file_deletion": True,
+            "recipients_group_id": 1,
+            "document_creation": True,
+            "document_deletion": True,
             "folder_creation": True,
             "folder_deletion": False,
             "schedule": {
@@ -62,8 +64,8 @@ class NotificationViewTest(APITestCase):
 
         subscription = Subscription.objects.get(project__api_id=99)
 
-        assert subscription.file_creation is True
-        assert subscription.file_deletion is True
+        assert subscription.document_creation is True
+        assert subscription.document_deletion is True
         assert subscription.folder_creation is True
         assert subscription.folder_deletion is False
         assert subscription.periodic_task.name == "Notification schedule for project 99"
@@ -84,7 +86,7 @@ class NotificationViewTest(APITestCase):
     @mock.patch("externals.keycloak.get_access_token")
     @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
     def test_update_with_existing(self, permission_mock, token_mock, api_mock):
-        url = reverse("v1:update-notifications", kwargs={"cloud_id": 100, "project_id": 100})
+        url = reverse("v1:notifications", kwargs={"cloud_id": 100, "project_id": 100})
 
         project = Project.objects.create(api_id=100, cloud_id=100)
         crontab = CrontabSchedule.objects.create(
@@ -105,14 +107,16 @@ class NotificationViewTest(APITestCase):
         )
         subscription = Subscription.objects.create(
             project=project,
-            file_creation=True,
+            document_creation=True,
             folder_creation=True,
             periodic_task=periodic_task,
+            recipients_group_id=1,
         )
 
         body = {
-            "file_creation": False,
-            "file_deletion": True,
+            "recipients_group_id": 2,
+            "document_creation": False,
+            "document_deletion": True,
             "folder_creation": True,
             "schedule": {
                 "time": "19:45",
@@ -132,8 +136,9 @@ class NotificationViewTest(APITestCase):
         assert response.status_code == status.HTTP_200_OK
 
         subscription.refresh_from_db()
-        assert subscription.file_creation is False
-        assert subscription.file_deletion is True
+        assert subscription.recipients_group_id == 2
+        assert subscription.document_creation is False
+        assert subscription.document_deletion is True
         assert subscription.folder_creation is True
         assert subscription.folder_deletion is False
         assert subscription.periodic_task.name == "Notification schedule for project 100"
@@ -146,6 +151,97 @@ class NotificationViewTest(APITestCase):
         assert subscription.periodic_task.crontab.minute == "45"
         assert str(subscription.periodic_task.crontab.timezone) == "Europe/London"
         assert subscription.periodic_task.crontab.day_of_week == "1,3,6,7"
+
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
+    def test_get_notifications(self, permission_mock, token_mock, api_mock):
+        url = reverse("v1:notifications", kwargs={"cloud_id": 100, "project_id": 100})
+
+        project = Project.objects.create(api_id=100, cloud_id=100)
+        crontab = CrontabSchedule.objects.create(
+            minute="00",
+            hour="19",
+            timezone="Europe/Paris",
+            day_of_week="1,2,5",
+        )
+        periodic_task = PeriodicTask.objects.create(
+            crontab=crontab,
+            name="Notification schedule for project 100",
+            task="platform_back.tasks.notifications.send_project_notifications_email",
+            kwargs=json.dumps(
+                {
+                    "project_id": 100,
+                }
+            ),
+        )
+        subscription = Subscription.objects.create(
+            project=project,
+            document_creation=True,
+            folder_creation=True,
+            periodic_task=periodic_task,
+            recipients_group_id=1,
+        )
+        response = self.client.get(url)
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data["id"] == subscription.id
+
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    @mock.patch("notification.models.NotificationWebhook.unregister")
+    @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
+    def test_delete_notifications(
+        self, permission_mock, unregister_mock, token_mock, api_mock
+    ):
+        url = reverse("v1:notifications", kwargs={"cloud_id": 100, "project_id": 100})
+
+        project = Project.objects.create(api_id=100, cloud_id=100)
+        crontab = CrontabSchedule.objects.create(
+            minute="00",
+            hour="19",
+            timezone="Europe/Paris",
+            day_of_week="1,2,5",
+        )
+        periodic_task = PeriodicTask.objects.create(
+            crontab=crontab,
+            name="Notification schedule for project 100",
+            task="platform_back.tasks.notifications.send_project_notifications_email",
+            kwargs=json.dumps(
+                {
+                    "project_id": 100,
+                }
+            ),
+        )
+        subscription = Subscription.objects.create(
+            project=project,
+            document_creation=True,
+            folder_creation=True,
+            periodic_task=periodic_task,
+            recipients_group_id=1,
+        )
+        subscription.update_webhooks()
+        assert NotificationWebhook.objects.filter(project=project).exists()
+
+        NotificationHistory.objects.create(
+            project=project,
+            event="document.creation",
+            payload={},
+        )
+
+        response = self.client.delete(url)
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        assert not Subscription.objects.filter(id=subscription.id).exists()
+        assert not PeriodicTask.objects.filter(id=periodic_task.id).exists()
+        assert not NotificationWebhook.objects.filter(project=project).exists()
+        assert unregister_mock.called
+        assert not NotificationHistory.objects.filter(project=project).exists()
 
 
 class NotificationWebhookViewTest(APITestCase):
@@ -176,9 +272,10 @@ class NotificationWebhookViewTest(APITestCase):
         )
         self.subscription = Subscription.objects.create(
             project=self.project,
-            file_creation=True,
+            document_creation=True,
             folder_creation=True,
             periodic_task=self.periodic_task,
+            recipients_group_id=1,
         )
 
         self.subscription.update_webhooks()
@@ -202,7 +299,7 @@ class NotificationWebhookViewTest(APITestCase):
             "event_name": self.event,
             "webhook_id": self.webhook.webhook_id,
             "cloud_id": self.cloud_id,
-            "project_id": self.project.id,
+            "project_id": self.project.api_id,
             "data": {"some": "data"},
         }
         str_payload = json.dumps(body, cls=DjangoJSONEncoder).encode()
@@ -219,6 +316,30 @@ class NotificationWebhookViewTest(APITestCase):
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert response.data == {"x-bimdata-signature": "Bad request signature"}
 
+    def test_cloud_id_changed_when_project_id_is_moved(self):
+        url = reverse("v1:notifications-webhook")
+        event = "document.creation"
+
+        body = {
+            "event_name": event,
+            "webhook_id": self.webhook.webhook_id,
+            "cloud_id": 999,
+            "project_id": self.project.api_id,
+            "data": {"some": "data"},
+        }
+        str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
+        signature = hmac.new(
+            self.webhook.secret.encode(), str_payload, hashlib.sha256
+        ).hexdigest()
+
+        response = self.client.post(
+            url, data=body, format="json", headers={"x-bimdata-signature": signature}
+        )
+
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        assert Project.objects.filter(api_id=self.project.api_id, cloud_id=999).exists()
+
     def test_send_with_valid_signature(self):
         url = reverse("v1:notifications-webhook")
         event = "document.creation"
@@ -227,7 +348,7 @@ class NotificationWebhookViewTest(APITestCase):
             "event_name": event,
             "webhook_id": self.webhook.webhook_id,
             "cloud_id": self.cloud_id,
-            "project_id": self.project.id,
+            "project_id": self.project.api_id,
             "data": {"some": "data"},
         }
         str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
@@ -248,7 +369,7 @@ class NotificationWebhookViewTest(APITestCase):
         body = {
             "event_name": event,
             "cloud_id": self.cloud_id,
-            "project_id": self.project.id,
+            "project_id": self.project.api_id,
             "data": {"some": "data"},
         }
         str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
@@ -270,7 +391,7 @@ class NotificationWebhookViewTest(APITestCase):
             "event_name": event,
             "webhook_id": 999,
             "cloud_id": self.cloud_id,
-            "project_id": self.project.id,
+            "project_id": self.project.api_id,
             "data": {"some": "data"},
         }
         str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
@@ -292,7 +413,7 @@ class NotificationWebhookViewTest(APITestCase):
             "event_name": event,
             "webhook_id": 999,
             "cloud_id": self.cloud_id,
-            "project_id": self.project.id,
+            "project_id": self.project.api_id,
             "data": {"some": "data"},
         }
 

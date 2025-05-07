@@ -1,3 +1,4 @@
+from bimdata_api_client import ApiException
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.core.mail import get_connection
@@ -53,12 +54,20 @@ class Command(BaseCommand):
             project.name = project_name
             project.save()
 
-        project_users = ApiClient(
-            keycloak.get_access_token()
-        ).collaboration_api.get_project_users(
-            cloud_pk=project.cloud_id, project_pk=project.api_id
-        )
-        recipients = [user for user in project_users if user.role == 100]
+        try:
+            group = ApiClient(keycloak.get_access_token()).collaboration_api.get_manage_group(
+                cloud_pk=project.cloud_id,
+                project_pk=project.api_id,
+                id=subscription.recipients_group_id,
+            )
+            recipients = group.members
+        except ApiException as e:
+            # The group has been deleted or the project has been moved to another cloud so the group id is no more correct
+            print("Exception when calling get_manage_group: %s\n" % e)
+            print(
+                "It can happend when the group has been deleted or when the project has been moved to another cloud"
+            )
+            return
 
         content = self.dispatch_notifications_to_content(notifications)
 
@@ -107,8 +116,8 @@ class Command(BaseCommand):
 
     def dispatch_notifications_to_content(self, notifications):
         content = {
-            "file_creation": [],
-            "file_deletion": [],
+            "document_creation": [],
+            "document_deletion": [],
             "folder_creation": [],
             "folder_deletion": [],
             "visa_creation": [],
@@ -121,16 +130,16 @@ class Command(BaseCommand):
             "model_creation": [],
             "model_deletion": [],
             # Events items we want to show differently in mail but have the same event
-            "file_new_version": [],
+            "document_new_version": [],
         }
 
         for notification in notifications:
             event_category = webhook_event_to_subcription[notification.event]
-            if event_category == "file_creation":
+            if event_category == "document_creation":
                 if notification.payload["document"]["history_count"] == 0:
-                    content["file_creation"].append(notification.payload)
+                    content["document_creation"].append(notification.payload)
                 else:
-                    content["file_new_version"].append(notification.payload)
+                    content["document_new_version"].append(notification.payload)
             else:
                 content[event_category].append(notification.payload)
 

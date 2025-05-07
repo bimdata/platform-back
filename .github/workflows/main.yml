@@ -6,17 +6,11 @@ on:
   push:
 
 env:
-  PYTHON_VERSION: 3.13
+  PYTHON_VERSION: "3.13"
 
 jobs:
   test:
     runs-on: [self-hosted, common]
-    env:
-      TEST_DB_HOST: postgres
-      TEST_DB_PORT: 5432
-      TEST_DB_NAME: platform-back-${{ github.run_id }}
-      TEST_DB_USER: bimdata
-      TEST_DB_PASSWORD: bimdata
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -38,24 +32,27 @@ jobs:
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install dependencies if no cache
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+          restore-keys: venv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-
       - name: Install api
         run: poetry install --no-interaction
       - name: Run tests
         run: >
           poetry run pytest
-
+        env:
+          TEST_DB_HOST: postgres
+          TEST_DB_PORT: 5432
+          TEST_DB_NAME: platform-back-${{ github.run_id }}
+          TEST_DB_USER: bimdata
+          TEST_DB_PASSWORD: bimdata
   build-and-push:
     runs-on: [self-hosted, common]
     needs: [test]
     if: contains('
-          refs/heads/develop
-          refs/heads/release
-          refs/heads/master
-          refs/heads/main'
-        , github.ref)
+      refs/heads/develop
+      refs/heads/release
+      refs/heads/master
+      refs/heads/main'
+      , github.ref)
     steps:
       - uses: actions/checkout@v4
       - name: Login to BIMData Docker Registry

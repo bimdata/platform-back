@@ -8,8 +8,8 @@ from externals.bimdata_api import ApiClient
 
 
 subscription_to_webhook_event = {
-    "file_creation": "document.creation",
-    "file_deletion": "document.deletion",
+    "document_creation": "document.creation",
+    "document_deletion": "document.deletion",
     "folder_creation": "folder.creation",
     "folder_deletion": "folder.deletion",
     "visa_creation": "visa.creation",
@@ -33,10 +33,8 @@ webhook_event_to_subcription = {
 }
 
 
-# TODO: we can move a project in another cloud. Make sur le cloud_id is updated (when we recieve a webhook?)
-# TODO: check if the webhook is correctly updated when a project is moved
-# TODO: update project name. Before sending notification?
 # TODO: visa.deletion does not exist
+# TODO: document.creation folder path
 class Project(models.Model):
     api_id = models.PositiveIntegerField(unique=True)
     cloud_id = models.PositiveIntegerField()
@@ -48,9 +46,11 @@ class Project(models.Model):
 
 class Subscription(models.Model):
     project = models.OneToOneField("Project", on_delete=models.CASCADE)
-    periodic_task = models.ForeignKey(
+    periodic_task = models.OneToOneField(
         "django_celery_beat.PeriodicTask", on_delete=models.CASCADE
-    )  # on_delete=models.SET_NULL ?
+    )
+
+    recipients_group_id = models.PositiveIntegerField()
 
     LOCALE_FR = "fr"
     LOCALE_EN = "en"
@@ -62,8 +62,8 @@ class Subscription(models.Model):
         max_length=255, null=True, blank=True, default=settings.PLATFORM_URL
     )
 
-    file_creation = models.BooleanField(default=False)
-    file_deletion = models.BooleanField(default=False)
+    document_creation = models.BooleanField(default=False)
+    document_deletion = models.BooleanField(default=False)
     folder_creation = models.BooleanField(default=False)
     folder_deletion = models.BooleanField(default=False)
     visa_creation = models.BooleanField(default=False)
@@ -122,13 +122,7 @@ class NotificationWebhook(models.Model):
     def save(self, *args, **kwargs):
         client = ApiClient(keycloak.get_access_token())
         secret = get_random_string(64)
-        print(
-            {
-                "events": [self.event],
-                "url": settings.PLATFORM_BACK_URL + reverse("v1:notifications-webhook"),
-                "secret": secret,
-            }
-        )
+
         api_webhook = client.webhook_api.create_project_web_hook(
             cloud_pk=self.project.cloud_id,
             project_pk=self.project.api_id,

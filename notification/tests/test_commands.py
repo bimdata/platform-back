@@ -39,9 +39,10 @@ class ProjectNotificationEmailTest(TestCase):
         ):
             Subscription.objects.create(
                 project=self.project,
-                file_creation=True,
+                document_creation=True,
                 folder_creation=True,
                 periodic_task=self.periodic_task,
+                recipients_group_id=1,
             )
 
     @mock.patch("externals.keycloak.get_access_token", return_value="123")
@@ -49,15 +50,19 @@ class ProjectNotificationEmailTest(TestCase):
         NotificationHistory.objects.create(
             project=self.project,
             event="document.creation",
-            payload={"history_count": 0, "name": "my_doc.txt"},
+            payload={"document": {"history_count": 0, "name": "my_doc.txt"}},
         )
 
         with mock.patch(
             "bimdata_api_client.api.collaboration_api.CollaborationApi.get_project",
             return_value={"name": "Super Project"},
         ), mock.patch(
-            "bimdata_api_client.api.collaboration_api.CollaborationApi.get_project_users",
-            return_value=[mock.MagicMock(role=100, email="test@bimdata.io")],
+            "bimdata_api_client.api.collaboration_api.CollaborationApi.get_manage_group",
+            return_value=mock.MagicMock(
+                members=[
+                    mock.MagicMock(email="test@bimdata.io", firstname="John", lastname="Doe")
+                ]
+            ),
         ):
             call_command("send_notification_email", self.project.api_id)
 

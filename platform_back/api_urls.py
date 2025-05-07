@@ -55,13 +55,8 @@ urlpatterns = [
     path("webhook", webhook_views.WebHookView.as_view(), name="webhook_handler"),
     path(
         "cloud/<int:cloud_id>/project/<int:project_id>/notification",
-        notification_views.update_notifications,
-        name="update-notifications",
-    ),
-    path(
-        "cloud/<int:cloud_id>/project/<int:project_id>/notification",
-        notification_views.get_notifications,
-        name="get-notifications",
+        notification_views.NotificationView.as_view(),
+        name="notifications",
     ),
     path(
         "notification/webhook",

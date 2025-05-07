@@ -51,10 +51,11 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         model = Subscription
         fields = (
             "id",
+            "recipients_group_id",
             "schedule",
             "locale",
-            "file_creation",
-            "file_deletion",
+            "document_creation",
+            "document_deletion",
             "folder_creation",
             "folder_deletion",
             "visa_creation",
