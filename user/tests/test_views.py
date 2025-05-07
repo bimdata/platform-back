@@ -21,7 +21,7 @@ class TestGuidedTour(APITestCase):
         self.client.force_authenticate(user=self.user, token="don't care for now")
 
     def test_create_success(self):
-        url = reverse("tours-list")
+        url = reverse("v1:tours-list")
 
         body = {"name": "PLATFORM_VISA"}
 
@@ -30,7 +30,7 @@ class TestGuidedTour(APITestCase):
         assert response.status_code == status.HTTP_201_CREATED
 
     def test_create_fail(self):
-        url = reverse("tours-list")
+        url = reverse("v1:tours-list")
         GuidedTour.objects.create(user=self.user, name="PLATFORM_VISA")
 
         body = {"name": "PLATFORM_VISA"}
@@ -40,7 +40,7 @@ class TestGuidedTour(APITestCase):
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_read_success(self):
-        url = reverse("tours-list")
+        url = reverse("v1:tours-list")
 
         fakeUser = User.objects.create(
             username="Miles Davis", first_name="Miles", last_name="Davis"
@@ -74,7 +74,7 @@ class TestUserFavorites(APITestCase):
         FavoriteProject.objects.create(user=user2, project_id=456)
         FavoriteProject.objects.create(user=user2, project_id=789)
 
-        url = reverse("fav")
+        url = reverse("v1:fav")
         response = self.client.get(url, user=user1)
         json = response.json()
 
@@ -101,7 +101,7 @@ class TestFavoriteCloud(APITestCase):
         FavoriteCloud.objects.create(user=self.user, cloud_id=2)
         FavoriteCloud.objects.create(user=user2, cloud_id=3)
 
-        url = reverse("fav-clouds-list")
+        url = reverse("v1:fav-clouds-list")
         response = self.client.get(url, user=self.user)
         json = response.json()
 
@@ -110,7 +110,7 @@ class TestFavoriteCloud(APITestCase):
         assert len(json["cloud_ids"]) == 2
 
     def test_create(self):
-        url = reverse("fav-clouds-list")
+        url = reverse("v1:fav-clouds-list")
         body = {"cloud_id": 123}
         response = self.client.post(url, data=body)
         json = response.json()
@@ -123,20 +123,20 @@ class TestFavoriteCloud(APITestCase):
     def test_delete_success(self):
         FavoriteCloud.objects.create(user=self.user, cloud_id=1)
 
-        url = reverse("fav-clouds-detail", kwargs={"cloud_id": 1})
+        url = reverse("v1:fav-clouds-detail", kwargs={"cloud_id": 1})
         response = self.client.delete(url)
 
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert response.data is None
 
-        url = reverse("fav-clouds-list")
+        url = reverse("v1:fav-clouds-list")
         response = self.client.get(url)
         json = response.json()
 
         assert len(json["cloud_ids"]) == 0
 
     def test_delete_failure(self):
-        url = reverse("fav-clouds-detail", kwargs={"cloud_id": 1})
+        url = reverse("v1:fav-clouds-detail", kwargs={"cloud_id": 1})
         response = self.client.delete(url)
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
@@ -158,7 +158,7 @@ class TestFavoriteProject(APITestCase):
         FavoriteProject.objects.create(user=self.user, project_id=2)
         FavoriteProject.objects.create(user=user2, project_id=3)
 
-        url = reverse("fav-projects-list")
+        url = reverse("v1:fav-projects-list")
         response = self.client.get(url, user=self.user)
         json = response.json()
 
@@ -167,7 +167,7 @@ class TestFavoriteProject(APITestCase):
         assert len(json["project_ids"]) == 2
 
     def test_create(self):
-        url = reverse("fav-projects-list")
+        url = reverse("v1:fav-projects-list")
         body = {"project_id": 123}
         response = self.client.post(url, data=body)
         json = response.json()
@@ -180,20 +180,20 @@ class TestFavoriteProject(APITestCase):
     def test_delete_success(self):
         FavoriteProject.objects.create(user=self.user, project_id=1)
 
-        url = reverse("fav-projects-detail", kwargs={"project_id": 1})
+        url = reverse("v1:fav-projects-detail", kwargs={"project_id": 1})
         response = self.client.delete(url)
 
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert response.data is None
 
-        url = reverse("fav-projects-list")
+        url = reverse("v1:fav-projects-list")
         response = self.client.get(url)
         json = response.json()
 
         assert len(json["project_ids"]) == 0
 
     def test_delete_failure(self):
-        url = reverse("fav-projects-detail", kwargs={"project_id": 1})
+        url = reverse("v1:fav-projects-detail", kwargs={"project_id": 1})
         response = self.client.delete(url)
 
         assert response.status_code == status.HTTP_404_NOT_FOUND

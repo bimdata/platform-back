@@ -22,9 +22,11 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 INSTALLED_APPS = [
     "user",
     "webhooks",
+    "notification",
     "rest_framework",
-    "drf_yasg",
     "corsheaders",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     "health_check",
     "health_check.db",
     "django.contrib.auth",
@@ -35,6 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "psqlextra",
     "django_cron",
+    "celery",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -66,9 +70,16 @@ WSGI_APPLICATION = "platform_back.wsgi.application"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = "/static/"
-STATIC_ROOT = "statics"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = "static"
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 TEMPLATES = [
     {
@@ -89,13 +100,11 @@ DEFAULT_AUTHENTICATION_CLASSES = ("oidc_auth.authentication.JSONWebTokenAuthenti
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": DEFAULT_AUTHENTICATION_CLASSES,
-    "DEFAULT_FILTER_BACKENDS": (
-        "utils.contrib.drf.filters.FilterBackendWithQuerysetWorkaround",
-    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_SCHEMA_CLASS": "utils.doc.BIMDataAutoSchema",
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
-    "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%SZ",
     "URL_FORMAT_OVERRIDE": None,
 }
 
@@ -124,8 +133,6 @@ LANGUAGE_CODE = "en-us"
 LOCALE_PATHS = [BASE_DIR.joinpath("locale")]
 
 TIME_ZONE = "UTC"
-
-BCF_DATE_FORMAT = ("%m/%d/%Y",)
 
 USE_I18N = True
 

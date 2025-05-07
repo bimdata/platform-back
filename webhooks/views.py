@@ -6,6 +6,7 @@ import hashlib
 import hmac
 
 from django.conf import settings
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -17,6 +18,13 @@ from webhooks.handlers import WebhookHandler
 class WebHookView(APIView):
     authentication_classes = tuple()
 
+    @extend_schema(
+        tags=["platform"],
+        operation_id="PostWebHook",
+        description="Used for assigned BCF and Visa notifications",
+        request=None,
+        responses={status.HTTP_204_NO_CONTENT: None},
+    )
     def post(self, request, format=None):
         req_signature = request.META.get("HTTP_X_BIMDATA_SIGNATURE")
         if not req_signature:

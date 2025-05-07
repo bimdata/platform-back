@@ -2,12 +2,12 @@
 # (c) BIMData support@bimdata.io
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
-from rest_framework.response import Response
-from rest_framework import permissions, viewsets, mixins, status
-from user.v1.serializers import UserSerializer
-from user.v1.serializers import NotificationSerializer
+from rest_framework import mixins
+from rest_framework import permissions
+from rest_framework import viewsets
+
 from user.models import Notification
-from drf_yasg.utils import swagger_auto_schema
+from user.v1.serializers import NotificationSerializer
 
 
 class NotificationViewSet(
@@ -20,18 +20,3 @@ class NotificationViewSet(
 
     def get_queryset(self):
         return Notification.objects.filter(recipient=self.request.user.fosuser)
-
-
-class UserViewSet(viewsets.ViewSet):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    @swagger_auto_schema(
-        operation_id="getSelfUser", responses={status.HTTP_200_OK: UserSerializer()}
-    )
-    def retrieve(self, request):
-        serializer = UserSerializer(
-            instance=request.user, context={"request": request, "view": self}
-        )
-
-        return Response(serializer.data)

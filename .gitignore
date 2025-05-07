@@ -1,12 +1,20 @@
 *.sublime-project
 *.sublime-workspace
+*.code-workspace
+.vscode/
 .DS_Store
 db.sqlite3
 htmlcov/
 .coverage
 nosetests.xml
-statics/
-.vscode/
+bimdata/.env
+static/
+storage/
+swagger.json
+swagger.yml
+swagger.yaml
+.pytest_cache
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -90,6 +98,8 @@ celerybeat-schedule
 
 # Environments
 .env
+.env.*
+-.env.example
 .venv
 env/
 venv/
@@ -110,3 +120,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# circleci
+process.yml
