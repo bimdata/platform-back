@@ -15,7 +15,7 @@ from notification.models import webhook_event_to_subcription
 
 
 class Command(BaseCommand):
-    help = "Send notifications email to all admins of project passed as first argument"
+    help = "Send notifications email to defined users of project passed as first argument"
 
     def add_arguments(self, parser):
         parser.add_argument(

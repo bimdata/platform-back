@@ -13,7 +13,7 @@ subscription_to_webhook_event = {
     "folder_creation": "folder.creation",
     "folder_deletion": "folder.deletion",
     "visa_creation": "visa.creation",
-    # "visa_deletion": "visa.deletion",
+    "visa_deletion": "visa.deletion",
     "visa_validation": "visa.validation.add",
     "visa_denied": "visa.validation.denied",
     "bcf_topic_creation": "bcf.topic.creation",
@@ -33,8 +33,6 @@ webhook_event_to_subcription = {
 }
 
 
-# TODO: visa.deletion does not exist
-# TODO: document.creation folder path
 class Project(models.Model):
     api_id = models.PositiveIntegerField(unique=True)
     cloud_id = models.PositiveIntegerField()
