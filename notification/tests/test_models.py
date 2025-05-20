@@ -9,7 +9,7 @@ from notification.models import subscription_to_webhook_event
 
 
 class SubscriptionModelTest(APITestCase):
-    def test_all_available_are_defined_in_model(self):
+    def test_all_available_subscriptions_are_defined_in_model(self):
         all_available_subscriptions = subscription_to_webhook_event.keys()
 
         subscription_model_field_names = {
