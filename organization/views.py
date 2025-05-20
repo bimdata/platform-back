@@ -1,4 +1,5 @@
 from bimdata_api_client.model.cloud_request import CloudRequest
+from drf_spectacular.utils import extend_schema
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -14,6 +15,12 @@ from user.auth import get_jwt_value
 from webhooks.utils import register_webhook
 
 
+@extend_schema(
+    tags=["platform"],
+    operation_id="createCloud",
+    request=CloudSerializer,
+    responses={status.HTTP_204_NO_CONTENT: None},
+)
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
 def create_cloud(request):
@@ -32,14 +39,19 @@ def create_cloud(request):
         ],
         access_token=get_access_token(),
     )
-    return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@extend_schema(
+    tags=["platform"],
+    operation_id="registerCloudWebhooks",
+    description="""This view is exclusively used by the API after a cloud has been created through the payment route.""",
+    request=RegisterCloudSerializer,
+    responses={status.HTTP_204_NO_CONTENT: None},
+)
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated, IsSelfClient])
 def register_cloud(request):
-    # This view is exclusively used by the API after a cloud
-    # has been created through the payment route.
     # To simplify the process, the API utilizes the platform_back client
     # to create the token.
     # Therefore, we need to use the IsSelfClient permission.
@@ -55,4 +67,4 @@ def register_cloud(request):
         ],
         access_token=access_token,
     )
-    return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_204_NO_CONTENT)

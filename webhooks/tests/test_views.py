@@ -14,7 +14,7 @@ from rest_framework.test import APITestCase
 
 class TestWebHooks(APITestCase):
     def test_without_signature(self):
-        url = reverse("webhook_handler")
+        url = reverse("v1:webhook_handler")
 
         response = self.client.post(url, data={})
 
@@ -22,7 +22,7 @@ class TestWebHooks(APITestCase):
 
     @override_settings(WEBHOOKS_SECRET="123")
     def test_bad_signature(self):
-        url = reverse("webhook_handler")
+        url = reverse("v1:webhook_handler")
 
         response = self.client.post(url, data={}, HTTP_X_BIMDATA_SIGNATURE="456")
 
@@ -30,7 +30,7 @@ class TestWebHooks(APITestCase):
 
     @override_settings(WEBHOOKS_SECRET="123")
     def test_good_signature(self):
-        url = reverse("webhook_handler")
+        url = reverse("v1:webhook_handler")
 
         data = {"event_name": "haha"}
         data_encoded = json.dumps(data).encode()
