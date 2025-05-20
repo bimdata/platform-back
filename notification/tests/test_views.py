@@ -150,7 +150,7 @@ class NotificationViewTest(APITestCase):
         assert subscription.periodic_task.crontab.hour == "19"
         assert subscription.periodic_task.crontab.minute == "45"
         assert str(subscription.periodic_task.crontab.timezone) == "Europe/London"
-        assert subscription.periodic_task.crontab.day_of_week == "1,3,6,7"
+        assert subscription.periodic_task.crontab.day_of_week == "0,1,3,6"
 
     @mock.patch(
         "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
