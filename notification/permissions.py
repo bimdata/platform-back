@@ -14,7 +14,7 @@ class IsProjectAdmin(permissions.BasePermission):
         access_token = get_jwt_value(request).decode("utf-8")
         try:
             # response = client.collaboration_api.check_project_access(cloud_id, project_id)
-            # The python code generation on april 28th 2025 (and before) has a bug when validating response, where it expects user_role to be a string instad of an int.
+            # The python code generation on april 28th 2025 (and before) has a bug when validating response, where it expects user_role to be a string instead of an int.
             response, json = api_request(
                 "get",
                 f"/cloud/{cloud_id}/project/{project_id}/check-access",

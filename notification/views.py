@@ -111,7 +111,7 @@ def webhook(request):
 
     try:
         webhook = NotificationWebhook.objects.select_related("project").get(
-            project_id__api_id=project_id, webhook_id=webhook_id
+            project__api_id=project_id, webhook_id=webhook_id
         )
     except NotificationWebhook.DoesNotExist:
         raise NotFound("Webhook not found")

@@ -11,7 +11,7 @@ from externals import keycloak
 from externals.bimdata_api import ApiClient
 from notification.models import NotificationHistory
 from notification.models import Project
-from notification.models import webhook_event_to_subcription
+from notification.models import webhook_event_to_subscription
 
 
 class Command(BaseCommand):
@@ -134,7 +134,7 @@ class Command(BaseCommand):
         }
 
         for notification in notifications:
-            event_category = webhook_event_to_subcription[notification.event]
+            event_category = webhook_event_to_subscription[notification.event]
             if event_category == "document_creation":
                 if notification.payload["document"]["history_count"] == 0:
                     content["document_creation"].append(notification.payload)

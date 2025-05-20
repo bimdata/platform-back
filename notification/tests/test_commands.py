@@ -69,14 +69,11 @@ class ProjectNotificationEmailTest(TestCase):
         assert len(mail.outbox) == 1
         assert mail.outbox[0].subject == "Activité du projet Super Project"
 
-    def test_send_notification_email_no_content(self):
-        with mock.patch(
-            "bimdata_api_client.api.collaboration_api.CollaborationApi.get_project",
-            return_value={"name": "Super Project"},
-        ), mock.patch(
-            "bimdata_api_client.api.collaboration_api.CollaborationApi.get_project_users",
-            return_value=[mock.MagicMock(role=100, email="test@bimdata.io")],
-        ):
-            call_command("send_notification_email", self.project.api_id)
+    @mock.patch(
+        "bimdata_api_client.api.collaboration_api.CollaborationApi.get_project",
+        return_value={"name": "Super Project"},
+    )
+    def test_send_notification_email_no_content(self, api_mock):
+        call_command("send_notification_email", self.project.api_id)
 
         assert len(mail.outbox) == 0
