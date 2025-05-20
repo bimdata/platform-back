@@ -63,7 +63,7 @@ class Command(BaseCommand):
             recipients = group.members
         except ApiException as e:
             # The group has been deleted or the project has been moved to another cloud so the group id is no more correct
-            print("Exception when calling get_manage_group: %s\n" % e)
+            print(f"Exception when calling get_manage_group: {e}")
             print(
                 "It can happend when the group has been deleted or when the project has been moved to another cloud"
             )

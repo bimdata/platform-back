@@ -89,23 +89,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             hour=schedule_data["time"].split(":")[0],
             minute=schedule_data["time"].split(":")[1],
             timezone=schedule_data["timezone"],
-            day_of_week=",".join(
-                [
-                    str(i + 1)
-                    for i, day in enumerate(
-                        [
-                            "monday",
-                            "tuesday",
-                            "wednesday",
-                            "thursday",
-                            "friday",
-                            "saturday",
-                            "sunday",
-                        ]
-                    )
-                    if schedule_data[f"{day}"]
-                ]
-            ),
+            day_of_week=self._schedule_data_to_day_of_week(schedule_data),
         )
         periodic_task = PeriodicTask.objects.create(
             crontab=crontab,
@@ -125,26 +109,29 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         crontab.hour = schedule_data["time"].split(":")[0]
         crontab.minute = schedule_data["time"].split(":")[1]
         crontab.timezone = schedule_data["timezone"]
-        crontab.day_of_week = ",".join(
+        crontab.day_of_week = self._schedule_data_to_day_of_week(schedule_data)
+        crontab.save()
+        instance = super().update(instance, validated_data)
+        return instance
+
+    def _schedule_data_to_day_of_week(self, schedule_data):
+        return ",".join(
             [
-                str(i + 1)
+                str(i)
                 for i, day in enumerate(
                     [
+                        "sunday",
                         "monday",
                         "tuesday",
                         "wednesday",
                         "thursday",
                         "friday",
                         "saturday",
-                        "sunday",
                     ]
                 )
                 if schedule_data[f"{day}"]
             ]
         )
-        crontab.save()
-        instance = super().update(instance, validated_data)
-        return instance
 
 
 class ProjectWebhookSerializer(serializers.Serializer):
