@@ -28,7 +28,7 @@ assert len(subscription_to_webhook_event.values()) == len(
     set(subscription_to_webhook_event.values())
 ), "Webhook events can't be duplicated"
 
-webhook_event_to_subcription = {
+webhook_event_to_subscription = {
     event: subscription for subscription, event in subscription_to_webhook_event.items()
 }
 
