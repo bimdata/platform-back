@@ -28,6 +28,7 @@ def register_webhooks() -> int:
             cloud_id=cloud_id,
             events=[
                 "bcf.topic.creation",
+                "bcf.topic.update",
                 "visa.validation.add",
                 "visa.validation.remove",
             ],

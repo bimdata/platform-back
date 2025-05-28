@@ -216,9 +216,9 @@
                     line-height: 20px;
                   "
                 >
-                  {% blocktrans trimmed with email_author=bcf.payload.topic.creation_author project_name=bcf.payload.project_name %}
-                  <strong>{{ email_author }}</strong> a
-                  créé un nouveau BCF dans le projet <strong>{{ project_name }}</strong>.
+                  {% blocktrans trimmed with email_author=bcf.payload.topic.modified_author project_name=bcf.payload.project_name %}
+                  Vous avez été assigné par <strong>{{ email_author }}</strong> sur un BCF
+                  dans le projet <strong>{{ project_name }}</strong>.
                   {% endblocktrans %}
                 </span>
               </td>

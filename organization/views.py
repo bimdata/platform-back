@@ -27,6 +27,7 @@ def create_cloud(request):
         cloud_id=cloud["id"],
         events=[
             "bcf.topic.creation",
+            "bcf.topic.update",
             "visa.validation.add",
             "visa.validation.remove",
         ],
@@ -50,7 +51,7 @@ def register_cloud(request):
         cloud_id=serializer.validated_data.get("id"),
         events=[
             "bcf.topic.creation",
-            "visa.validation.add",
+            "bcf.topic.update" "visa.validation.add",
             "visa.validation.remove",
         ],
         access_token=access_token,

@@ -3,6 +3,7 @@ name = "platform-back"
 version = "1.0.0"
 description = ""
 authors = ["BIMData Team <infra@bimdata.io>"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.9"
