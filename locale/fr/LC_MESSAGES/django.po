@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-23 16:17+0000\n"
+"POT-Creation-Date: 2025-05-28 15:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,13 +98,12 @@ msgid "Ajout d’un nouveau BCF"
 msgstr "Ajout d’un nouveau BCF"
 
 #: templates/mails/notifications-bcf.html:219
-#, python-format
 msgid ""
-"<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
-"<strong>%(project_name)s</strong>."
+"Vous avez été assigné par <strong>%(email_author)s</strong> sur un BCF dans "
+"le projet <strong>%(project_name)s</strong>."
 msgstr ""
-"<strong>%(email_author)s</strong> a créée un nouveau BCF dans le projet "
-"<strong>%(project_name)s</strong>."
+"Vous avez été assigné par <strong>%(email_author)s</strong> sur un BCF dans "
+"le projet <strong>%(project_name)s</strong>."
 
 #: templates/mails/notifications-bcf.html:257
 #: templates/mails/notifications-bcf.html:425
@@ -183,4 +182,3 @@ msgstr ""
 #: templates/mails/notifications-visa.html:233
 msgid "Voir le projet"
 msgstr "Voir le projet"
-

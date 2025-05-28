@@ -30,7 +30,7 @@ class RefreshHandler:
             self._refresh_bcf(save)
 
     def _refresh_bcf(self, save: bool) -> None:
-        project = self.notification.payload["topic"]["project"]
+        project = self.notification.payload["project_id"]
         topic = self.notification.payload["topic"]["guid"]
         try:
             viewpoints = ApiClient(get_access_token()).bcf_api.get_viewpoints(
@@ -57,6 +57,7 @@ class WebhookHandler:
         "visa.validation.add": "add_validation",
         "visa.validation.remove": "remove_validation",
         "bcf.topic.creation": "add_bcf",
+        "bcf.topic.update": "update_bcf",
     }
 
     def __init__(self, data):
@@ -134,6 +135,20 @@ class WebhookHandler:
 
     def handle_add_bcf(self):
         if self.payload["topic"]["format"] == "standard":
+            assigned_to = get_user_from_email(self.payload["topic"].get("assigned_to"))
+            if assigned_to:
+                Notification.objects.create(
+                    user=assigned_to,
+                    cloud_id=self.cloud_id,
+                    event=self.get_event(self.event_name),
+                    event_type=self.get_event_type(self.event_name),
+                    payload=self.payload,
+                )
+
+    def handle_update_bcf(self):
+        if self.payload["topic"]["format"] == "standard" and self.payload.get(
+            "assigned_to_changed"
+        ):
             assigned_to = get_user_from_email(self.payload["topic"].get("assigned_to"))
             if assigned_to:
                 Notification.objects.create(

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Platform Back\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-23 16:17+0000\n"
+"POT-Creation-Date: 2025-05-28 15:07+0000\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,12 +93,11 @@ msgid "Ajout d’un nouveau BCF"
 msgstr "New BCF added"
 
 #: templates/mails/notifications-bcf.html:219
-#, python-format
 msgid ""
-"<strong>%(email_author)s</strong> a créé un nouveau BCF dans le projet "
-"<strong>%(project_name)s</strong>."
+"Vous avez été assigné par <strong>%(email_author)s</strong> sur un BCF dans "
+"le projet <strong>%(project_name)s</strong>."
 msgstr ""
-"<strong>%(email_author)s</strong> has created a new BCF in the project "
+"You have been assigned by <strong>%(email_author)s</strong> to a BCF in the project "
 "<strong>%(project_name)s</strong>."
 
 #: templates/mails/notifications-bcf.html:257
@@ -177,4 +176,3 @@ msgstr ""
 #: templates/mails/notifications-visa.html:233
 msgid "Voir le projet"
 msgstr "View project"
-
