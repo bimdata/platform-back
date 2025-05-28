@@ -40,6 +40,7 @@ uvicorn = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.3.0"
+flake8-no-implicit-str-concat-in-list = "^0.1.0"
 django-debug-toolbar = "^3.2.1"
 flake8 = "^5.0.4"
 pre-commit = "^3.7.1"
