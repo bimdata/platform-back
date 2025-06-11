@@ -22,7 +22,7 @@ class SubscriptionModelTest(APITestCase):
             "id",
             "project",
             "periodic_task",
-            "recipients_group_id",
+            "recipients_group_ids",
             "locale",
             "referer",
         }

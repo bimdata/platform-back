@@ -54,20 +54,24 @@ class Command(BaseCommand):
             project.name = project_name
             project.save()
 
-        try:
-            group = ApiClient(keycloak.get_access_token()).collaboration_api.get_manage_group(
-                cloud_pk=project.cloud_id,
-                project_pk=project.api_id,
-                id=subscription.recipients_group_id,
-            )
-            recipients = group.members
-        except ApiException as e:
-            # The group has been deleted or the project has been moved to another cloud so the group id is no more correct
-            print(f"Exception when calling get_manage_group: {e}")
-            print(
-                "It can happend when the group has been deleted or when the project has been moved to another cloud"
-            )
-            return
+        recipients = []
+        for group_id in subscription.recipients_group_ids:
+            try:
+                group = ApiClient(
+                    keycloak.get_access_token()
+                ).collaboration_api.get_manage_group(
+                    cloud_pk=project.cloud_id,
+                    project_pk=project.api_id,
+                    id=group_id,
+                )
+                recipients += list(group.members)
+            except ApiException as e:
+                # The group has been deleted or the project has been moved to another cloud so the group id is no more correct
+                print(f"Exception when calling get_manage_group: {e}")
+                print(
+                    "It can happend when the group has been deleted or when the project has been moved to another cloud"
+                )
+                return
 
         content = self.dispatch_notifications_to_content(notifications)
 

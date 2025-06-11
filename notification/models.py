@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.urls import reverse
 from django.utils.crypto import get_random_string
@@ -48,7 +49,9 @@ class Subscription(models.Model):
         "django_celery_beat.PeriodicTask", on_delete=models.CASCADE
     )
 
-    recipients_group_id = models.PositiveIntegerField()
+    recipients_group_ids = ArrayField(
+        models.PositiveIntegerField(),
+    )
 
     LOCALE_FR = "fr"
     LOCALE_EN = "en"

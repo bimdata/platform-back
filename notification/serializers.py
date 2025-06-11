@@ -51,7 +51,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         model = Subscription
         fields = (
             "id",
-            "recipients_group_id",
+            "recipients_group_ids",
             "schedule",
             "locale",
             "document_creation",
@@ -69,6 +69,13 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             "model_deletion",
         )
         read_only_fields = ("id",)
+
+    def validate(self, data):
+        if len(data["recipients_group_ids"]) == 0:
+            raise serializers.ValidationError(
+                {"recipients_group_ids": "You must set at least 1 group"}
+            )
+        return data
 
     def create(self, validated_data):
         """

@@ -42,7 +42,7 @@ class ProjectNotificationEmailTest(TestCase):
                 document_creation=True,
                 folder_creation=True,
                 periodic_task=self.periodic_task,
-                recipients_group_id=1,
+                recipients_group_ids=[1, 2],
             )
 
     @mock.patch("externals.keycloak.get_access_token", return_value="123")

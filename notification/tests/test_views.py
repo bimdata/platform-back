@@ -40,7 +40,7 @@ class NotificationViewTest(APITestCase):
         url = reverse("v1:notifications", kwargs={"cloud_id": 99, "project_id": 99})
 
         body = {
-            "recipients_group_id": 1,
+            "recipients_group_ids": [1, 2],
             "document_creation": True,
             "document_deletion": True,
             "folder_creation": True,
@@ -110,11 +110,11 @@ class NotificationViewTest(APITestCase):
             document_creation=True,
             folder_creation=True,
             periodic_task=periodic_task,
-            recipients_group_id=1,
+            recipients_group_ids=[1, 2],
         )
 
         body = {
-            "recipients_group_id": 2,
+            "recipients_group_ids": [2, 3],
             "document_creation": False,
             "document_deletion": True,
             "folder_creation": True,
@@ -136,7 +136,7 @@ class NotificationViewTest(APITestCase):
         assert response.status_code == status.HTTP_200_OK
 
         subscription.refresh_from_db()
-        assert subscription.recipients_group_id == 2
+        assert subscription.recipients_group_ids == [2, 3]
         assert subscription.document_creation is False
         assert subscription.document_deletion is True
         assert subscription.folder_creation is True
@@ -151,6 +151,38 @@ class NotificationViewTest(APITestCase):
         assert subscription.periodic_task.crontab.minute == "45"
         assert str(subscription.periodic_task.crontab.timezone) == "Europe/London"
         assert subscription.periodic_task.crontab.day_of_week == "0,1,3,6"
+
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
+    def test_update_with_no_group(self, permission_mock, token_mock, api_mock):
+        url = reverse("v1:notifications", kwargs={"cloud_id": 99, "project_id": 99})
+
+        body = {
+            "recipients_group_ids": [],
+            "document_creation": True,
+            "document_deletion": True,
+            "folder_creation": True,
+            "folder_deletion": False,
+            "schedule": {
+                "time": "09:30",
+                "timezone": "Europe/Paris",
+                "monday": True,
+                "tuesday": False,
+                "wednesday": False,
+                "thursday": True,
+                "friday": False,
+                "saturday": False,
+                "sunday": False,
+            },
+        }
+
+        response = self.client.put(url, data=body)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     @mock.patch(
         "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
@@ -183,7 +215,7 @@ class NotificationViewTest(APITestCase):
             document_creation=True,
             folder_creation=True,
             periodic_task=periodic_task,
-            recipients_group_id=1,
+            recipients_group_ids=[1],
         )
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
@@ -223,7 +255,7 @@ class NotificationViewTest(APITestCase):
             document_creation=True,
             folder_creation=True,
             periodic_task=periodic_task,
-            recipients_group_id=1,
+            recipients_group_ids=[1],
         )
         subscription.update_webhooks()
         assert NotificationWebhook.objects.filter(project=project).exists()
@@ -275,7 +307,7 @@ class NotificationWebhookViewTest(APITestCase):
             document_creation=True,
             folder_creation=True,
             periodic_task=self.periodic_task,
-            recipients_group_id=1,
+            recipients_group_ids=[1],
         )
 
         self.subscription.update_webhooks()
