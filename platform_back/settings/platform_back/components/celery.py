@@ -12,3 +12,7 @@ RABBITMQ_PORT = env("RABBITMQ_PORT")
 CELERY_BROKER_URL = (
     f"amqp://{RABBITMQ_USER}:{RABBITMQ_PASSWORD}@{RABBITMQ_HOST}:{RABBITMQ_PORT}/"
 )
+
+CELERY_TASK_ROUTES = {
+    "platform_back.tasks.*": {"queue": "celery_platform_back"},
+}

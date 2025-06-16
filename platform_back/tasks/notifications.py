@@ -9,4 +9,4 @@ logger = get_task_logger(__name__)
 @shared_task
 def send_project_notifications_email(project_id):
     call_command("send_notification_email", project_id)
-    logger.info("Old flagged entities have been deleted")
+    logger.info(f"Notifications has been sent for project {project_id}")
