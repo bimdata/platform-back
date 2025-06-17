@@ -158,6 +158,38 @@ class NotificationViewTest(APITestCase):
     )
     @mock.patch("externals.keycloak.get_access_token")
     @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
+    def test_update_with_no_day(self, permission_mock, token_mock, api_mock):
+        url = reverse("v1:notifications", kwargs={"cloud_id": 99, "project_id": 99})
+
+        body = {
+            "recipients_group_ids": [1, 2],
+            "document_creation": True,
+            "document_deletion": True,
+            "folder_creation": True,
+            "folder_deletion": False,
+            "schedule": {
+                "time": "09:30",
+                "timezone": "Europe/Paris",
+                "monday": False,
+                "tuesday": False,
+                "wednesday": False,
+                "thursday": False,
+                "friday": False,
+                "saturday": False,
+                "sunday": False,
+            },
+        }
+
+        response = self.client.put(url, data=body)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    @mock.patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_project_web_hook",
+        side_effect=[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}],
+    )
+    @mock.patch("externals.keycloak.get_access_token")
+    @mock.patch.object(IsProjectAdmin, "has_permission", return_value=True)
     def test_update_with_no_group(self, permission_mock, token_mock, api_mock):
         url = reverse("v1:notifications", kwargs={"cloud_id": 99, "project_id": 99})
 

@@ -31,16 +31,17 @@ class PeriodicTaskSerializer(serializers.Serializer):
         # sunday is 0 or 7, monday is 1, tuesday is 2, ..., saturday is 6
         crontab = instance.crontab
         day_of_week = crontab.day_of_week
+        everyday = day_of_week == "*"
         return {
             "time": f"{crontab.hour}:{crontab.minute}",
             "timezone": str(crontab.timezone),
-            "monday": "1" in day_of_week,
-            "tuesday": "2" in day_of_week,
-            "wednesday": "3" in day_of_week,
-            "thursday": "4" in day_of_week,
-            "friday": "5" in day_of_week,
-            "saturday": "6" in day_of_week,
-            "sunday": "0" in day_of_week or "7" in day_of_week,
+            "monday": everyday or "1" in day_of_week,
+            "tuesday": everyday or "2" in day_of_week,
+            "wednesday": everyday or "3" in day_of_week,
+            "thursday": everyday or "4" in day_of_week,
+            "friday": everyday or "5" in day_of_week,
+            "saturday": everyday or "6" in day_of_week,
+            "sunday": everyday or "0" in day_of_week or "7" in day_of_week,
         }
 
 
@@ -74,6 +75,19 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         if len(data["recipients_group_ids"]) == 0:
             raise serializers.ValidationError(
                 {"recipients_group_ids": "You must set at least 1 group"}
+            )
+        periodic_task = data["periodic_task"]
+        if (
+            periodic_task["monday"] is False
+            and periodic_task["tuesday"] is False
+            and periodic_task["wednesday"] is False
+            and periodic_task["thursday"] is False
+            and periodic_task["friday"] is False
+            and periodic_task["saturday"] is False
+            and periodic_task["sunday"] is False
+        ):
+            raise serializers.ValidationError(
+                {"schedule": "You must select at least one day of the week"}
             )
         return data
 
