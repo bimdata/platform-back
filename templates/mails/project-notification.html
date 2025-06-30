@@ -102,8 +102,7 @@
       {% endfor %} {% endif %}
       <tr>
         <td>
-          {% if file_vew_version %} {% trans "Nouvelles versions de fichier" %} {% for file in
-          file_vew_version %}
+          {% if file_vew_version %} {% trans "Nouvelles versions de fichier" %} {% for file in file_vew_version %}
           <pre>{{file.project.name}}</pre>
           {% endfor %} {% endif %}
         </td>
