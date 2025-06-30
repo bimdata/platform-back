@@ -75,7 +75,7 @@
       <tr>
         <td colspan="3" align="center">
           <strong style="font-family: Arial, sans-serif; font-size:24px;">
-          {% trans "Notifications activiés projet" %}
+          {% trans "Notifications activités projet" %}
           </strong>
         </td>
       </tr>
@@ -85,12 +85,14 @@
           <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Nouveaux fichiers" %} </strong>
         </td>
       </tr>
-      {% for file in document_creation %}
+      {% with file=document_creation.0 %}
       <tr>
         <td colspan="3">
-          <span style="font-family: Arial, sans-serif; font-size:20px;">{{file.project.name}}</span>
+          <span style="font-family: Arial, sans-serif; font-size:20px;">{{ file.project.name }}</span>
         </td>
       </tr>
+      {% endwith %}
+      {% for file in document_creation %}
       <tr>
         <td width="210">
           <span>
