@@ -123,6 +123,9 @@
       class="container_table"
     >
       <tr>
+        <td height="38">&nbsp;</td>
+      </tr>
+      <tr>
         <td colspan="3" align="center">
           <strong style="font-family: Arial, sans-serif; font-size:24px;">
           {% trans "Notifications activités projet" %}
@@ -130,18 +133,21 @@
         </td>
       </tr>
       {% if document_creation %}
+      {% with file=document_creation.0 %}
+      <tr>
+        <td colspan="3" align="center">
+          <span style="font-family: Arial, sans-serif; font-size:20px;">{{ file.project.name }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td height="20">&nbsp;</td>
+      </tr>
+      {% endwith %}
       <tr>
         <td colspan="3">
           <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Nouveaux fichiers" %} </strong>
         </td>
       </tr>
-      {% with file=document_creation.0 %}
-      <tr>
-        <td colspan="3">
-          <span style="font-family: Arial, sans-serif; font-size:20px;">{{ file.project.name }}</span>
-        </td>
-      </tr>
-      {% endwith %}
       {% for file in document_creation %}
       <tr>
         <td width="210">
@@ -157,7 +163,7 @@
           <span>{{file.document.created_by.lastname}} {{file.document.created_by.firstname}}</span>
         </td>
         <td width="210">
-          <span>{{file.document.created_at}}</span>
+          <span>{{file.document.created_at|date:"d M Y H:i"}}</span>
         </td>
       </tr>
       {% endfor %} {% endif %}
