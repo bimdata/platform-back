@@ -66,36 +66,45 @@
       cellpadding="0"
       cellspacing="0"
       border="0"
-      bgcolor="#F8C62C"
+      bgcolor="#fff"
       align="center"
       width="640"
-      height="8"
       style="border-collapse: collapse; display: block"
       class="container_table"
     >
       <tr>
-        <td><strong>{% trans "Notifications activiés projet" %}</strong></td>
+        <td colspan="3" align="center">
+          <strong style="font-family: Arial, sans-serif; font-size:24px;">
+          {% trans "Notifications activiés projet" %}
+          </strong>
+        </td>
       </tr>
       {% if document_creation %}
       <tr>
-        <td>
-          <strong> {% trans "Nouveaux fichiers" %} </strong>
+        <td colspan="3">
+          <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Nouveaux fichiers" %} </strong>
         </td>
       </tr>
       {% for file in document_creation %}
       <tr>
-        <td>
-          <strong>{{file.project.name}}</strong>
+        <td colspan="3">
+          <span style="font-family: Arial, sans-serif; font-size:20px;">{{file.project.name}}</span>
         </td>
       </tr>
       <tr>
-        <td>
-          <span>{{file.document.name}} || {{file.document.file_name}}</span>
+        <td width="210">
+          <span>
+          {% if file.document.name %}
+          {{file.document.name }}
+          {% else %}
+          {{file.document.file_name}}
+          {% endif %}
+          </span>
         </td>
-        <td>
+        <td width="210">
           <span>{{file.document.created_by.lastname}} {{file.document.created_by.firstname}}</span>
         </td>
-        <td>
+        <td width="210">
           <span>{{file.document.created_at}}</span>
         </td>
       </tr>
