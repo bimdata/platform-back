@@ -163,17 +163,193 @@
           <span>{{file.document.created_by.lastname}} {{file.document.created_by.firstname}}</span>
         </td>
         <td width="210">
-          <span>{{file.document.created_at|date:"d M Y H:i"}}</span>
+          <span>{{ file.document.created_at|date:"d M Y H:i" }}</span>
         </td>
       </tr>
       {% endfor %} {% endif %}
+
+      <!-- document_deletion ============================== -->
+      {% if document_deletion %}
+      <tr>
+        <td>document_deletion here :</td>
+      </tr>
       <tr>
         <td>
-          {% if file_vew_version %} {% trans "Nouvelles versions de fichier" %} {% for file in file_vew_version %}
-          <pre>{{file.project.name}}</pre>
-          {% endfor %} {% endif %}
+        {% for file in document_deletion %}
+        {{ file }}
+        {% endfor %}
         </td>
       </tr>
+      {% endif %}
+
+      <!-- folder_creation ============================== -->
+      {% if folder_creation %}
+      <tr>
+        <td>folder_creation here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in folder_creation %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- folder_deletion ============================== -->
+      {% if folder_deletion %}
+      <tr>
+        <td>folder_deletion here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in folder_deletion %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- visa_creation ============================== -->
+      {% if visa_creation %}
+      <tr>
+        <td>visa_creation here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in visa_creation %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+        
+      <!-- visa_deletion ============================== -->
+      {% if visa_deletion %}
+      <tr>
+        <td>visa_deletion here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in visa_deletion %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- visa_validation ============================== -->
+      {% if visa_validation %}
+      <tr>
+        <td>visa_validation here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in visa_validation %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- visa_denied ============================== -->
+      {% if visa_denied %}
+      <tr>
+        <td>visa_denied here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in visa_denied %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- bcf_topic_creation ============================== -->
+      {% if bcf_topic_creation %}
+      <tr>
+        <td>bcf_topic_creation here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in bcf_topic_creation %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- bcf_topic_deletion ============================== -->
+      {% if bcf_topic_deletion %}
+      <tr>
+        <td>bcf_topic_deletion here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in bcf_topic_deletion %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- invitation_accepted ============================== -->
+      {% if invitation_accepted %}
+      <tr>
+        <td>invitation_accepted here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in invitation_accepted %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+       <!-- model_creation ============================== -->
+      {% if model_creation %}
+      <tr>
+        <td>model_creation here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in model_creation %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- model_deletion ============================== -->
+      {% if model_deletion %}
+      <tr>
+        <td>model_deletion here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in model_deletion %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+
+       <!-- document_new_version ============================== -->
+      {% if document_new_version %}
+      <tr>
+        <td>document_new_version here :</td>
+      </tr>
+      <tr>
+        <td>
+        {% for file in document_new_version %}
+        {{ file }}
+        {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+  
     </table>
   </body>
 </html>
