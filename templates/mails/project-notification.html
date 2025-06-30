@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load convert_str_date %}
+{% load i18n %} {% load convert_str_date %}
 
 <!DOCTYPE html>
 <html>
@@ -63,19 +62,52 @@
     vlink="#2F374A"
     link="#2F374A"
   >
-    {% if document_creation %}
-      {% trans "Nouveaux fichiers" %}
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="#F8C62C"
+      align="center"
+      width="640"
+      height="8"
+      style="border-collapse: collapse; display: block"
+      class="container_table"
+    >
+      <tr>
+        <td><strong>{% trans "Notifications activiés projet" %}</strong></td>
+      </tr>
+      {% if document_creation %}
+      <tr>
+        <td>
+          <strong> {% trans "Nouveaux fichiers" %} </strong>
+        </td>
+      </tr>
       {% for file in document_creation %}
-        <pre>{{file}}</pre>
-      {% endfor %}
-    {% endif %}
-
-    {% if file_vew_version %}
-      {% trans "Nouvelles versions de fichier" %}
-      {% for file in file_vew_version %}
-        <pre>{{file}}</pre>
-      {% endfor %}
-    {% endif %}
-
+      <tr>
+        <td>
+          <strong>{{file.project.name}}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>{{file.document.name}} || {{file.document.file_name}}</span>
+        </td>
+        <td>
+          <span>{{file.document.created_by.lastname}} {{file.document.created_by.firstname}}</span>
+        </td>
+        <td>
+          <span>{{file.document.created_at}}</span>
+        </td>
+      </tr>
+      {% endfor %} {% endif %}
+      <tr>
+        <td>
+          {% if file_vew_version %} {% trans "Nouvelles versions de fichier" %} {% for file in
+          file_vew_version %}
+          <pre>{{file.project.name}}</pre>
+          {% endfor %} {% endif %}
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
