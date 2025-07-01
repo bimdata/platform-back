@@ -62,7 +62,7 @@
     vlink="#2F374A"
     link="#2F374A"
   >
-   <!-- LINE ==================================== -->
+  <!-- LINE ==================================== -->
     <table
       cellpadding="0"
       cellspacing="0"
@@ -79,7 +79,7 @@
       </tr>
     </table>
 
-    <!-- HEADER ==================================== -->
+  <!-- HEADER ==================================== -->
     <table
       cellpadding="0"
       cellspacing="0"
@@ -111,7 +111,7 @@
       </tr>
     </table>
 
-    <!-- CONTENT ============================== -->
+  <!-- CONTENT ============================== -->
     <table
       cellpadding="0"
       cellspacing="0"
@@ -132,46 +132,55 @@
           </strong>
         </td>
       </tr>
+
+  <!-- GED ==================================== -->
+    {% if document_creation or document_deletion or folder_creation or folder_deletion %}
+    <tr>
+      <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:18px;">GED</strong>
+      </td>
+    </tr>
+    <!-- document_creation ============================== -->
       {% if document_creation %}
+      <tr>
+        <td height="20" colspan="3">&nbsp;</td>
+      </tr>
       {% with file=document_creation.0 %}
       <tr>
-        <td colspan="3" align="center">
-          <span style="font-family: Arial, sans-serif; font-size:20px;">{{ file.project.name }}</span>
+        <td colspan="3">
+          <span style="font-family: Arial, sans-serif; font-size:13px;">
+            {% trans "Nouveaux fichiers dans le projet :" %}<strong>{{ file.project.name }}</strong>
+          </span>
         </td>
-      </tr>
-      <tr>
-        <td height="20">&nbsp;</td>
       </tr>
       {% endwith %}
-      <tr>
-        <td colspan="3">
-          <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Nouveaux fichiers" %} </strong>
-        </td>
-      </tr>
       {% for file in document_creation %}
       <tr>
-        <td width="210">
-          <span>
+        <td width="640">
+          <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A; font-weight: medium;">
           {% if file.document.name %}
-          {{file.document.name }}
+            {{file.document.name }}
           {% else %}
-          {{file.document.file_name}}
+            {{file.document.file_name}}
           {% endif %}
           </span>
         </td>
-        <td width="210">
-          <span>{{file.document.created_by.lastname}} {{file.document.created_by.firstname}}</span>
+      </tr>
+      <tr>
+        <td width="320">
+          <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;">{{file.document.created_by.email}}</span>
         </td>
-        <td width="210">
-          <span>{{ file.document.created_at|date:"d M Y H:i" }}</span>
+        <td width="320">
+          <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;">{{ file.document.created_at|date:"d M Y H:i" }}</span>
         </td>
       </tr>
       {% endfor %} {% endif %}
 
-      <!-- document_deletion ============================== -->
+    <!-- document_deletion ============================== -->
       {% if document_deletion %}
       <tr>
-        <td>document_deletion here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression fichier" %}</strong></td>
       </tr>
       <tr>
         <td>
@@ -182,172 +191,281 @@
       </tr>
       {% endif %}
 
-      <!-- folder_creation ============================== -->
+    <!-- folder_creation ============================== -->
       {% if folder_creation %}
       <tr>
-        <td>folder_creation here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Création dossier" %}</strong></td>
       </tr>
+      {% for folder in folder_creation %}
       <tr>
-        <td>
-        {% for file in folder_creation %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{folder.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{folder.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ folder.created_at|date:"d M Y" }} {{ folder.created_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
       {% endif %}
 
-      <!-- folder_deletion ============================== -->
+    <!-- folder_deletion ============================== -->
       {% if folder_deletion %}
       <tr>
-        <td>folder_deletion here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de dossier" %}</strong></td>
       </tr>
+      {% for folder in folder_deletion %}
       <tr>
-        <td>
-        {% for file in folder_deletion %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{folder.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{folder.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ folder.updated_at|date:"d M Y" }} {{ folder.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endif %}
       {% endif %}
 
-      <!-- visa_creation ============================== -->
+  <!-- VISA ==================================== -->
+      {% if visa_creation or visa_deletion or visa_validation or visa_denied %}
+      <tr>
+        <td colspan="3">
+          <strong style="font-family: Arial, sans-serif; font-size:18px;">VISA</strong>
+        </td>
+      </tr>
+    <!-- visa_creation ============================== -->
       {% if visa_creation %}
       <tr>
-        <td>visa_creation here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Création Visa" %}</strong></td>
       </tr>
+      {% for visa in visa_creation %}
       <tr>
-        <td>
-        {% for file in visa_creation %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{visa.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{visa.creator.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ visa.updated_at|date:"d M Y" }} {{ visa.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
       {% endif %}
         
-      <!-- visa_deletion ============================== -->
+    <!-- visa_deletion ============================== -->
       {% if visa_deletion %}
       <tr>
-        <td>visa_deletion here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de visa" %}</strong></td>
       </tr>
+      {% for visa in visa_deletion %}
       <tr>
-        <td>
-        {% for file in visa_deletion %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{visa.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{visa.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ visa.updated_at|date:"d M Y" }} {{ visa.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
       {% endif %}
 
-      <!-- visa_validation ============================== -->
+    <!-- visa_validation ============================== -->
       {% if visa_validation %}
       <tr>
-        <td>visa_validation here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de visa" %}</strong></td>
       </tr>
+      {% for visa in visa_validation %}
       <tr>
-        <td>
-        {% for file in visa_validation %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{visa.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{visa.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ visa.updated_at|date:"d M Y" }} {{ visa.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
       {% endif %}
 
-      <!-- visa_denied ============================== -->
+    <!-- visa_denied ============================== -->
       {% if visa_denied %}
       <tr>
-        <td>visa_denied here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de visa" %}</strong></td>
       </tr>
+      {% for visa in visa_denied %}
       <tr>
-        <td>
-        {% for file in visa_denied %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{visa.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{visa.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ visa.updated_at|date:"d M Y" }} {{ visa.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endif %}
       {% endif %}
 
-      <!-- bcf_topic_creation ============================== -->
+  <!-- BCF ==================================== -->
+      {% if bcf_topic_creation or bcf_topic_deletion %}
+      <tr>
+        <td colspan="3">
+          <strong style="font-family: Arial, sans-serif; font-size:18px;">BCF</strong>
+        </td>
+      </tr>
+    <!-- bcf_topic_creation ============================== -->
       {% if bcf_topic_creation %}
       <tr>
-        <td>bcf_topic_creation here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Bcf créés" %}</strong></td>
       </tr>
+      {% for bcf in bcf_topic_creation %}
       <tr>
-        <td>
-        {% for file in bcf_topic_creation %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{bcf.title}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{bcf.creation_author}}</span>
+        </td>
+        <td width="320">
+          <span>{{ bcf.creation_date|date:"d M Y" }} {{ bcf.creation_date|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
       {% endif %}
 
-      <!-- bcf_topic_deletion ============================== -->
+    <!-- bcf_topic_deletion ============================== -->
       {% if bcf_topic_deletion %}
       <tr>
-        <td>bcf_topic_deletion here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Bcf supprimés" %}</strong></td>
       </tr>
+      {% for bcf in bcf_topic_deletion %}
       <tr>
-        <td>
-        {% for file in bcf_topic_deletion %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{bcf.title}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{bcf.creation_author}}</span>
+        </td>
+        <td width="320">
+          <span>{{ bcf.creation_date|date:"d M Y" }} {{ bcf.creation_date|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endif %}
       {% endif %}
 
-      <!-- invitation_accepted ============================== -->
+  <!-- Autres évènements ==================================== -->
+      {% if invitation_accepted or model_creation or model_deletion or document_new_version %}
+      <tr>
+        <td colspan="3">
+          <strong style="font-family: Arial, sans-serif; font-size:18px;">Aures évènements</strong>
+        </td>
+      </tr>
+    <!-- invitation_accepted ============================== -->
       {% if invitation_accepted %}
       <tr>
-        <td>invitation_accepted here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Invitations acceptées" %}</strong></td>
       </tr>
+      {% for invitation in invitation_accepted %}
       <tr>
-        <td>
-        {% for file in invitation_accepted %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{invitation}} </span>
         </td>
       </tr>
+      {% endfor %}
       {% endif %}
 
-       <!-- model_creation ============================== -->
+    <!-- model_creation ============================== -->
       {% if model_creation %}
       <tr>
-        <td>model_creation here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Models crées" %}</strong></td>
       </tr>
+      {% for model in model_creation %}
       <tr>
-        <td>
-        {% for file in model_creation %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{model}} </span>
         </td>
       </tr>
+      {% endfor %}
       {% endif %}
 
-      <!-- model_deletion ============================== -->
+    <!-- model_deletion ============================== -->
       {% if model_deletion %}
       <tr>
-        <td>model_deletion here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Models supprimés" %}</strong></td>
       </tr>
+      {% for model in model_deletion %}
       <tr>
-        <td>
-        {% for file in model_deletion %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{model}} </span>
         </td>
       </tr>
+      {% endfor %}
       {% endif %}
 
-       <!-- document_new_version ============================== -->
+    <!-- document_new_version ============================== -->
       {% if document_new_version %}
       <tr>
-        <td>document_new_version here :</td>
+        <td colspan="3">
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Nouvelles versions de document" %}</strong></td>
       </tr>
+      {% for document in document_new_version %}
       <tr>
-        <td>
-        {% for file in document_new_version %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span> {{document.document.name}} </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{document.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ document.updated_at|date:"d M Y" }} {{ document.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endif %}
       {% endif %}
   
     </table>
