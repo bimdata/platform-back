@@ -132,6 +132,11 @@
           </strong>
         </td>
       </tr>
+      <tr>
+        <td colspan="3">
+          <span style="font-family: Arial, sans-serif; font-size:20px;">{{ project.name }}</span>
+        </td>
+      </tr>
 
   <!-- GED ==================================== -->
     {% if document_creation or document_deletion or folder_creation or folder_deletion %}
@@ -145,7 +150,6 @@
       <tr>
         <td height="10" colspan="3">&nbsp;</td>
       </tr>
-      {% with file=document_creation.0 %}
       <tr>
         <td colspan="3">
           <strong style="font-family: Arial, sans-serif; font-size:13px;">
@@ -153,10 +157,9 @@
           </strong>
         </td>
       </tr>
-      {% endwith %}
       {% for file in document_creation %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A; font-weight: medium;">
           {% if file.document.name %}
             {{file.document.name }}
@@ -184,7 +187,7 @@
       </tr>
       {% for file in document_deletion %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A; font-weight: medium;">
           {% if file.document.name %}
             {{file.document.name }}
@@ -214,7 +217,7 @@
       {% for folder in folder_creation %}
       {{folder}}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{folder.name}} </span>
         </td>
       </tr>
@@ -238,7 +241,7 @@
       {% for folder in folder_deletion %}
       {{folder}}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{folder.name}} </span>
         </td>
       </tr>
@@ -276,7 +279,7 @@
       </tr>
       {% for visa in visa_creation %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
@@ -299,7 +302,7 @@
       </tr>
       {% for visa in visa_deletion %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
@@ -322,7 +325,7 @@
       </tr>
       {% for visa in visa_validation %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
@@ -345,7 +348,7 @@
       </tr>
       {% for visa in visa_denied %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
@@ -384,7 +387,7 @@
       {% for bcf in bcf_topic_creation %}
       {{bcf}}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{bcf.title}} </span>
         </td>
       </tr>
@@ -408,7 +411,7 @@
       {% for bcf in bcf_topic_deletion %}
       {{bcf}}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{bcf.title}} </span>
         </td>
       </tr>
@@ -446,7 +449,7 @@
       </tr>
       {% for invitation in invitation_accepted %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{invitation}} </span>
         </td>
       </tr>
@@ -461,7 +464,7 @@
       </tr>
       {% for model in model_creation %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{model}} </span>
         </td>
       </tr>
@@ -476,7 +479,7 @@
       </tr>
       {% for model in model_deletion %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{model}} </span>
         </td>
       </tr>
@@ -491,7 +494,7 @@
       </tr>
       {% for document in document_new_version %}
       <tr>
-        <td width="640">
+        <td width="640" colspan="2">
           <span> {{document.document.name}} </span>
         </td>
       </tr>
