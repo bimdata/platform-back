@@ -22,6 +22,11 @@
           width: 300px;
         }
 
+        /* style TR */
+        tr[class="border-bottom"] {
+          border-bottom: 1px solid black;
+        }
+
         /* style TD */
         td[class="td_hidden"] {
           display: none;
@@ -245,7 +250,7 @@
           <span> {{folder.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr class="border-bottom">
         <td width="320">
           <span>{{folder.created_by.email}}</span>
         </td>
