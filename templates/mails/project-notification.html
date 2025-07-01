@@ -143,14 +143,14 @@
     <!-- document_creation ============================== -->
       {% if document_creation %}
       <tr>
-        <td height="20" colspan="3">&nbsp;</td>
+        <td height="10" colspan="3">&nbsp;</td>
       </tr>
       {% with file=document_creation.0 %}
       <tr>
         <td colspan="3">
-          <span style="font-family: Arial, sans-serif; font-size:13px;">
-            {% trans "Nouveaux fichiers dans le projet :" %}<strong>{{ file.project.name }}</strong>
-          </span>
+          <strong style="font-family: Arial, sans-serif; font-size:13px;">
+            {% trans "Nouveaux fichiers" %}</strong>
+          </strong>
         </td>
       </tr>
       {% endwith %}
@@ -182,13 +182,27 @@
         <td colspan="3">
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression fichier" %}</strong></td>
       </tr>
+      {% for file in document_deletion %}
       <tr>
-        <td>
-        {% for file in document_deletion %}
-        {{ file }}
-        {% endfor %}
+        <td width="640">
+          <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A; font-weight: medium;">
+          {% if file.document.name %}
+            {{file.document.name }}
+          {% else %}
+            {{file.document.file_name}}
+          {% endif %}
+          </span>
         </td>
       </tr>
+      <tr>
+        <td width="320">
+          <span>{{file.created_by.email}}</span>
+        </td>
+        <td width="320">
+          <span>{{ file.updated_at|date:"d M Y" }} {{ file.updated_at|time:"H:i" }}</span>
+        </td>
+      </tr>
+      {% endfor %}
       {% endif %}
 
     <!-- folder_creation ============================== -->
@@ -198,6 +212,7 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Création dossier" %}</strong></td>
       </tr>
       {% for folder in folder_creation %}
+      {{folder}}
       <tr>
         <td width="640">
           <span> {{folder.name}} </span>
@@ -221,6 +236,7 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de dossier" %}</strong></td>
       </tr>
       {% for folder in folder_deletion %}
+      {{folder}}
       <tr>
         <td width="640">
           <span> {{folder.name}} </span>
@@ -238,12 +254,19 @@
       {% endif %}
       {% endif %}
 
+      <tr>
+        <td height="40" colspan="3">&nbsp;</td>
+      </tr>
+
   <!-- VISA ==================================== -->
       {% if visa_creation or visa_deletion or visa_validation or visa_denied %}
       <tr>
         <td colspan="3">
           <strong style="font-family: Arial, sans-serif; font-size:18px;">VISA</strong>
         </td>
+      </tr>
+      <tr>
+        <td height="10" colspan="3">&nbsp;</td>
       </tr>
     <!-- visa_creation ============================== -->
       {% if visa_creation %}
@@ -295,7 +318,7 @@
       {% if visa_validation %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de visa" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Validation de visa" %}</strong></td>
       </tr>
       {% for visa in visa_validation %}
       <tr>
@@ -318,7 +341,7 @@
       {% if visa_denied %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de visa" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Refus de visa" %}</strong></td>
       </tr>
       {% for visa in visa_denied %}
       <tr>
@@ -338,12 +361,19 @@
       {% endif %}
       {% endif %}
 
+      <tr>
+        <td height="40" colspan="3">&nbsp;</td>
+      </tr>
+
   <!-- BCF ==================================== -->
       {% if bcf_topic_creation or bcf_topic_deletion %}
       <tr>
         <td colspan="3">
           <strong style="font-family: Arial, sans-serif; font-size:18px;">BCF</strong>
         </td>
+      </tr>
+      <tr>
+        <td height="10" colspan="3">&nbsp;</td>
       </tr>
     <!-- bcf_topic_creation ============================== -->
       {% if bcf_topic_creation %}
@@ -352,6 +382,7 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Bcf créés" %}</strong></td>
       </tr>
       {% for bcf in bcf_topic_creation %}
+      {{bcf}}
       <tr>
         <td width="640">
           <span> {{bcf.title}} </span>
@@ -375,6 +406,7 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Bcf supprimés" %}</strong></td>
       </tr>
       {% for bcf in bcf_topic_deletion %}
+      {{bcf}}
       <tr>
         <td width="640">
           <span> {{bcf.title}} </span>
@@ -392,12 +424,19 @@
       {% endif %}
       {% endif %}
 
+      <tr>
+        <td height="40" colspan="3">&nbsp;</td>
+      </tr>
+
   <!-- Autres évènements ==================================== -->
       {% if invitation_accepted or model_creation or model_deletion or document_new_version %}
       <tr>
         <td colspan="3">
-          <strong style="font-family: Arial, sans-serif; font-size:18px;">Aures évènements</strong>
+          <strong style="font-family: Arial, sans-serif; font-size:18px;">Autres évènements</strong>
         </td>
+      </tr>
+      <tr>
+        <td height="10" colspan="3">&nbsp;</td>
       </tr>
     <!-- invitation_accepted ============================== -->
       {% if invitation_accepted %}
