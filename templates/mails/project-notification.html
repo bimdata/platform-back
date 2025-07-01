@@ -500,10 +500,10 @@
       </tr>
       <tr>
         <td width="320">
-          <span>{{document.created_by.email}}</span>
+          <span>{{document.document.created_by.email}}</span>
         </td>
         <td width="320">
-          <span>{{ document.updated_at|date:"d M Y" }} {{ document.updated_at|time:"H:i" }}</span>
+          <span>{{ document.document.updated_at|date:"d M Y" }} {{ document.document.updated_at|time:"H:i" }}</span>
         </td>
       </tr>
       {% endfor %}
