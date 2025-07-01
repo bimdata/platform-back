@@ -388,15 +388,15 @@
       {{bcf}}
       <tr>
         <td width="640" colspan="2">
-          <span> {{bcf.title}} </span>
+          <span> {{bcf.topic.title}} </span>
         </td>
       </tr>
       <tr>
         <td width="320">
-          <span>{{bcf.creation_author}}</span>
+          <span>{{bcf.topic.creation_author}}</span>
         </td>
         <td width="320">
-          <span>{{ bcf.creation_date|date:"d M Y" }} {{ bcf.creation_date|time:"H:i" }}</span>
+          <span>{{ bcf.topic.creation_date|date:"d M Y" }} {{ bcf.topic.creation_date|time:"H:i" }}</span>
         </td>
       </tr>
       {% endfor %}
@@ -412,15 +412,15 @@
       {{bcf}}
       <tr>
         <td width="640" colspan="2">
-          <span> {{bcf.title}} </span>
+          <span> {{bcf.topic.title}} </span>
         </td>
       </tr>
       <tr>
         <td width="320">
-          <span>{{bcf.creation_author}}</span>
+          <span>{{bcf.topic.creation_author}}</span>
         </td>
         <td width="320">
-          <span>{{ bcf.creation_date|date:"d M Y" }} {{ bcf.creation_date|time:"H:i" }}</span>
+          <span>{{ bcf.topic.creation_date|date:"d M Y" }} {{ bcf.topic.creation_date|time:"H:i" }}</span>
         </td>
       </tr>
       {% endfor %}
