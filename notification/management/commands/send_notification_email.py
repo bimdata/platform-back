@@ -140,11 +140,11 @@ class Command(BaseCommand):
         for notification in notifications:
             event_category = webhook_event_to_subscription[notification.event]
             if event_category == "document_creation":
-                if notification.payload["document"]["history_count"] == 0:
-                    content["document_creation"].append(notification.payload)
+                if notification.parsed_payload["document"]["history_count"] == 0:
+                    content["document_creation"].append(notification.parsed_payload)
                 else:
-                    content["document_new_version"].append(notification.payload)
+                    content["document_new_version"].append(notification.parsed_payload)
             else:
-                content[event_category].append(notification.payload)
+                content[event_category].append(notification.parsed_payload)
 
         return content

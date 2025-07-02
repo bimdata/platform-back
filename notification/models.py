@@ -1,3 +1,4 @@
+import dateutil.parser
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
@@ -106,6 +107,33 @@ class NotificationHistory(models.Model):
 
     def __str__(self):
         return f"Notification for {self.project} with event {self.event}"
+
+    @property
+    def parsed_payload(self):
+        if hasattr(self, "_parsed_payload"):
+            return self._parsed_payload
+
+        payload = self.payload
+
+        def recursive_parse_datetime(json):
+            if isinstance(json, dict):
+                for key, value in json.items():
+                    if key in (
+                        "created_at",
+                        "updated_at",
+                        "creation_date",
+                        "modification_date",
+                    ):
+                        json[key] = dateutil.parser.isoparse(value)
+                    else:
+                        json[key] = recursive_parse_datetime(value)
+                return json
+            elif isinstance(json, list):
+                return [recursive_parse_datetime(item) for item in json]
+            return json
+
+        self._parsed_payload = recursive_parse_datetime(payload)
+        return self._parsed_payload
 
 
 class NotificationWebhook(models.Model):

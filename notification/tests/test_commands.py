@@ -50,7 +50,13 @@ class ProjectNotificationEmailTest(TestCase):
         NotificationHistory.objects.create(
             project=self.project,
             event="document.creation",
-            payload={"document": {"history_count": 0, "name": "my_doc.txt"}},
+            payload={
+                "document": {
+                    "history_count": 0,
+                    "name": "my_doc.txt",
+                    "created_at": "2025-07-01T12:08:49.951913Z",
+                }
+            },
         )
 
         with mock.patch(
