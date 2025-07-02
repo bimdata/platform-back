@@ -22,11 +22,6 @@
           width: 300px;
         }
 
-        /* style TR */
-        tr[class="border-bottom"] {
-          border-bottom: 1px solid black;
-        }
-
         /* style TD */
         td[class="td_hidden"] {
           display: none;
@@ -174,7 +169,7 @@
           </span>
         </td>
       </tr>
-      <tr style="border-bottom: 1px solid black;">
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;">{{file.document.created_by.email}}</span>
         </td>
@@ -202,7 +197,7 @@
           </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{file.created_by.email}}</span>
         </td>
@@ -220,18 +215,17 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Création dossier" %}</strong></td>
       </tr>
       {% for folder in folder_creation %}
-      {{folder}}
       <tr>
         <td width="640" colspan="2">
-          <span> {{folder.name}} </span>
+          <span> {{folder.folder.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
-          <span>{{folder.created_by.email}}</span>
+          <span>{{folder.folder.created_by.email}}</span>
         </td>
         <td width="320">
-          <span>{{ folder.created_at|date:"d M Y" }} {{ folder.created_at|time:"H:i" }}</span>
+          <span>{{ folder.folder.created_at|date:"d M Y" }} {{ folder.folder.created_at|time:"H:i" }}</span>
         </td>
       </tr>
       {% endfor %}
@@ -244,18 +238,17 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de dossier" %}</strong></td>
       </tr>
       {% for folder in folder_deletion %}
-      {{folder}}
       <tr>
         <td width="640" colspan="2">
-          <span> {{folder.name}} </span>
+          <span> {{folder.folder.name}} </span>
         </td>
       </tr>
-      <tr class="border-bottom">
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
-          <span>{{folder.created_by.email}}</span>
+          <span>{{folder.folder.created_by.email}}</span>
         </td>
         <td width="320">
-          <span>{{ folder.updated_at|date:"d M Y" }} {{ folder.updated_at|time:"H:i" }}</span>
+          <span>{{ folder.folder.updated_at|date:"d M Y" }} {{ folder.folder.updated_at|time:"H:i" }}</span>
         </td>
       </tr>
       {% endfor %}
@@ -283,12 +276,13 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Création Visa" %}</strong></td>
       </tr>
       {% for visa in visa_creation %}
+      {{visa}}
       <tr>
         <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{visa.creator.email}}</span>
         </td>
@@ -311,7 +305,7 @@
           <span> {{visa.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{visa.created_by.email}}</span>
         </td>
@@ -329,12 +323,13 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Validation de visa" %}</strong></td>
       </tr>
       {% for visa in visa_validation %}
+      {{visa}}
       <tr>
         <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{visa.created_by.email}}</span>
         </td>
@@ -352,12 +347,13 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Refus de visa" %}</strong></td>
       </tr>
       {% for visa in visa_denied %}
+      {{visa}}
       <tr>
         <td width="640" colspan="2">
           <span> {{visa.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{visa.created_by.email}}</span>
         </td>
@@ -393,10 +389,11 @@
       {{bcf}}
       <tr>
         <td width="640" colspan="2">
-          <span> {{bcf.topic.title}} </span>
+          <span>{% trans "Titre du BCF :" %}</span>
+          <strong> {{bcf.topic.title}} </strong>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{bcf.topic.creation_author}}</span>
         </td>
@@ -420,7 +417,7 @@
           <span> {{bcf.topic.title}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{bcf.topic.creation_author}}</span>
         </td>
@@ -503,7 +500,7 @@
           <span> {{document.document.name}} </span>
         </td>
       </tr>
-      <tr>
+      <tr style="border-bottom: 1px solid #D9D9D9;">
         <td width="320">
           <span>{{document.document.created_by.email}}</span>
         </td>
