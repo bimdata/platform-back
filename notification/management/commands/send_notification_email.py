@@ -116,7 +116,9 @@ class Command(BaseCommand):
                 email.send()
 
         # Mark all notifications as consumed
-        notifications.update(consumed=True)
+
+        # TODO: uncomment this line before mergind
+        # notifications.update(consumed=True)
 
     def dispatch_notifications_to_content(self, notifications):
         content = {
