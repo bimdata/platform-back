@@ -372,26 +372,22 @@
       </tr>
       {% for visa in visa_deletion %}
       <tr>
-        <td width="320">
-          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Refusé par :" %}
-            {% for validation in visa.validations %}
-              {% if validation.status == "D" %}
-                <strong>{{ validation.validator.email }}</strong>
-              {% endif %}
-            {% endfor %}
-          </span>
-        </td>
-        <td width="320">
-          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Le :" %}
-            {% for validation in visa.validations %}
-              {% if validation.status == "D" %}
-                <strong>{{ validation.updated_at|date:"d M Y" }} {{ visa.validation.updated_at|time:"H:i" }}</strong>
-              {% endif %}
-            {% endfor %}
-          </span>
-        </td>
+        {% for validation in visa.validations %}
+          {% if validation.status == "D" %}
+          <td width="320">
+            <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+              {% trans "Supprimé par :" %}
+              <strong>{{ validation.validator.email }}</strong>
+            </span>
+          </td>
+          <td width="320">
+            <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+              {% trans "Le :" %}
+                  <strong>{{ validation.updated_at|date:"d M Y" }} {{ visa.validation.updated_at|time:"H:i" }}</strong>
+            </span>
+          </td>
+          {% endif %}
+        {% endfor %}
       </tr>
       <tr>
         <td colspan="2">
@@ -443,22 +439,25 @@
       {% for visa in visa_denied %}
       <tr>
         <td colspan="2">
-          --> {{ visa }}  <--
         </td>
       </tr>
       <tr>
-        <td width="320">
-          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Refusé par :" %}
-            <strong>{{ visa.validation.validator.email }}</strong>
-          </span>
-        </td>
-        <td width="320">
-          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Le :" %}
-            <strong>{{ visa.validation.updated_at|date:"d M Y" }} {{ visa.validation.updated_at|time:"H:i" }}</strong>
-          </span>
-        </td>
+        {% for validation in visa.validations %}
+          {% if validation.status == "D" %}
+          <td width="320">
+            <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+              {% trans "Supprimé par :" %}
+              <strong>{{ validation.validator.email }}</strong>
+            </span>
+          </td>
+          <td width="320">
+            <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+              {% trans "Le :" %}
+                  <strong>{{ validation.updated_at|date:"d M Y" }} {{ visa.validation.updated_at|time:"H:i" }}</strong>
+            </span>
+          </td>
+          {% endif %}
+        {% endfor %}
       </tr>
       <tr>
         <td colspan="2">
