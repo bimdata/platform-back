@@ -155,7 +155,7 @@
       </tr>
       <tr>
         <td colspan="3">
-          <strong style="font-family: Arial, sans-serif; font-size:13px;">
+          <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;">
             {% trans "Nouveaux fichiers" %}</strong>
           </strong>
         </td>
@@ -285,7 +285,7 @@
       {% if folder_deletion %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de dossier" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Suppression de dossier" %}</strong></td>
       </tr>
       {% for folder in folder_deletion %}
       <tr>
@@ -327,7 +327,7 @@
       {% if visa_creation or visa_deletion or visa_validation or visa_denied %}
       <tr>
         <td colspan="3">
-          <strong style="font-family: Arial, sans-serif; font-size:18px;">VISA</strong>
+          <strong style="font-family: Arial, sans-serif; font-size:18px; color: #2F374A;">VISA</strong>
         </td>
       </tr>
       <tr>
@@ -337,7 +337,7 @@
       {% if visa_creation %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Création Visa" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Création Visa" %}</strong></td>
       </tr>
       {% for visa in visa_creation %}
       <tr>
@@ -368,7 +368,7 @@
       {% if visa_deletion %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Suppression de visa" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Suppression de visa" %}</strong></td>
       </tr>
       {% for visa in visa_deletion %}
       {% for validation in visa.validations %}
@@ -403,7 +403,7 @@
       {% if visa_validation %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Validation de visa" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Validation de visa" %}</strong></td>
       </tr>
       {% for visa in visa_validation %}
       <tr>
@@ -434,15 +434,12 @@
       {% if visa_denied %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Refus de visa" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Refus de visa" %}</strong></td>
       </tr>
       {% for visa in visa_denied %}
-      <tr>
-        <td colspan="2">
-        </td>
-      </tr>
+      --> visa : {{ visa }} <--
       {% for validation in visa.validations %}
-      {{ validation }}
+      --> validation : {{ validation }} <--
         {% if validation.status == "D" %}
           <tr>
               <td width="320">
@@ -458,13 +455,13 @@
                 </span>
               </td>
           </tr>
+          <tr>
+            <td colspan="2">
+              <hr style="background:none; border:solid 1px #D9D9D9; border-width:1px 0 0 0; height:0; width:100%; margin:10px 0px;" ></hr>
+            </td>
+          </tr>
         {% endif %}
       {% endfor %}
-      <tr>
-        <td colspan="2">
-          <hr style="background:none; border:solid 1px #D9D9D9; border-width:1px 0 0 0; height:0; width:100%; margin:10px 0px;" ></hr>
-        </td>
-      </tr>
       {% endfor %}
       {% endif %}
       {% endif %}
@@ -477,7 +474,7 @@
       {% if bcf_topic_creation or bcf_topic_deletion %}
       <tr>
         <td colspan="3">
-          <strong style="font-family: Arial, sans-serif; font-size:18px;">BCF</strong>
+          <strong style="font-family: Arial, sans-serif; font-size:18px; color: #2F374A;">BCF</strong>
         </td>
       </tr>
       <tr>
@@ -487,7 +484,7 @@
       {% if bcf_topic_creation %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Bcf créés" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Bcf créés" %}</strong></td>
       </tr>
       {% for bcf in bcf_topic_creation %}
       <tr>
@@ -526,7 +523,7 @@
       {% if bcf_topic_deletion %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Bcf supprimés" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Bcf supprimés" %}</strong></td>
       </tr>
       {% for bcf in bcf_topic_deletion %}
       <tr>
@@ -554,7 +551,7 @@
       {% if invitation_accepted or model_creation or model_deletion or document_new_version %}
       <tr>
         <td colspan="3">
-          <strong style="font-family: Arial, sans-serif; font-size:18px;">Autres évènements</strong>
+          <strong style="font-family: Arial, sans-serif; font-size:18px; color: #2F374A;">Autres évènements</strong>
         </td>
       </tr>
       <tr>
@@ -564,7 +561,7 @@
       {% if invitation_accepted %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Invitations acceptées" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Invitations acceptées" %}</strong></td>
       </tr>
       {% for invitation in invitation_accepted %}
       <tr>
@@ -589,7 +586,7 @@
       {% if model_creation %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Models crées" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Models crées" %}</strong></td>
       </tr>
       {% for model in model_creation %}
       <tr>
@@ -611,7 +608,7 @@
       {% if model_deletion %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Models supprimés" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Models supprimés" %}</strong></td>
       </tr>
       {% for model in model_deletion %}
       <tr>
@@ -650,7 +647,7 @@
       {% if document_new_version %}
       <tr>
         <td colspan="3">
-        <strong style="font-family: Arial, sans-serif; font-size:13px;"> {% trans "Nouvelles versions de document" %}</strong></td>
+        <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Nouvelles versions de document" %}</strong></td>
       </tr>
       {% for document in document_new_version %}
       <tr>
