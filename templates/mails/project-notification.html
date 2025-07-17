@@ -371,6 +371,12 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Suppression de visa" %}</strong></td>
       </tr>
       {% for visa in visa_deletion %}
+      <tr>
+        <td colspan="3">
+        visa_deletion :
+        {{ visa }}
+        </td>
+      </tr>
       {% for validation in visa.validations %}
         {% if validation.status == "D" %}
           <tr>
@@ -437,10 +443,18 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Refus de visa" %}</strong></td>
       </tr>
       {% for visa in visa_denied %}
-      --> visa : {{ visa }} <--
+      <tr>
+        <td colspan="3">
+          --> visa : {{ visa }} <--
+        </td>
+      </tr>
       {% for validation in visa.validations %}
-      --> validation : {{ validation }} <--
         {% if validation.status == "D" %}
+          <tr>
+            <td colspan="3">
+              --> visa.validations : {{ visa.validations }} <--
+            </td>
+          </tr>
           <tr>
               <td width="320">
                 <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
@@ -527,6 +541,12 @@
       </tr>
       {% for bcf in bcf_topic_deletion %}
       <tr>
+        <td colspan="2">
+        bcf deletion here :
+          {{ bcf }}
+        </td>
+      </tr>
+      <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Titre du BCF supprimé :" %}
@@ -611,6 +631,12 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Models supprimés" %}</strong></td>
       </tr>
       {% for model in model_deletion %}
+      <tr>
+        <td>
+        model deletion :
+          {{ model }}
+        </td>
+      </tr>
       <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
