@@ -205,9 +205,6 @@
       </tr>
       {% for file in document_deletion %}
       <tr>
-        <td colspan="3">{{ file }}</td>
-      </tr>
-      <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Nom du fichier supprimé :" %}
@@ -222,16 +219,10 @@
         </td>
       </tr>
       <tr>
-        <td width="320">
+        <td width="640">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Créateur :" %}
-            <strong>{{file.document.created_by.email}}</strong>
-          </span>
-        </td>
-        <td width="320">
-          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Le :" %}
-            <strong>{{ file.document.updated_at|date:"d M Y" }} {{ file.document.updated_at|time:"H:i" }}</strong>
+            {% trans "Supprimé par :" %}
+            <strong>{{file.actor.email}}</strong>
           </span>
         </td>
       </tr>
