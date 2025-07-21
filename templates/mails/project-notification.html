@@ -374,6 +374,9 @@
       </tr>
       {% for visa in visa_deletion %}
       <tr>
+        <td>{{visa}}</td>
+      </tr>
+      <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Nom du fichier :" %}
@@ -406,6 +409,7 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Validation de visa" %}</strong></td>
       </tr>
       {% for visa in visa_validation %}
+      {{ visa }}
       <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
