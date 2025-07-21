@@ -434,14 +434,9 @@
       {% for validation in visa.visa.validations %}
         {% if validation.status == "D" %}
           <tr>
-            <td colspan="3">
-              --> visa.validations : {{ visa.visa.validations }} <--
-            </td>
-          </tr>
-          <tr>
               <td width="320">
                 <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-                  {% trans "Supprimé par :" %}
+                  {% trans "Refusé par :" %}
                   <strong>{{ validation.validator.email }}</strong>
                 </span>
               </td>
@@ -598,7 +593,7 @@
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Nom du model :" %}
-            <strong> {{ model.name }} </strong>
+            <strong> {{ model.model.name }} </strong>
           </span>
         </td>
       </tr>
@@ -606,13 +601,13 @@
         <td width="320">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Créateur :" %}
-            <strong> {{ model.creator.email }} </strong>
+            <strong> {{ model.model.creator.email }} </strong>
           </span>
         </td>
         <td width="320">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Le :" %}
-            <strong>{{ model.created_at|date:"d M Y" }} {{ model.created_at|time:"H:i" }}</strong>
+            <strong>{{ model.model.created_at|date:"d M Y" }} {{ model.model.created_at|time:"H:i" }}</strong>
           </span>
         </td>
       </tr>
