@@ -130,9 +130,12 @@ def webhook(request):
 
     event = serializer.validated_data["event_name"]
     payload = serializer.validated_data["data"]
+    payload["actor"] = serializer.validated_data.get("actor")
 
     NotificationHistory.objects.create(
-        project_id=webhook.project_id, event=event, payload=payload
+        project_id=webhook.project_id,
+        event=event,
+        payload=payload,
     )
 
     return Response(status=status.HTTP_204_NO_CONTENT)

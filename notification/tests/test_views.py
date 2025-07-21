@@ -414,6 +414,7 @@ class NotificationWebhookViewTest(APITestCase):
             "cloud_id": self.cloud_id,
             "project_id": self.project.api_id,
             "data": {"some": "data"},
+            "actor": {"some": "actor"},
         }
         str_payload = json.dumps(body, cls=DjangoJSONEncoder, separators=(",", ":")).encode()
         signature = hmac.new(

@@ -161,3 +161,4 @@ class ProjectWebhookSerializer(serializers.Serializer):
     project_id = serializers.IntegerField(required=True)
     webhook_id = serializers.IntegerField(required=True)
     data = serializers.JSONField(required=True)
+    actor = serializers.JSONField(required=False)
