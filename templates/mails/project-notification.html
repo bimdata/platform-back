@@ -205,6 +205,9 @@
       </tr>
       {% for file in document_deletion %}
       <tr>
+        <td colspan="3">{{ file }}</td>
+      </tr>
+      <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Nom du fichier supprimé :" %}
@@ -340,6 +343,7 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Création Visa" %}</strong></td>
       </tr>
       {% for visa in visa_creation %}
+      {{ visa }}
       <tr>
         <td width="320">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
@@ -372,31 +376,15 @@
       </tr>
       {% for visa in visa_deletion %}
       <tr>
-        <td colspan="3">
-        visa_deletion :
-        {{ visa }}
+        <td width="320" colspan="3">
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Supprimé par :" %}
+            <strong style="color: #2F374A;">{{ visa.actor.email }}</strong>
+          </span>
         </td>
       </tr>
-      {% for validation in visa.validations %}
-        {% if validation.status == "D" %}
-          <tr>
-              <td width="320">
-                <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-                  {% trans "Supprimé par :" %}
-                  <strong>{{ validation.validator.email }}</strong>
-                </span>
-              </td>
-              <td width="320">
-                <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-                  {% trans "Le :" %}
-                      <strong>{{ validation.updated_at|date:"d M Y" }} {{ visa.validation.updated_at|time:"H:i" }}</strong>
-                </span>
-              </td>
-          </tr>
-        {% endif %}
-      {% endfor %}
       <tr>
-        <td colspan="2">
+        <td colspan="3">
           <hr style="background:none; border:solid 1px #D9D9D9; border-width:1px 0 0 0; height:0; width:100%; margin:10px 0px;" ></hr>
         </td>
       </tr>
@@ -443,16 +431,11 @@
         <strong style="font-family: Arial, sans-serif; font-size:13px; color: #2F374A;"> {% trans "Refus de visa" %}</strong></td>
       </tr>
       {% for visa in visa_denied %}
-      <tr>
-        <td colspan="3">
-          --> visa : {{ visa }} <--
-        </td>
-      </tr>
-      {% for validation in visa.validations %}
+      {% for validation in visa.visa.validations %}
         {% if validation.status == "D" %}
           <tr>
             <td colspan="3">
-              --> visa.validations : {{ visa.validations }} <--
+              --> visa.validations : {{ visa.visa.validations }} <--
             </td>
           </tr>
           <tr>
@@ -541,16 +524,18 @@
       </tr>
       {% for bcf in bcf_topic_deletion %}
       <tr>
-        <td colspan="2">
-        bcf deletion here :
-          {{ bcf }}
-        </td>
-      </tr>
-      <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Titre du BCF supprimé :" %}
             <strong> {{ bcf.topic.title }} </strong>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td width="320" colspan="2">
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Supprimé par :" %}
+            <strong style="color: #2F374A;">{{ bcf.actor.email }}</strong>
           </span>
         </td>
       </tr>
@@ -611,7 +596,24 @@
       {% for model in model_creation %}
       <tr>
         <td width="640" colspan="2">
-          <span> {{model}} </span>
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Nom du model :" %}
+            <strong> {{ model.name }} </strong>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td width="320">
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Créateur :" %}
+            <strong> {{ model.creator.email }} </strong>
+          </span>
+        </td>
+        <td width="320">
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Le :" %}
+            <strong>{{ model.created_at|date:"d M Y" }} {{ model.created_at|time:"H:i" }}</strong>
+          </span>
         </td>
       </tr>
       <tr>
@@ -632,12 +634,6 @@
       </tr>
       {% for model in model_deletion %}
       <tr>
-        <td>
-        model deletion :
-          {{ model }}
-        </td>
-      </tr>
-      <tr>
         <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Nom du métabuilding :" %}
@@ -646,16 +642,10 @@
         </td>
       </tr>
       <tr>
-        <td width="320">
+        <td width="640" colspan="2">
           <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
             {% trans "Créateur :" %}
-            <strong>{{ model.model.creator.email }}</strong>
-          </span>
-        </td>
-        <td width="320">
-          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
-            {% trans "Le :" %}
-            <strong>{{ model.model.created_at|date:"d M Y" }} {{ model.model.created_at|time:"H:i" }}</strong>
+            <strong>{{ model.model.actor.email }}</strong>
           </span>
         </td>
       </tr>
@@ -678,15 +668,24 @@
       {% for document in document_new_version %}
       <tr>
         <td width="640" colspan="2">
-          <span> {{ document.document.name }} </span>
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Nom du fichier :" %}
+            <strong> {{ document.document.name }} </strong>
+          </span>
         </td>
       </tr>
       <tr>
         <td width="320">
-          <span>{{ document.document.created_by.email }}</span>
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Créateur :" %}
+            <strong> {{ document.document.created_by.email }} </strong>
+          </span>
         </td>
         <td width="320">
-          <span>{{ document.document.updated_at|date:"d M Y" }} {{ document.document.updated_at|time:"H:i" }}</span>
+          <span style="font-family: Arial, sans-serif; font-size:12px; color: #2F374A;">
+            {% trans "Le :" %}
+            <strong>{{ document.document.updated_at|date:"d M Y" }} {{ document.document.updated_at|time:"H:i" }}</strong>
+          </span>
         </td>
       </tr>
       <tr>
