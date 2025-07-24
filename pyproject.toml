@@ -30,7 +30,7 @@ django-cron = {git = "https://github.com/jorenham/django-cron.git"}
 django-json-widget = "^2.0.1"
 coreapi = "^2.3.3"
 celery = "^5.5.1"
-django-celery-beat = "^2.8.0"
+django-celery-beat = "^2.8.1"
 django-timezone-field = "^7.1"
 drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
 python-dateutil = "^2.9.0.post0"
