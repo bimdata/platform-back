@@ -24,7 +24,7 @@ gunicorn = "^23.0.0"
 inflection = "^0.5.1"
 psycopg = {extras = ["binary", "pool"], version = "^3.2.7"}
 python-dotenv = "^1.1.0"
-requests = "^2.32.0"
+requests = "^2.32.4"
 whitenoise = "^6.9.0"
 django-cron = {git = "https://github.com/jorenham/django-cron.git"}
 django-json-widget = "^2.0.1"
@@ -50,6 +50,7 @@ pre-commit = "^4.2.0"
 pyflakes = "^3.3.2"
 reorder-python-imports = "^3.11.0"
 pycodestyle = "2.13.0"
+flake8-no-implicit-str-concat-in-list = "^0.1.0"
 
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.2"
