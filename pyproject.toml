@@ -6,30 +6,34 @@ authors = ["BIMData Team <infra@bimdata.io>"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.9"
-bimdata-api-client = "^10.9.1"
-django = {extras = ["argon2"], version = "^4.2"}
-django-cors-headers = "^3.7.0"
-django-environ = "^0.10.0"
+python = "^3.13"
+bimdata-api-client = "10.14.4"
+django = {extras = ["argon2"], version = "^5.2"}
+django-cors-headers = "^4.7.0"
+django-environ = "^0.12.0"
 django-health-check = "^3.16.3"
-django-filter = "^2.4.0"
-django-grappelli = "^3.0.4"
-django-postgres-extra = "^2.0.2"
+django-filter = "^25.1"
+django-grappelli = "^4.0.1"
+django-postgres-extra = "^2.0.8"
 django-replicated = {git = "https://github.com/bimdata/django_replicated.git"}
 django-split-settings = "^1.0.1"
-djangorestframework = "^3.15.2"
+djangorestframework = "^3.16.0"
 drf-oidc-auth = "^3.0.0"
-drf-yasg = "^1.20.0"
-fluent-logger = "^0.10.0"
+fluent-logger = "^0.11.1"
 gunicorn = "^23.0.0"
 inflection = "^0.5.1"
-psycopg2 = "^2.9.3"
-python-dotenv = "^0.17.0"
+psycopg = {extras = ["binary", "pool"], version = "^3.2.7"}
+python-dotenv = "^1.1.0"
 requests = "^2.32.4"
-whitenoise = "^5.3.0"
-django-cron = "^0.6.0"
-django-json-widget = {git = "https://github.com/jmrivas86/django-json-widget.git"}
+whitenoise = "^6.9.0"
+django-cron = {git = "https://github.com/jorenham/django-cron.git"}
+django-json-widget = "^2.0.1"
 coreapi = "^2.3.3"
+celery = "^5.5.1"
+django-celery-beat = "^2.8.1"
+django-timezone-field = "^7.1"
+drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
+python-dateutil = "^2.9.0.post0"
 
 [tool.poetry.group.deploy]
 optional = true
@@ -39,14 +43,14 @@ gunicorn = "^23.0.0"
 uvicorn = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.3.0"
+black = "^25.1.0"
+django-debug-toolbar = "^5.2.0"
+flake8 = "^7.2.0"
+pre-commit = "^4.2.0"
+pyflakes = "^3.3.2"
+reorder-python-imports = "^3.11.0"
+pycodestyle = "2.13.0"
 flake8-no-implicit-str-concat-in-list = "^0.1.0"
-django-debug-toolbar = "^3.2.1"
-flake8 = "^5.0.4"
-pre-commit = "^3.7.1"
-pyflakes = "^2.5.0"
-reorder-python-imports = "^3.8.2"
-pycodestyle = "^2.9.1"
 
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.2"

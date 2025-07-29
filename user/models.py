@@ -62,7 +62,7 @@ class User(AbstractUser):
         user = User.objects.create(username=username, **kwargs)
         return user
 
-    def create_demo(self, access_token=None):
+    def create_demo(self, access_token):
         client = ApiClient(access_token)
         cloud = client.collaboration_api.create_cloud(
             {"name": f"{self.first_name} {self.last_name}"}

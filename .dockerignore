@@ -1,6 +1,24 @@
 .*
 
-**/__pycache__/
-**.pyc
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+db.sqlite3
+htmlcov/
+
+nosetests.xml
+bimdata/.env
+
+swagger.json
+
+**/__pycache__
+**/tests
 
 Dockerfile
+Dockerfile.*
+
+**/*.egg-info/
+!*.py
+!**/__init__.py
+!**/settings/**

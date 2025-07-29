@@ -40,7 +40,7 @@ poetry shell
 poetry install
 ```
 
-##  Configure your environment
+## Configure your environment
 
 
 The `bimdata/.env` file is a representation of additionnal ENV variable in order to override default config.
@@ -74,6 +74,30 @@ Create a super-user (access to admin page)
 ```
 ./manage.py runserver
 ```
+
+
+## Crons & Celery
+
+We use Celery to handle notifications emails
+
+Celery need at least two runners: one beater and at least one worker.
+
+```bash
+# Run the beater
+celery -A platform_back beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+```
+
+```bash
+# Run a worker
+celery -A platform_back worker --loglevel=info
+```
+
+For development purpose, you can run both in the same command with:
+
+```bash
+celery -A platform_back worker --beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+```
+
 
 ## Documentation
 

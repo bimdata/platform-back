@@ -18,43 +18,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include
 from django.urls import path
-from rest_framework.routers import DefaultRouter
-
-from organization import views as organization_views
-from user import views as user_views
-from webhooks import views as webhook_views
+from drf_spectacular.views import SpectacularAPIView
+from drf_spectacular.views import SpectacularJSONAPIView
+from drf_spectacular.views import SpectacularRedocView
+from drf_spectacular.views import SpectacularSwaggerView
+from drf_spectacular.views import SpectacularYAMLAPIView
 
 app_name = "platform_back"
 
-router = DefaultRouter()
-
-router.register(r"guidedtour", user_views.GuidedTourViewSet, basename="tours")
-router.register(r"fav/clouds", user_views.FavoriteCloudViewSet, basename="fav-clouds")
-router.register(r"fav/projects", user_views.FavoriteProjectViewSet, basename="fav-projects")
-
 urlpatterns = [
+    path("doc/schema", SpectacularAPIView.as_view(api_version="v1"), name="schema"),
     path(
-        "create_or_update_user/",
-        user_views.create_or_update_user,
-        name="create_or_update_user",
+        "doc.json",
+        SpectacularJSONAPIView.as_view(),
+        name="schema-json",
     ),
     path(
-        "create-cloud/",
-        organization_views.create_cloud,
-        name="create_cloud",
+        "doc.yaml",
+        SpectacularYAMLAPIView.as_view(),
+        name="schema-yaml",
     ),
-    path(
-        "register-cloud/",
-        organization_views.register_cloud,
-        name="register_cloud",
-    ),
-    path("fav/", user_views.get_user_favorites, name="fav"),
-    path("v1/", include("platform_back.v1.urls", namespace="v1")),
-    path("webhook", webhook_views.WebHookView.as_view(), name="webhook_handler"),
+    path("doc", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path("doc/redoc", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("health/", include("health_check.urls")),
-    path("", include(router.urls)),
+    path("", include("platform_back.api_urls", namespace="v1")),
 ]
 
 if settings.ADMIN_INTERFACE:
@@ -75,4 +65,5 @@ if settings.ADMIN_INTERFACE:
 if "development" in settings.ENV:
     import debug_toolbar
 
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
