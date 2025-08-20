@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     "psqlextra",
-    "django_cron",
     "celery",
     "django_celery_beat",
 ]
@@ -50,8 +49,6 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-CRON_CLASSES = ["user.cron.SendEmailNotifJob"]
 
 NOTIFS_DELAY = env.int("NOTIFS_DELAY", default=5)  # minutes
 

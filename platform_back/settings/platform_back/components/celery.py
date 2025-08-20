@@ -1,6 +1,9 @@
 from platform_back.settings.environ import env
 
-CELERY_IMPORTS = ("platform_back.tasks.notifications",)
+CELERY_IMPORTS = (
+    "platform_back.tasks.notifications",
+    "user.tasks.tasks.notifications",
+)
 CELERY_WORKER_CONCURRENCY = env.int("CELERY_WORKER_CONCURRENCY", default=2)
 
 
