@@ -19,7 +19,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "notification_delay_minutes",
             type=int,
-            help="Number of minute to wait before sending the notification, for grouping",
+            help="Number of minute without new notification before sending the grouped notifications.",
         )
 
     def handle(self, *args, **options):
