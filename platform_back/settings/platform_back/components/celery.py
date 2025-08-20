@@ -17,5 +17,5 @@ CELERY_BROKER_URL = (
 )
 
 CELERY_TASK_ROUTES = {
-    "platform_back.tasks.*": {"queue": "celery_platform_back"},
+    "*": {"queue": "celery_platform_back"},
 }
