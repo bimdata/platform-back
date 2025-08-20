@@ -8,9 +8,14 @@ from externals.keycloak import get_access_token
 
 def check_platform_url_defined(apps, schema_editor):
     Webhook = apps.get_model("webhooks", "Webhook")
+    webhooks = Webhook.objects.all()
+    if not webhooks:
+        print("No webhooks found, skipping migration.")
+        return
+
     access_token = get_access_token()
     client = ApiClient(access_token)
-    for webhook in Webhook.objects.all():
+    for webhook in webhooks:
         try:
             client.webhook_api.update_web_hook(
                 cloud_pk=webhook.cloud_id,
