@@ -87,6 +87,9 @@ class Command(BaseCommand):
 
         content["project"] = project
         content["platform_url"] = subscription.referer
+        content["project_url"] = (
+            subscription.referer + f"/spaces/{project.cloud_id}/projects/{project.id}"
+        )
 
         with translation.override(subscription.locale):
             subject = render_to_string(
