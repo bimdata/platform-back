@@ -88,7 +88,7 @@ class Command(BaseCommand):
         content["project"] = project
         content["platform_url"] = subscription.referer
         content["project_url"] = (
-            subscription.referer + f"/spaces/{project.cloud_id}/projects/{project.project_id}"
+            subscription.referer + f"/spaces/{project.cloud_id}/projects/{project.api_id}"
         )
 
         with translation.override(subscription.locale):
