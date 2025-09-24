@@ -56,7 +56,9 @@ class Subscription(models.Model):
 
     LOCALE_FR = "fr"
     LOCALE_EN = "en"
-    LOCALE_CHOICES = ((LOCALE_FR, "Français"), (LOCALE_EN, "English"))
+    LOCALE_DE = "de"
+
+    LOCALE_CHOICES = ((LOCALE_FR, "Français"), (LOCALE_EN, "English"), (LOCALE_DE, "Deutsch"))
 
     locale = models.CharField(max_length=2, choices=LOCALE_CHOICES, default=LOCALE_EN)
 

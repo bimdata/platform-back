@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Platform Back\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-28 15:07+0000\n"
+"POT-Creation-Date: 2025-09-24 10:49+0000\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
 
-#: admin/views.py:44
+#: admin/views.py:45
 #, python-format
 msgid "%d nouveau webhook a été enregistré avec succès."
 msgid_plural "%d nouveaux webhooks ont été enregistrés avec succès."
@@ -93,12 +93,13 @@ msgid "Ajout d’un nouveau BCF"
 msgstr "New BCF added"
 
 #: templates/mails/notifications-bcf.html:219
+#, python-format
 msgid ""
 "Vous avez été assigné par <strong>%(email_author)s</strong> sur un BCF dans "
 "le projet <strong>%(project_name)s</strong>."
 msgstr ""
-"You have been assigned by <strong>%(email_author)s</strong> to a BCF in the project "
-"<strong>%(project_name)s</strong>."
+"You have been assigned by <strong>%(email_author)s</strong> to a BCF in the "
+"project <strong>%(project_name)s</strong>."
 
 #: templates/mails/notifications-bcf.html:257
 #: templates/mails/notifications-bcf.html:425
@@ -176,3 +177,149 @@ msgstr ""
 #: templates/mails/notifications-visa.html:233
 msgid "Voir le projet"
 msgstr "View project"
+
+#: templates/mails/project-notification-subject.txt:2
+msgid "Activité du projet"
+msgstr "Project activity"
+
+#: templates/mails/project-notification.html:131
+msgid "Notifications activités projet"
+msgstr "Project activity notifications"
+
+#: templates/mails/project-notification.html:150
+msgid "Voir mon projet"
+msgstr "View project"
+
+#: templates/mails/project-notification.html:177
+msgid "Nouveaux fichiers"
+msgstr "New files"
+
+#: templates/mails/project-notification.html:184
+#: templates/mails/project-notification.html:358
+#: templates/mails/project-notification.html:397
+#: templates/mails/project-notification.html:430
+#: templates/mails/project-notification.html:471
+#: templates/mails/project-notification.html:707
+msgid "Nom du fichier :"
+msgstr "File name:"
+
+#: templates/mails/project-notification.html:198
+#: templates/mails/project-notification.html:275
+#: templates/mails/project-notification.html:314
+#: templates/mails/project-notification.html:366
+#: templates/mails/project-notification.html:533
+#: templates/mails/project-notification.html:643
+#: templates/mails/project-notification.html:715
+msgid "Créateur :"
+msgstr "Creator:"
+
+#: templates/mails/project-notification.html:204
+#: templates/mails/project-notification.html:281
+#: templates/mails/project-notification.html:320
+#: templates/mails/project-notification.html:372
+#: templates/mails/project-notification.html:444
+#: templates/mails/project-notification.html:485
+#: templates/mails/project-notification.html:539
+#: templates/mails/project-notification.html:649
+#: templates/mails/project-notification.html:721
+msgid "Le :"
+msgstr "on:"
+
+#: templates/mails/project-notification.html:222
+msgid "Suppression fichier"
+msgstr "File Deletion"
+
+#: templates/mails/project-notification.html:228
+msgid "Nom du fichier supprimé :"
+msgstr "Name of deleted file:"
+
+#: templates/mails/project-notification.html:242
+#: templates/mails/project-notification.html:405
+#: templates/mails/project-notification.html:572
+#: templates/mails/project-notification.html:682
+msgid "Supprimé par :"
+msgstr "Deleted by:"
+
+#: templates/mails/project-notification.html:261
+msgid "Création dossier"
+msgstr "Folder creation"
+
+#: templates/mails/project-notification.html:267
+msgid "Nom du dossier :"
+msgstr "Folder name:"
+
+#: templates/mails/project-notification.html:300
+msgid "Suppression de dossier"
+msgstr "Folder deletion"
+
+#: templates/mails/project-notification.html:306
+msgid "Nom du dossier supprimé :"
+msgstr "Name of deleted folder:"
+
+#: templates/mails/project-notification.html:352
+msgid "Création Visa"
+msgstr "Visa creation"
+
+#: templates/mails/project-notification.html:391
+msgid "Suppression de visa"
+msgstr "Visa deletion"
+
+#: templates/mails/project-notification.html:424
+msgid "Validation de visa"
+msgstr "Visa validation"
+
+#: templates/mails/project-notification.html:438
+msgid "Validé par :"
+msgstr "Validated by:"
+
+#: templates/mails/project-notification.html:463
+msgid "Refus de visa"
+msgstr "Visa refusal"
+
+#: templates/mails/project-notification.html:479
+msgid "Refusé par :"
+msgstr "Denied by:"
+
+#: templates/mails/project-notification.html:519
+msgid "Bcf créés"
+msgstr "Created BCF"
+
+#: templates/mails/project-notification.html:525
+msgid "Titre du BCF :"
+msgstr "BCF Title"
+
+#: templates/mails/project-notification.html:558
+msgid "Bcf supprimés"
+msgstr "Deleted BCFs"
+
+#: templates/mails/project-notification.html:564
+msgid "Titre du BCF supprimé :"
+msgstr "Title of deleted BCFs:"
+
+#: templates/mails/project-notification.html:604
+msgid "Invitations acceptées"
+msgstr "Accepted invitations"
+
+#: templates/mails/project-notification.html:610
+msgid "A rejoint le projet :"
+msgstr "Joined the project:"
+
+#: templates/mails/project-notification.html:629
+msgid "Models crées"
+msgstr "Created models"
+
+#: templates/mails/project-notification.html:635
+msgid "Nom du model :"
+msgstr "Model name:"
+
+#: templates/mails/project-notification.html:668
+msgid "Models supprimés"
+msgstr "Deleted Models"
+
+#: templates/mails/project-notification.html:674
+msgid "Nom du métabuilding :"
+msgstr "Name of the metabuilding"
+
+#: templates/mails/project-notification.html:701
+msgid "Nouvelles versions de document"
+msgstr "New versions of a file"
