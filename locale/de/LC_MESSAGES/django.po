@@ -13,12 +13,12 @@ msgstr ""
 #, python-format
 msgid "%d nouveau webhook a été enregistré avec succès."
 msgid_plural "%d nouveaux webhooks ont été enregistrés avec succès."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d neuer Webhook wurde erfolgreich registriert."
+msgstr[1] "%d neue Webhooks wurden erfolgreich registriert."
 
 #: templates/mails/mailing-welcome-subject.txt:2
 msgid "Bienvenue sur la plateforme BIMData.io"
-msgstr "Willkommen auf der Plattform BIMData.io"
+msgstr "Willkommen auf der BIMData.io-Plattform"
 
 #: templates/mails/mailing-welcome.html:127
 #, python-format
@@ -94,11 +94,11 @@ msgstr ""
 
 #: templates/mails/notifications-bcf-subject.txt:2
 msgid "Nouvelle notification BCF"
-msgstr ""
+msgstr "Neue BCF-Benachrichtigung"
 
 #: templates/mails/notifications-bcf.html:158
 msgid "Ajout d’un nouveau BCF"
-msgstr ""
+msgstr "Neues BCF hinzugefügt"
 
 #: templates/mails/notifications-bcf.html:219
 #, python-format
@@ -110,60 +110,61 @@ msgstr ""
 #: templates/mails/notifications-bcf.html:257
 #: templates/mails/notifications-bcf.html:425
 msgid "Description: "
-msgstr ""
+msgstr "Beschreibung:"
 
 #: templates/mails/notifications-bcf.html:257
 #: templates/mails/notifications-bcf.html:425
 msgid "Pas de description renseignée"
-msgstr ""
+msgstr "Keine Beschreibung angegeben"
 
 #: templates/mails/notifications-bcf.html:275
 #: templates/mails/notifications-bcf.html:439
 msgid "Échéance: "
-msgstr ""
+msgstr "Fällig am:"
 
 #: templates/mails/notifications-bcf.html:275
 #: templates/mails/notifications-bcf.html:439
 msgid "Pas de date d'échéance"
-msgstr ""
+msgstr "Kein Fälligkeitsdatum"
 
 #: templates/mails/notifications-bcf.html:289
 #: templates/mails/notifications-bcf.html:453
 msgid "Priorité: "
-msgstr ""
+msgstr "Priorität:"
 
 #: templates/mails/notifications-bcf.html:289
 #: templates/mails/notifications-bcf.html:453
 msgid "Non défini"
-msgstr ""
+msgstr "Nicht definiert"
 
 #: templates/mails/notifications-bcf.html:303
 #: templates/mails/notifications-bcf.html:467
 msgid "Type: "
-msgstr ""
+msgstr "Typ:"
 
 #: templates/mails/notifications-bcf.html:303
 #: templates/mails/notifications-bcf.html:467
 msgid "Pas de type spécifié"
-msgstr ""
+msgstr "Kein Typ angegeben"
 
 #: templates/mails/notifications-bcf.html:333
 #: templates/mails/notifications-bcf.html:506
 msgid "Voir le BCF"
-msgstr ""
+msgstr "BCF ansehen"
 
 #: templates/mails/notifications-bcf.html:383
 #, python-format
 msgid "%(email_author)s a créé un nouveau BCF dans le projet %(project_name)s."
 msgstr ""
+"%(email_author)s hat ein neues BCF-Ticket im Projekt %(project_name)s erstellt."
 
 #: templates/mails/notifications-visa-subject.txt:2
 msgid "Nouvelle notification Visa"
-msgstr ""
+msgstr "Neue Visa-Benachrichtigung"
 
 #: templates/mails/notifications-visa.html:158
 msgid "Ajout de nouveau visa"
-msgstr ""
+msgstr "Neues Visa hinzugefügt"
 
 #: templates/mails/notifications-visa.html:201
 #, python-format
@@ -174,26 +175,30 @@ msgid ""
 "valider avant le <strong style=\"color: #2f374a; font-size: "
 "14px\">%(deadline)s</strong>."
 msgstr ""
+"<strong>%(firstname)s %(lastname)s</strong> hat eine neue Bestätigungsanfrage "
+"im Projekt: %(project_name)s für das Dokument <strong style=\"color: "
+"#2f374a; font-size: 14px\">%(document_name)s</strong> erstellt, fällig am "
+"<strong style=\"color: #2f374a; font-size: 14px\">%(deadline)s</strong>."
 
 #: templates/mails/notifications-visa.html:233
 msgid "Voir le projet"
-msgstr ""
+msgstr "Projekt ansehen"
 
 #: templates/mails/project-notification-subject.txt:2
 msgid "Activité du projet"
-msgstr ""
+msgstr "Projektaktivität"
 
 #: templates/mails/project-notification.html:131
 msgid "Notifications activités projet"
-msgstr ""
+msgstr "Benachrichtigungen über Projektaktivität"
 
 #: templates/mails/project-notification.html:150
 msgid "Voir mon projet"
-msgstr ""
+msgstr "Projekt ansehen"
 
 #: templates/mails/project-notification.html:177
 msgid "Nouveaux fichiers"
-msgstr ""
+msgstr "Neue Dateien"
 
 #: templates/mails/project-notification.html:184
 #: templates/mails/project-notification.html:358
@@ -202,7 +207,7 @@ msgstr ""
 #: templates/mails/project-notification.html:471
 #: templates/mails/project-notification.html:707
 msgid "Nom du fichier :"
-msgstr ""
+msgstr "Dateiname:"
 
 #: templates/mails/project-notification.html:198
 #: templates/mails/project-notification.html:275
@@ -212,7 +217,7 @@ msgstr ""
 #: templates/mails/project-notification.html:643
 #: templates/mails/project-notification.html:715
 msgid "Créateur :"
-msgstr ""
+msgstr "Autor:"
 
 #: templates/mails/project-notification.html:204
 #: templates/mails/project-notification.html:281
@@ -224,103 +229,103 @@ msgstr ""
 #: templates/mails/project-notification.html:649
 #: templates/mails/project-notification.html:721
 msgid "Le :"
-msgstr ""
+msgstr "Am:"
 
 #: templates/mails/project-notification.html:222
 msgid "Suppression fichier"
-msgstr ""
+msgstr "Datei gelöscht"
 
 #: templates/mails/project-notification.html:228
 msgid "Nom du fichier supprimé :"
-msgstr ""
+msgstr "Name der gelöschten Datei:"
 
 #: templates/mails/project-notification.html:242
 #: templates/mails/project-notification.html:405
 #: templates/mails/project-notification.html:572
 #: templates/mails/project-notification.html:682
 msgid "Supprimé par :"
-msgstr ""
+msgstr "Gelöscht von:"
 
 #: templates/mails/project-notification.html:261
 msgid "Création dossier"
-msgstr ""
+msgstr "Ordner hinzugefügt"
 
 #: templates/mails/project-notification.html:267
 msgid "Nom du dossier :"
-msgstr ""
+msgstr "Ordnername:"
 
 #: templates/mails/project-notification.html:300
 msgid "Suppression de dossier"
-msgstr ""
+msgstr "Ordner gelöscht"
 
 #: templates/mails/project-notification.html:306
 msgid "Nom du dossier supprimé :"
-msgstr ""
+msgstr "Name des gelöschten Ordners:"
 
 #: templates/mails/project-notification.html:352
 msgid "Création Visa"
-msgstr ""
+msgstr "Visa erstellt"
 
 #: templates/mails/project-notification.html:391
 msgid "Suppression de visa"
-msgstr ""
+msgstr "Visa gelöscht"
 
 #: templates/mails/project-notification.html:424
 msgid "Validation de visa"
-msgstr ""
+msgstr "Antrag bestätigt"
 
 #: templates/mails/project-notification.html:438
 msgid "Validé par :"
-msgstr ""
+msgstr "Bestätigt von:"
 
 #: templates/mails/project-notification.html:463
 msgid "Refus de visa"
-msgstr ""
+msgstr "Antrag abgelehnt"
 
 #: templates/mails/project-notification.html:479
 msgid "Refusé par :"
-msgstr ""
+msgstr "Abgelehnt von:"
 
 #: templates/mails/project-notification.html:519
 msgid "Bcf créés"
-msgstr ""
+msgstr "BCF erstellt"
 
 #: templates/mails/project-notification.html:525
 msgid "Titre du BCF :"
-msgstr ""
+msgstr "BCF-Titel:"
 
 #: templates/mails/project-notification.html:558
 msgid "Bcf supprimés"
-msgstr ""
+msgstr "BCFs gelöscht"
 
 #: templates/mails/project-notification.html:564
 msgid "Titre du BCF supprimé :"
-msgstr ""
+msgstr "Titel der gelöschten BCFs:"
 
 #: templates/mails/project-notification.html:604
 msgid "Invitations acceptées"
-msgstr ""
+msgstr "Einladung angenommen"
 
 #: templates/mails/project-notification.html:610
 msgid "A rejoint le projet :"
-msgstr ""
+msgstr "Ist dem Projekt beigetreten:"
 
 #: templates/mails/project-notification.html:629
 msgid "Models crées"
-msgstr ""
+msgstr "Modelle erstellt"
 
 #: templates/mails/project-notification.html:635
 msgid "Nom du model :"
-msgstr ""
+msgstr "Modellname:"
 
 #: templates/mails/project-notification.html:668
 msgid "Models supprimés"
-msgstr ""
+msgstr "Modelle gelöscht"
 
 #: templates/mails/project-notification.html:674
 msgid "Nom du métabuilding :"
-msgstr ""
+msgstr "Name vom Metabuilding"
 
 #: templates/mails/project-notification.html:701
 msgid "Nouvelles versions de document"
-msgstr ""
+msgstr "Neue Dateiversion"
