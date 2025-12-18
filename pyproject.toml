@@ -33,6 +33,7 @@ django-celery-beat = "^2.8.1"
 django-timezone-field = "^7.1"
 drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
 python-dateutil = "^2.9.0.post0"
+urllib3 = "<2.6.0" # Needed because the lib API use getheader removed in 2.6.0 (20251218, TODO: fix lib api and remove from here)
 
 [tool.poetry.group.deploy]
 optional = true
