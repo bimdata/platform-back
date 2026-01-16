@@ -7,3 +7,17 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      major-updates:
+        applies-to: version-updates
+        update-types:
+          - major
+      minor-updates:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
