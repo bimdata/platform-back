@@ -7,31 +7,31 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.13"
-bimdata-api-client = "10.14.4"
+bimdata-api-client = "10.24.1"
 django = {extras = ["argon2"], version = "^5.2"}
-django-cors-headers = "^4.7.0"
+django-cors-headers = "^4.9.0"
 django-environ = "^0.12.0"
-django-health-check = "^3.16.3"
-django-filter = "^25.1"
-django-grappelli = "^4.0.1"
+django-health-check = "^3.20.8"
+django-filter = "^25.2"
+django-grappelli = "^4.0.3"
 django-postgres-extra = "^2.0.8"
 django-replicated = {git = "https://github.com/bimdata/django_replicated.git"}
 django-split-settings = "^1.0.1"
-djangorestframework = "^3.16.0"
+djangorestframework = "^3.16.1"
 drf-oidc-auth = "^3.0.0"
 fluent-logger = "^0.11.1"
 gunicorn = "^23.0.0"
 inflection = "^0.5.1"
-psycopg = {extras = ["binary", "pool"], version = "^3.2.7"}
-python-dotenv = "^1.1.0"
-requests = "^2.32.4"
-whitenoise = "^6.9.0"
-django-json-widget = "^2.0.1"
+psycopg = {extras = ["binary", "pool"], version = "^3.3.2"}
+python-dotenv = "^1.2.1"
+requests = "^2.32.5"
+whitenoise = "^6.11.0"
+django-json-widget = "^2.1.1"
 coreapi = "^2.3.3"
-celery = "^5.5.1"
+celery = "^5.6.2"
 django-celery-beat = "^2.8.1"
-django-timezone-field = "^7.1"
-drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
+django-timezone-field = "^7.2"
+drf-spectacular = {extras = ["sidecar"], version = "^0.29.0"}
 python-dateutil = "^2.9.0.post0"
 urllib3 = ">=2.6.1" # Needed because the lib API use getheader removed in 2.6.0 (readded in 2.6.1) (20251218, TODO: fix lib api and remove from here)
 
@@ -40,16 +40,16 @@ optional = true
 
 [tool.poetry.group.deploy.dependencies]
 gunicorn = "^23.0.0"
-uvicorn = "^0.20.0"
+uvicorn = "^0.40.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^25.1.0"
+black = "^25.12.0"
 django-debug-toolbar = "^5.2.0"
 flake8 = "^7.2.0"
-pre-commit = "^4.2.0"
+pre-commit = "^4.5.1"
 pyflakes = "^3.3.2"
-reorder-python-imports = "^3.11.0"
-pycodestyle = "2.13.0"
+reorder-python-imports = "^3.16.0"
+pycodestyle = "2.14.0"
 flake8-no-implicit-str-concat-in-list = "^0.1.0"
 
 [tool.poetry.group.test.dependencies]
