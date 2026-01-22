@@ -132,13 +132,13 @@ files = [
 
 [[package]]
 name = "bimdata-api-client"
-version = "10.24.1"
+version = "10.14.4"
 description = "BIMData API"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "bimdata_api_client-10.24.1.tar.gz", hash = "sha256:24ae687b90fc42884bbc2e2bc2b7277816cece5f3e4bf127feb3b2c1b1bf77e4"},
+    {file = "bimdata_api_client-10.14.4.tar.gz", hash = "sha256:1a1938c6c6825c18e106140593ff51e10933babb8d7bee18912a69fa2c79960a"},
 ]
 
 [package.dependencies]
@@ -2218,4 +2218,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13"
-content-hash = "0b896b84f171115e89344e1f4eefec1e39f71fdcf49b89e744a0e499062e636a"
+content-hash = "b049d04706e616173fa8f816f93cb641a0b5afe652f4d20ffb9f8f381e556e98"
