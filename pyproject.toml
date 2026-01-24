@@ -20,7 +20,7 @@ django-split-settings = "^1.0.1"
 djangorestframework = "^3.16.1"
 drf-oidc-auth = "^3.0.0"
 fluent-logger = "^0.11.1"
-gunicorn = "^23.0.0"
+gunicorn = "^24.1.1"
 inflection = "^0.5.1"
 psycopg = {extras = ["binary", "pool"], version = "^3.3.2"}
 python-dotenv = "^1.2.1"
@@ -39,12 +39,12 @@ urllib3 = ">=2.6.1" # Needed because the lib API use getheader removed in 2.6.0 
 optional = true
 
 [tool.poetry.group.deploy.dependencies]
-gunicorn = "^23.0.0"
+gunicorn = "^24.1.1"
 uvicorn = "^0.40.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^25.12.0"
-django-debug-toolbar = "^5.2.0"
+black = "^26.1.0"
+django-debug-toolbar = "^6.2.0"
 flake8 = "^7.2.0"
 pre-commit = "^4.5.1"
 pyflakes = "^3.3.2"
