@@ -48,6 +48,11 @@ LOGGING = {
             "level": "INFO",
             "propagate": True,
         },
+        "celery": {
+            "handlers": ["console", "mail_admins"],
+            "level": "INFO",
+            "propagate": True,
+        },
     },
 }
 
