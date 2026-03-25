@@ -24,7 +24,7 @@ gunicorn = "^23.0.0"
 inflection = "^0.5.1"
 psycopg = {extras = ["binary", "pool"], version = "^3.3.2"}
 python-dotenv = "^1.2.1"
-requests = "^2.32.5"
+requests = "^2.33.0"
 whitenoise = "^6.11.0"
 django-json-widget = "^2.1.1"
 coreapi = "^2.3.3"
