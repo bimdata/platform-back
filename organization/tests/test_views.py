@@ -17,7 +17,7 @@ class TestCreateCloud(APITestCase):
 
     # Need to patch where the function is used because it can be loaded before the mock
     @patch("organization.views.get_jwt_value", return_value=b"jwt-token")
-    @patch("externals.keycloak.get_access_token", return_value="access-token")
+    @patch("organization.views.get_access_token", return_value="access-token")
     @patch(
         "bimdata_api_client.api.collaboration_api.CollaborationApi.create_cloud",
         return_value={"id": 456},
@@ -39,5 +39,17 @@ class TestCreateCloud(APITestCase):
         create_cloud.assert_called_once()
         create_web_hook.assert_called_once()
 
-    # def test_register_cloud(self):
-    #   pass # TODO
+    @patch("organization.views.IsSelfClient.has_permission", return_value=True)
+    @patch("organization.views.get_access_token", return_value="access-token")
+    @patch(
+        "bimdata_api_client.api.webhook_api.WebhookApi.create_web_hook",
+        return_value={"id": 789},
+    )
+    def test_register_cloud(self, create_web_hook, get_access_token, has_permission):
+        url = reverse("v1:register_cloud")
+        body = {"id": 456}
+
+        response = self.client.post(url, data=body)
+
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+        create_web_hook.assert_called_once()
