@@ -15,7 +15,8 @@ class TestCreateCloud(APITestCase):
         )
         self.client.force_authenticate(user=self.user, token="don't care for now")
 
-    @patch("user.auth.get_jwt_value", return_value=b"jwt-token")
+    # Need to patch where the function is used because it can be loaded before the mock
+    @patch("organization.views.get_jwt_value", return_value=b"jwt-token")
     @patch("externals.keycloak.get_access_token", return_value="access-token")
     @patch(
         "bimdata_api_client.api.collaboration_api.CollaborationApi.create_cloud",
