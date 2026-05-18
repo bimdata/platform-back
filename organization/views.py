@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from externals.bimdata_api import ApiClient
 from externals.keycloak import get_access_token
 from organization.permissions import IsSelfClient
+from organization.serializers import CloudIdSerializer
 from organization.serializers import CloudSerializer
 from organization.serializers import RegisterCloudSerializer
 from user.auth import get_jwt_value
@@ -19,7 +20,7 @@ from webhooks.utils import register_webhook
     tags=["platform"],
     operation_id="createCloud",
     request=CloudSerializer,
-    responses={status.HTTP_204_NO_CONTENT: None},
+    responses={status.HTTP_201_CREATED: CloudIdSerializer},
 )
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
@@ -40,7 +41,9 @@ def create_cloud(request):
         ],
         access_token=get_access_token(),
     )
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    serializer = CloudIdSerializer(data={"cloud_id": cloud["id"]})
+    serializer.is_valid()
+    return Response(status=status.HTTP_201_CREATED, data=serializer.data)
 
 
 @extend_schema(
