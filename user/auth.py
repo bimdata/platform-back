@@ -10,6 +10,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from user.models import User
 from utils.log import log_user_first_connection
 
+from urllib.parse import urlparse
+
 
 class Client:
     # hack for compatibility with user permissions
@@ -40,7 +42,8 @@ def get_jwt_value(request):
 @log_user_first_connection
 def create_user(request, id_token):
     if request.META.get("HTTP_REFERER"):
-        initial_referer = request.META.get("HTTP_REFERER").rstrip("/")
+        referer = urlparse(request.META.get("HTTP_REFERER").rstrip("/"))
+        initial_referer = f"{referer.scheme}://{referer.netloc}"
     else:
         initial_referer = settings.PLATFORM_URL
 
