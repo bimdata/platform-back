@@ -699,14 +699,14 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.2.17"
+version = "5.2.18"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 groups = ["main", "dev"]
 files = [
-    {file = "django-5.2.17-py3-none-any.whl", hash = "sha256:f04fb3b36ee119e1af4fa1d397d5fd6cf12700f49321e84d4f4c642c5b1973db"},
-    {file = "django-5.2.17.tar.gz", hash = "sha256:9d4d93be539a18ab80d058eb515900e10951e04c537c5a6b394fc49528d3251f"},
+    {file = "django-5.2.18-py3-none-any.whl", hash = "sha256:92ed81d500be6408ecd704d7bd1366c534f30427bffcc63c5fefb129561aec7c"},
+    {file = "django-5.2.18.tar.gz", hash = "sha256:461c5dd06d2ea16bd5ca37d3f46e4def1d6b0fe7588c6f4e2119517bb0af8b2d"},
 ]
 
 [package.dependencies]
@@ -757,18 +757,18 @@ django = ">=4.2"
 
 [[package]]
 name = "django-debug-toolbar"
-version = "5.2.0"
+version = "8.0.0"
 description = "A configurable set of panels that display various debug information about the current request/response."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "django_debug_toolbar-5.2.0-py3-none-any.whl", hash = "sha256:15627f4c2836a9099d795e271e38e8cf5204ccd79d5dbcd748f8a6c284dcd195"},
-    {file = "django_debug_toolbar-5.2.0.tar.gz", hash = "sha256:9e7f0145e1a1b7d78fcc3b53798686170a5b472d9cf085d88121ff823e900821"},
+    {file = "django_debug_toolbar-8.0.0-py3-none-any.whl", hash = "sha256:329dfd6e1c26d9b4501a5cc69294c8bb734206ccb1bd36e96afc4d14128b630a"},
+    {file = "django_debug_toolbar-8.0.0.tar.gz", hash = "sha256:cae32d3e441e608f39f3f1ca6b3f028c38d5d04d74c98d8ab96d46022dee3163"},
 ]
 
 [package.dependencies]
-django = ">=4.2.9"
+django = ">=5.2"
 sqlparse = ">=0.2"
 
 [[package]]
@@ -790,14 +790,14 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)", "setuptools (>=71.0.
 
 [[package]]
 name = "django-filter"
-version = "25.2"
+version = "26.2"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "django_filter-25.2-py3-none-any.whl", hash = "sha256:9c0f8609057309bba611062fe1b720b4a873652541192d232dd28970383633e3"},
-    {file = "django_filter-25.2.tar.gz", hash = "sha256:760e984a931f4468d096f5541787efb8998c61217b73006163bf2f9523fe8f23"},
+    {file = "django_filter-26.2-py3-none-any.whl", hash = "sha256:df8f737841d6359df00b84dda9b5ab59067fe60292091f1bdae1e3e6281cedb0"},
+    {file = "django_filter-26.2.tar.gz", hash = "sha256:fd5cc83995fbe9f5f07fb5dcda16fde0f04de1ecf8ef82628b6c0ec921b751af"},
 ]
 
 [package.dependencies]
@@ -808,30 +808,42 @@ drf = ["djangorestframework"]
 
 [[package]]
 name = "django-grappelli"
-version = "4.0.3"
+version = "5.0.1"
 description = "A jazzy skin for the Django Admin-Interface."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "django_grappelli-4.0.3-py2.py3-none-any.whl", hash = "sha256:6d7ee985f51e8a61c4ac108a13d24ee340626ca0e9f2fd415958a3ea264db761"},
-    {file = "django_grappelli-4.0.3.tar.gz", hash = "sha256:90f53247d51a588a0553563fd85b6620b6b30c4f7969860ec325bfb97c2609df"},
+    {file = "django_grappelli-5.0.1-py3-none-any.whl", hash = "sha256:299d301f109d2aec91027f9e40a0b254d2cfe9da0db18271a07a8c2e07173943"},
+    {file = "django_grappelli-5.0.1.tar.gz", hash = "sha256:f291d5c596b0e1fc1e0e1bf819f472503c194a4ae3dfdd35b5b4c0a3bb67c101"},
 ]
 
 [[package]]
 name = "django-health-check"
-version = "3.20.8"
+version = "4.8.0"
 description = "Monitor the health of your Django app and its connected services."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "django_health_check-3.20.8-py3-none-any.whl", hash = "sha256:89f06fd3ecfefb13a8444cbc49508c76f1f49c816624026f720a28e0e67a458c"},
-    {file = "django_health_check-3.20.8.tar.gz", hash = "sha256:bbb7286af4b4e2079d262eeb3e68014c8980f8fcfbd295bca1ec31cbf827b83c"},
+    {file = "django_health_check-4.8.0-py3-none-any.whl", hash = "sha256:d377aba46a029c8eac5ce6170cce5b67a8ecd70180b1212c9eb302f22691da7a"},
+    {file = "django_health_check-4.8.0.tar.gz", hash = "sha256:3f7e8fd0e85ebb2a62bdaf96bd0e990f93b4c6bbaca68778df79b2cf1810884b"},
 ]
 
 [package.dependencies]
-Django = ">=4.2"
+Django = ">=5.2"
+dnspython = ">=2.0.0"
+
+[package.extras]
+atlassian = ["httpx (>=0.27.0)"]
+celery = ["celery (>=5.0.0)"]
+crontask = ["django-crontask[redis] (>=2.0.0)", "redis (>=5.0.1)"]
+kafka = ["confluent-kafka (>=2.0.0)"]
+psutil = ["psutil (>=7.2.0)"]
+rabbitmq = ["aio-pika (>=9.0.0)"]
+redis = ["redis (>=5.0.1)"]
+rss = ["feedparser (>=6.0.0)", "httpx (>=0.27.0)"]
+threadmill = ["threadmill[redis] (>=0.7.3)"]
 
 [[package]]
 name = "django-json-widget"
@@ -847,14 +859,14 @@ files = [
 
 [[package]]
 name = "django-postgres-extra"
-version = "2.0.9"
+version = "3.0.1"
 description = "Bringing all of PostgreSQL's awesomeness to Django."
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "django_postgres_extra-2.0.9-py3-none-any.whl", hash = "sha256:0a4f9fd7f843e2ef5cfe7a291fcb883bd72d2ca8e4b369d0070866205e00b404"},
-    {file = "django_postgres_extra-2.0.9.tar.gz", hash = "sha256:9e47c436d033712d0e2611b8c1583566dd4f97700e5360001bf3623913a92046"},
+    {file = "django_postgres_extra-3.0.1-py3-none-any.whl", hash = "sha256:57e3e0ecd1144ba4afc515bb21facae2cf764fb0d61a2d347cf8b0b0d39e5e6c"},
+    {file = "django_postgres_extra-3.0.1.tar.gz", hash = "sha256:7c6b435b101852365005fc756ad034345e5d483047bb7b8a40f1911fca34f012"},
 ]
 
 [package.dependencies]
@@ -862,10 +874,12 @@ Django = ">=2.0,<6.0"
 python-dateutil = ">=2.8.0,<=3.0.0"
 
 [package.extras]
-analysis = ["autoflake (==1.4)", "autopep8 (==1.6.0)", "black (==22.3.0)", "django-stubs (==1.16.0) ; python_version > \"3.6\"", "django-stubs (==1.9.0) ; python_version <= \"3.6\"", "docformatter (==1.4)", "flake8 (==4.0.1)", "isort (==5.10.0)", "mypy (==0.971) ; python_version <= \"3.6\"", "mypy (==1.2.0) ; python_version > \"3.6\"", "types-dj-database-url (==1.3.0.0)", "types-psycopg2 (==2.9.21.9)", "types-python-dateutil (==2.8.19.12)", "typing-extensions (==4.1.0) ; python_version <= \"3.6\"", "typing-extensions (==4.5.0) ; python_version > \"3.6\""]
-docs = ["Sphinx (==2.2.0)", "docutils (<0.18)", "sphinx-rtd-theme (==0.4.3)"]
+analysis = ["autoflake (==2.3.1)", "autopep8 (==2.3.2)", "black (==22.3.0)", "django-stubs (==4.2.7)", "docformatter (==1.7.7)", "flake8 (==7.2.0)", "isort (==6.0.1)", "mypy (==1.16.0)", "types-dj-database-url (==1.3.0.4)", "types-python-dateutil (==2.9.0.20250516)", "typing-extensions (==4.14.0)"]
+dev = ["poethepoet (==0.19.0) ; python_version == \"3.7\"", "poethepoet (==0.30.0) ; python_version == \"3.8\"", "poethepoet (==0.34.0) ; python_version >= \"3.9\""]
+docs = ["Jinja2 (==3.1.6)", "Sphinx (==8.2.3)", "docutils (==0.21.2)", "sphinx-rtd-theme (==3.0.2)"]
 publish = ["build (==0.7.0)", "twine (==3.7.1)"]
-test = ["coveralls (==3.3.0)", "dj-database-url (==0.5.0)", "freezegun (==1.1.0)", "psycopg2 (>=2.8.4,<3.0.0)", "pytest (==6.2.5)", "pytest-benchmark (==3.4.1)", "pytest-cov (==3.0.0)", "pytest-django (==4.4.0)", "pytest-freezegun (==0.4.2)", "pytest-lazy-fixture (==0.6.3)", "snapshottest (==0.6.0)", "tox (==3.24.4)"]
+test = ["coverage (==6.2) ; python_version <= \"3.7\"", "coverage (==7.6.1) ; python_version == \"3.8\"", "coverage (==7.8.2) ; python_version > \"3.8\"", "freezegun (==1.2.2) ; python_version <= \"3.7\"", "freezegun (==1.5.2) ; python_version > \"3.7\"", "psycopg2 (==2.9.10) ; python_version >= \"3.8\"", "psycopg2 (==2.9.9) ; python_version == \"3.7\"", "pytest (==7.0.1) ; python_version <= \"3.8\"", "pytest (==8.4.0) ; python_version > \"3.8\"", "pytest-benchmark (==3.4.1) ; python_version <= \"3.8\"", "pytest-benchmark (==5.1.0) ; python_version > \"3.8\"", "pytest-cov (==4.0.0) ; python_version <= \"3.8\"", "pytest-cov (==6.1.1) ; python_version > \"3.8\"", "pytest-django (==4.11.1) ; python_version > \"3.7\"", "pytest-django (==4.5.2) ; python_version <= \"3.7\"", "syrupy (==2.3.1) ; python_version <= \"3.8\"", "syrupy (==4.9.1) ; python_version >= \"3.9\"", "tox (==3.28.0) ; python_version <= \"3.8\"", "tox (==4.26.0) ; python_version > \"3.8\"", "types-psycopg2 (==2.9.21.20250516) ; python_version >= \"3.9\"", "types-psycopg2 (==2.9.8) ; python_version < \"3.9\""]
+test-report = ["coveralls (==4.0.1)"]
 
 [[package]]
 name = "django_replicated"
@@ -929,22 +943,42 @@ files = [
 django = ">=4.2"
 
 [[package]]
-name = "drf-oidc-auth"
-version = "3.0.0"
-description = "OpenID Connect authentication for Django Rest Framework"
+name = "dnspython"
+version = "2.9.1"
+description = "DNS toolkit"
 optional = false
-python-versions = "*"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "drf-oidc-auth-3.0.0.tar.gz", hash = "sha256:9b3ee051e86709f2bb8bb9a7e9bb975b7d9a1cf2c55cadcdd5b6889454f99075"},
-    {file = "drf_oidc_auth-3.0.0-py2.py3-none-any.whl", hash = "sha256:243b44ffaf9bbb4a26445370616ab6b666a541479649e6bd3319ede502ea723b"},
+    {file = "dnspython-2.9.1-py3-none-any.whl", hash = "sha256:7c81caf8de1ed57b8cfc7e0ad4f528a0b8ceace473c7eb946df195dc9def751f"},
+    {file = "dnspython-2.9.1.tar.gz", hash = "sha256:9a6d30e55f8dc63e6052597666112bff0586b95a2474a9deda03afbbf820d37a"},
+]
+
+[package.extras]
+dev = ["black (>=26.5)", "coverage (>=7.15)", "hypercorn (>=0.18.0)", "pyright (>=1.1.411)", "pytest (>=9.1)", "pytest-cov (>=7.1)", "quart-trio (>=0.12.0)", "ruff (>=0.16.0)", "sphinx (>=9.1.0) ; python_full_version >= \"3.12.0\"", "sphinx-rtd-theme (>=3.1.0) ; python_full_version >= \"3.12.0\"", "trustme (>=1.2.1)", "ty (>=0.0.85)"]
+dnssec = ["cryptography (>=50)"]
+doh = ["h2 (>=4.4)", "httpcore2 (>=2.13)", "httpx2 (>=2.13)"]
+doq = ["aioquic (>=1.3.0)"]
+idna = ["idna (>=3.20)"]
+trio = ["trio (>=0.34)"]
+wmi = ["wmi (>=1.5.1) ; sys_platform == \"win32\""]
+
+[[package]]
+name = "drf-oidc-auth"
+version = "4.0.0"
+description = "OpenID Connect authentication for Django Rest Framework"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "drf_oidc_auth-4.0.0-py3-none-any.whl", hash = "sha256:f6c1a9190dccd261595b037cb0284b76ab12c49fc465b46d395913d8fa8ec92c"},
+    {file = "drf_oidc_auth-4.0.0.tar.gz", hash = "sha256:1a34f01427e5a14f5113976c003f45a4f39e82e578be6bf0dbcc4fe25d7c33a8"},
 ]
 
 [package.dependencies]
-authlib = ">=0.15.0"
-cryptography = ">=2.6"
-django = ">=2.2.0"
-djangorestframework = ">=3.11.0"
+django = ">=3.2"
+djangorestframework = ">=3.11"
+joserfc = ">=1.6"
 requests = ">=2.20.0"
 
 [[package]]
@@ -1051,25 +1085,23 @@ msgpack = ">=1.0"
 
 [[package]]
 name = "gunicorn"
-version = "23.0.0"
+version = "26.2.0"
 description = "WSGI HTTP Server for UNIX"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 groups = ["main", "deploy"]
 files = [
-    {file = "gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d"},
-    {file = "gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"},
+    {file = "gunicorn-26.2.0-py3-none-any.whl", hash = "sha256:bd249d0b3f7972f7432f0a6b6ff3b3ee2d129f70cd1ff6c09a9dd9e29a2b88e3"},
+    {file = "gunicorn-26.2.0.tar.gz", hash = "sha256:62b864895d9ebff0b2f9867ba04fe811c93121596540830c9c916d0769668447"},
 ]
 
-[package.dependencies]
-packaging = "*"
-
 [package.extras]
-eventlet = ["eventlet (>=0.24.1,!=0.36.0)"]
-gevent = ["gevent (>=1.4.0)"]
+fast = ["gunicorn_h1c (>=0.6.9)"]
+gevent = ["gevent (>=24.10.1)", "packaging"]
+http2 = ["h2 (>=4.4.1)"]
 setproctitle = ["setproctitle"]
-testing = ["coverage", "eventlet", "gevent", "pytest", "pytest-cov"]
-tornado = ["tornado (>=0.2)"]
+testing = ["coverage", "gevent (>=24.10.1)", "h2 (>=4.4.1)", "httpx[http2] (>=0.23.0)", "inotify (>=0.2.10) ; sys_platform == \"linux\"", "packaging", "pytest (>=9.0.3)", "pytest-asyncio", "pytest-cov", "uvloop (>=0.19.0)"]
+tornado = ["tornado (>=6.5.7)"]
 
 [[package]]
 name = "h11"
@@ -1166,6 +1198,24 @@ MarkupSafe = ">=2.0"
 
 [package.extras]
 i18n = ["Babel (>=2.7)"]
+
+[[package]]
+name = "joserfc"
+version = "1.7.7"
+description = "The ultimate Python library for JOSE RFCs, including JWS, JWE, JWK, JWA, JWT"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "joserfc-1.7.7-py3-none-any.whl", hash = "sha256:06979cfbab78bc802f14c0358f32969826cc26720e13cb38926ffdc86bc0cb2c"},
+    {file = "joserfc-1.7.7.tar.gz", hash = "sha256:471d0fd12a5a0d1c0942de280f39efe6f597878315033270b504d4d006d25510"},
+]
+
+[package.dependencies]
+cryptography = ">=45.0.1"
+
+[package.extras]
+drafts = ["pycryptodome"]
 
 [[package]]
 name = "jsonschema"
@@ -1429,7 +1479,7 @@ version = "26.3"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.9"
-groups = ["main", "deploy", "dev", "test"]
+groups = ["main", "dev", "test"]
 files = [
     {file = "packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"},
     {file = "packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"},
@@ -1732,18 +1782,19 @@ cron-schedule = ["croniter"]
 
 [[package]]
 name = "python-dateutil"
-version = "2.9.0.post0"
+version = "3.0.0"
 description = "Extensions to the standard Python datetime module"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 groups = ["main"]
 files = [
-    {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
-    {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
+    {file = "python_dateutil-3.0.0-py2.py3-none-any.whl", hash = "sha256:3c79630202e4152c6add678446984236efe4f57e84d8e892aab0637bab82e9fd"},
+    {file = "python_dateutil-3.0.0.tar.gz", hash = "sha256:7ebcb3c29a92f3ceafe79a7a48a5c45677e9e004bbeec5742ac0bbb00560b7a2"},
 ]
 
 [package.dependencies]
-six = ">=1.5"
+six = ">=1.6"
+tzdata = "*"
 
 [[package]]
 name = "python-discovery"
@@ -2303,4 +2354,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13"
-content-hash = "7617a7e46de29fb6dcc4c96098f14f7167c6a9f2b26e91be407a12246983ed7a"
+content-hash = "50a88ea88eb143d9cbfb9eb21c75a0abd7d198c8757265d6537ca8d2b7921de5"
