@@ -9,7 +9,7 @@ from components.common import MIDDLEWARE
 
 DATABASES = {
     "default": {
-        "ENGINE": "psqlextra.backend",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASSWORD"),
@@ -54,7 +54,7 @@ if env.list("REPLICA_DB_HOSTS", default=None):
         zip(r_db_hosts, r_db_ports, r_db_names, r_db_users, r_db_passwords)
     ):
         DATABASES[f"replica_{i}"] = {
-            "ENGINE": "psqlextra.backend",
+            "ENGINE": "django.db.backends.postgresql",
             "NAME": name,
             "USER": user,
             "PASSWORD": password,
