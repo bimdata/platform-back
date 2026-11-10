@@ -25,7 +25,6 @@ djangorestframework = "^3.18.3"
 drf-oidc-auth = "^4.0.0"
 drf-spectacular = {extras = ["sidecar"], version = "^0.30.0"}
 fluent-logger = "^0.11.1"
-gunicorn = "^26.2.0"
 inflection = "^0.5.1"
 psycopg = {extras = ["binary", "pool"], version = "^3.3.8"}
 python-dotenv = "^1.2.4"
@@ -38,7 +37,6 @@ optional = true
 
 [tool.poetry.group.deploy.dependencies]
 gunicorn = "^26.2.0"
-uvicorn = "^0.40.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^26.3.1"
