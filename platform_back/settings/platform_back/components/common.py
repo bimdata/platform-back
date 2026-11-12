@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
-    "psqlextra",
     "celery",
     "django_celery_beat",
 ]
