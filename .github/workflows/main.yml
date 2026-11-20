@@ -5,12 +5,32 @@ name: Test, build and deploy
 on:
   push:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   PYTHON_VERSION: "3.13"
 
 jobs:
   test:
-    runs-on: [self-hosted, common]
+    runs-on: self-hosted-common
+    services:
+      postgres:
+        image: docker-registry.bimdata.io/dockerhub/library/postgres:17
+        credentials:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+        env:
+          POSTGRES_USER: bimdata
+          POSTGRES_PASSWORD: bimdata
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U bimdata"
+          --health-interval 5s --health-timeout 5s --health-retries 20
     steps:
       - uses: actions/checkout@v7
       - name: Set up Python
@@ -39,20 +59,15 @@ jobs:
         run: >
           poetry run pytest
         env:
-          TEST_DB_HOST: postgres
+          TEST_DB_HOST: localhost
           TEST_DB_PORT: 5432
-          TEST_DB_NAME: platform-back-${{ github.run_id }}
+          TEST_DB_NAME: platform-back
           TEST_DB_USER: bimdata
           TEST_DB_PASSWORD: bimdata
   build-and-push:
-    runs-on: [self-hosted, common]
+    runs-on: self-hosted-common
     needs: [test]
-    if: contains('
-      refs/heads/develop
-      refs/heads/release
-      refs/heads/master
-      refs/heads/main'
-      , github.ref)
+    if: contains(fromJSON('["refs/heads/develop", "refs/heads/release", "refs/heads/master", "refs/heads/main"]'), github.ref)
     steps:
       - uses: actions/checkout@v7
       - name: Login to BIMData Docker Registry
@@ -75,8 +90,13 @@ jobs:
           tags: |
             docker-registry.bimdata.io/bimdata/platform_back:${{ github.sha }}
             docker-registry.bimdata.io/bimdata/platform_back:${{ env.tag }}
+          # Runners are ephemeral: layer cache per environment in our registry, falling back on staging
+          cache-from: |
+            type=registry,ref=docker-registry.bimdata.io/bimdata/platform_back:buildcache-${{ env.tag }}
+            type=registry,ref=docker-registry.bimdata.io/bimdata/platform_back:buildcache-staging
+          cache-to: type=registry,ref=docker-registry.bimdata.io/bimdata/platform_back:buildcache-${{ env.tag }},mode=max,image-manifest=true
   deploy:
-    runs-on: [self-hosted, common]
+    runs-on: self-hosted-deploy
     needs: build-and-push
     steps:
       - name: Login to BIMData Docker Registry
